@@ -47,7 +47,11 @@ span[data-tagtype="coord"] {
     border-bottom: 1px solid #3185d8;
     background-color: #cfdbf5;
 }
-span[data-tagtype="youtube"] {
+span[data-tagtype="date"] {
+    border-bottom: 1px solid #419c41;
+    background-color: #b2f5b2;
+}
+  span[data-tagtype="youtube"] {
     border-bottom: 1px solid #d06d16;
     background-color: #ffc898;
 }

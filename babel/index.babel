@@ -89,6 +89,35 @@ CoordBlot.blotName = 'coord';
 CoordBlot.tagName = 'span';
 
 
+/**
+ * DATE
+ */
+class DateBlot extends Inline {
+
+  static create(yyyymmdd) {
+    let node = super.create();
+    node.setAttribute('data-tagtype', 'date');
+    node.setAttribute('data-yyyymmdd', yyyymmdd);
+    return node;
+  }
+
+  static formats(node) {
+    return node.getAttribute('data-yyyymmdd');
+  }
+
+  static popupEditor(onOk) {
+    let yyyymmdd = prompt("Enter date in yyyymmdd format");
+    onOk(yyyymmdd);
+  }
+
+  static popupShow(yyyymmdd) {
+    alert(yyyymmdd);
+  }
+
+}
+DateBlot.blotName = 'date';
+DateBlot.tagName = 'span';
+
 
 /**
  * YOUTUBE
@@ -122,6 +151,7 @@ YoutubeBlot.tagName = 'span';
 
 
 Quill.register(CoordBlot);
+Quill.register(DateBlot);
 Quill.register(YoutubeBlot);
 
 let quill = new Quill('#editor-container');
@@ -141,6 +171,10 @@ $("#editor-container").click(function (e) {
         CoordBlot.popupShow(coord);
         break;
 
+      case 'date':
+        DateBlot.popupShow(t.dataset.yyyymmdd);
+        break;
+
       case 'youtube':
         YoutubeBlot.popupShow(t.dataset.videoid);
         break;
@@ -155,6 +189,11 @@ $("#editor-container").click(function (e) {
 $('#coord-button').click(function () {
   CoordBlot.popupEditor(function (gLatLng) {
     quill.format('coord', gLatLng);
+  });
+});
+$('#date-button').click(function () {
+  DateBlot.popupEditor(function (yyyymmdd) {
+    quill.format('date', yyyymmdd);
   });
 });
 $('#youtube-button').click(function () {

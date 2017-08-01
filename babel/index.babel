@@ -38,7 +38,7 @@ class CoordBlot extends Inline {
     return { lat: lat, lng: lng };
   }
 
-  static popupEditor(onCoordOk, onCoordCancel) {
+  static popupEditor(onOk, onCancel) {
 
     createOverlay();
 
@@ -74,13 +74,13 @@ class CoordBlot extends Inline {
 
     // handle OK button
     $('#mapContainer #ok').click(function (e) {
-      onCoordOk(map.getCenter());
+      onOk(map.getCenter());
     });
 
   }
 
   static popupShow(coord) {
-    let url = `http://google.com/maps?q=${coord.lat},${coord.lng}`;
+    let url = `https://google.com/maps?q=${coord.lat},${coord.lng}`;
     window.open(url, '_blank');
   }
 
@@ -90,12 +90,44 @@ CoordBlot.tagName = 'span';
 
 
 
+/**
+ * YOUTUBE
+ */
+class YoutubeBlot extends Inline {
+
+  static create(videoid) {
+    let node = super.create();
+    node.setAttribute('data-tagtype', 'youtube');
+    node.setAttribute('data-videoid', videoid);
+    return node;
+  }
+
+  static formats(node) {
+    return node.getAttribute('data-videoid');
+  }
+
+  static popupEditor(onOk) {
+    let vid = prompt("Enter Youtube video id");
+    onOk(vid);
+  }
+
+  static popupShow(vid) {
+    let url = `https://www.youtube.com/watch?v=${vid}`;
+    window.open(url, '_blank');
+  }
+
+}
+YoutubeBlot.blotName = 'youtube';
+YoutubeBlot.tagName = 'span';
+
 
 Quill.register(CoordBlot);
+Quill.register(YoutubeBlot);
 
 let quill = new Quill('#editor-container');
 
 
+// handle clicks on tagged text
 $("#editor-container").click(function (e) {
 
   let t = e.target;
@@ -109,6 +141,10 @@ $("#editor-container").click(function (e) {
         CoordBlot.popupShow(coord);
         break;
 
+      case 'youtube':
+        YoutubeBlot.popupShow(t.dataset.videoid);
+        break;
+
     }
 
   }
@@ -119,6 +155,11 @@ $("#editor-container").click(function (e) {
 $('#coord-button').click(function () {
   CoordBlot.popupEditor(function (gLatLng) {
     quill.format('coord', gLatLng);
+  });
+});
+$('#youtube-button').click(function () {
+  YoutubeBlot.popupEditor(function (vid) {
+    quill.format('youtube', vid);
   });
 });
 

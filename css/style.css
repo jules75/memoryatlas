@@ -44,10 +44,13 @@ span[data-tagtype] {
 }
 
 span[data-tagtype="coord"] {
-    background-color: #cfdbf5;
     border-bottom: 1px solid #3185d8;
+    background-color: #cfdbf5;
 }
-
+span[data-tagtype="youtube"] {
+    border-bottom: 1px solid #d06d16;
+    background-color: #ffc898;
+}
 
 #mapContainer {
   height: auto;
@@ -72,3 +75,4 @@ span[data-tagtype="coord"] {
   zoom: 1.1;
   text-align: center;
 }
+

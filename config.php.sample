@@ -1,0 +1,8 @@
+<?php
+
+define('MEMORY_ATLAS_CONFIG',
+   	['cloudinary' => [
+		'cloud_name' => '', 
+		'api_key' => '', 
+		'api_secret' => '']
+	   ]);

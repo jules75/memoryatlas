@@ -1,7 +1,7 @@
 {
-  "name": "quill",
+  "name": "MemoryAtlas",
   "version": "1.0.0",
-  "description": "A Pen created at CodePen.io. You can find this one at http://codepen.io/quill/pen/VjRovy.",
+  "description": "",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {

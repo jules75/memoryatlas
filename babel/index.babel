@@ -11,16 +11,16 @@ ItalicBlot.tagName = 'em';
 
 
 function createOverlay() {
-    var div = $("<div/>");
-    div.attr("id", "fullScreenOverlay");
-    div.css("position", "fixed");
-    div.css("background-color", "#ccc");
-    div.css("top", 0);
-    div.css("bottom", 0);
-    div.css("left", 0);
-    div.css("right", 0);
-    div.css("opacity", 0.85);
-    $("body").append(div);
+  var div = $("<div/>");
+  div.attr("id", "fullScreenOverlay");
+  div.css("position", "fixed");
+  div.css("background-color", "#ccc");
+  div.css("top", 0);
+  div.css("bottom", 0);
+  div.css("left", 0);
+  div.css("right", 0);
+  div.css("opacity", 0.85);
+  $("body").append(div);
 }
 
 function destroyOverlay() {
@@ -68,14 +68,21 @@ class CoordBlot extends Inline {
       zoom: 8
     });
 
+    // create crosshairs
+    var chDiv = document.createElement("div");
+    chDiv.style.background = "url(/img/center.png) no-repeat";
+    chDiv.style.width = "50px";
+    chDiv.style.height = "50px";
+    map.controls[google.maps.ControlPosition.CENTER].push(chDiv);
+
     // close on any button
-    $('#mapContainer button').click(function(e) { 
+    $('#mapContainer button').click(function (e) {
       $('#mapContainer').remove();
       destroyOverlay();
     });
 
     // handle OK button
-    $('#mapContainer #ok').click(function(e) {
+    $('#mapContainer #ok').click(function (e) {
       onCoordOk(map.getCenter());
     });
 
@@ -104,11 +111,9 @@ $('#italic-button').click(function () {
   quill.format('italic', true);
 });
 $('#coord-button').click(function () {
-
-  CoordBlot.popupUI(function(gLatLng) {
+  CoordBlot.popupUI(function (gLatLng) {
     quill.format('coord', gLatLng);
   });
-
 });
 
 

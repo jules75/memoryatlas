@@ -1,0 +1,19 @@
+{
+  "name": "quill",
+  "version": "1.0.0",
+  "description": "A Pen created at CodePen.io. You can find this one at http://codepen.io/quill/pen/VjRovy.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "babel": {
+    "presets": ["es2015"]
+  }
+}

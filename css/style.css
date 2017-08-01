@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+body {
+  padding: 25px;
+}
+
+#editor-container {
+  border: 1px solid #ccc;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  font-size: 1.2em;
+  height: 200px;
+  margin: 0 auto;
+  width: 450px;
+}
+
+#tooltip-controls, #sidebar-controls {
+  text-align: center;
+}
+
+#tooltip-controls button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  padding: 0;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+button:active, button:focus {
+  outline: none;
+}
+
+
+span[data-tagtype] {
+  cursor: pointer;
+}
+
+span[data-tagtype="coord"] {
+    background-color: #cfdbf5;
+    border-bottom: 1px solid #3185d8;
+}
+
+
+#mapContainer {
+  height: auto;
+  width: 510px;
+  padding: 5px;
+  background-color: #eee;
+  border: 1px solid black;
+  position: fixed;
+  right: 50px;
+  top: 50px;
+}
+  #mapContainer .buttonRow {
+    margin-top: 1em;
+  }
+#map {
+  height: 500px;
+  width: 500px; 
+}
+
+
+.buttonRow {
+  zoom: 1.1;
+  text-align: center;
+}

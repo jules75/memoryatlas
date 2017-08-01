@@ -1,0 +1,98 @@
+
+let Inline = Quill.import('blots/inline');
+
+class BoldBlot extends Inline { }
+BoldBlot.blotName = 'bold';
+BoldBlot.tagName = 'strong';
+
+class ItalicBlot extends Inline { }
+ItalicBlot.blotName = 'italic';
+ItalicBlot.tagName = 'em';
+
+
+
+/**
+ * COORD
+ */
+class CoordBlot extends Inline {
+
+  static create(coord) {
+    let node = super.create();
+    node.setAttribute('data-tagtype', 'coord');
+    node.setAttribute('data-lat', coord.lat());
+    node.setAttribute('data-lng', coord.lng());
+    return node;
+  }
+
+  static formats(node) {
+    let lat = Number(node.getAttribute('data-lat'));
+    let lng = Number(node.getAttribute('data-lng'));
+    return { lat: lat, lng: lng };
+  }
+
+  static popupUI(onCoordOk, onCoordCancel) {
+
+    let mapDiv = $(`
+    <div id="mapContainer">
+      <div id="map"></div>
+      <div class="buttonRow">
+        <button id="ok">OK</button>
+        <button id="cancel">Cancel</button>
+        </div>
+    </div>
+    `);
+
+    // create map
+    $('body').append(mapDiv);
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: -37.397, lng: 143.644 },
+      zoom: 8
+    });
+
+    // close on any button
+    $('#mapContainer button').click(function(e) { 
+      $('#mapContainer').remove();
+    });
+
+    // handle OK button
+    $('#mapContainer #ok').click(function(e) {
+      onCoordOk(map.getCenter());
+    });
+
+  }
+
+}
+CoordBlot.blotName = 'coord';
+CoordBlot.tagName = 'span';
+
+
+
+
+
+Quill.register(BoldBlot);
+Quill.register(ItalicBlot);
+Quill.register(CoordBlot);
+
+let quill = new Quill('#editor-container');
+
+
+// button listeners
+$('#bold-button').click(function () {
+  quill.format('bold', true);
+});
+$('#italic-button').click(function () {
+  quill.format('italic', true);
+});
+$('#coord-button').click(function () {
+
+  CoordBlot.popupUI(function(gLatLng) {
+    quill.format('coord', gLatLng);
+  });
+
+});
+
+
+function initMap() {
+  console.log("initMap()");
+}
+

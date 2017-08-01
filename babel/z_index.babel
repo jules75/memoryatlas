@@ -18,6 +18,7 @@ function destroyOverlay() {
 
 Quill.register(CoordBlot);
 Quill.register(DateBlot);
+Quill.register(ImageBlot);
 Quill.register(YoutubeBlot);
 
 let quill = new Quill('#editor-container');
@@ -40,6 +41,10 @@ $("#editor-container").click(function (e) {
         DateBlot.popupShow(t.dataset.yyyymmdd);
         break;
 
+      case 'image':
+        ImageBlot.popupShow(t.dataset.url);
+        break;        
+
       case 'youtube':
         YoutubeBlot.popupShow(t.dataset.videoid);
         break;
@@ -58,6 +63,11 @@ $('#coord-button').click(function () {
 $('#date-button').click(function () {
   DateBlot.popupEditor(function (yyyymmdd) {
     quill.format('date', yyyymmdd);
+  });
+});
+$('#image-button').click(function () {
+  ImageBlot.popupEditor(function (url) {
+    quill.format('image', url);
   });
 });
 $('#youtube-button').click(function () {

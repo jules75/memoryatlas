@@ -1,0 +1,29 @@
+
+let Inline = Quill.import('blots/inline');
+
+class ImageBlot extends Inline {
+
+  static create(url) {
+    let node = super.create();
+    node.setAttribute('data-tagtype', 'image');
+    node.setAttribute('data-url', url);
+    return node;
+  }
+
+  static formats(node) {
+    return node.getAttribute('data-url');
+  }
+
+  static popupEditor(onOk) {
+    let url = prompt("Enter image URL");
+    onOk(url);
+  }
+
+  static popupShow(url) {
+    window.open(url, '_blank');
+  }
+
+}
+
+ImageBlot.blotName = 'image';
+ImageBlot.tagName = 'span';

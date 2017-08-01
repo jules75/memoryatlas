@@ -14,12 +14,12 @@ function createOverlay() {
     var div = $("<div/>");
     div.attr("id", "fullScreenOverlay");
     div.css("position", "fixed");
-    div.css("background-color", "white");
+    div.css("background-color", "#ccc");
     div.css("top", 0);
     div.css("bottom", 0);
     div.css("left", 0);
     div.css("right", 0);
-    div.css("opacity", 0.75);
+    div.css("opacity", 0.85);
     $("body").append(div);
 }
 

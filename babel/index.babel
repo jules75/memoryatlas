@@ -107,6 +107,8 @@ class DateBlot extends Inline {
 
   static popupEditor(onOk) {
 
+    createOverlay();
+
     var div = $(`
       <div id="calendarPicker">
       <form>

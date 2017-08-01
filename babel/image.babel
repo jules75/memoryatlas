@@ -15,8 +15,59 @@ class ImageBlot extends Inline {
   }
 
   static popupEditor(onOk) {
-    let url = prompt("Enter image URL");
-    onOk(url);
+
+    createOverlay();    
+
+    function setUploadStatus(msg) {
+      $("#imageUploaderStatus").text(msg);
+    }
+
+    function onImageUploadSuccess(cloudinaryResponse) {
+        destroyOverlay();
+        // onOk() // cloudinaryResponse
+    };
+
+    function uploadImage(e) {
+      
+        var data = new FormData();
+        data.append('action', 'image');
+        data.append('upload', $('#imageUploaderInput')[0].files[0]);
+
+        setUploadStatus("Uploading...");
+
+        console.warn("To be implemented");
+        
+        // $.ajax({
+        //     url: '/api.php',
+        //     data: data,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     type: 'POST',
+        //     success: imagePlugin._onImageUploadSuccess
+        // });
+    }
+
+    var container = $(`
+      <div id="imageUploader">
+        <p id="imageUploaderStatus">Loading...</p>
+        <input type="file" name="upload" id="imageUploaderInput"></input>
+        <button>Cancel</button>
+        </div>
+      `);
+
+    // create upload box
+    $('body').append(container);
+    setUploadStatus("Drag and drop your image file below");
+
+    // listen for file selection
+    $('#imageUploaderInput').change(uploadImage);
+
+    // close on any button
+    $('#imageUploader button').click(function (e) {
+      $('#imageUploader').remove();
+      destroyOverlay();
+    });
   }
 
   static popupShow(url) {

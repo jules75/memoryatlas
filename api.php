@@ -31,10 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	switch($_GET['action']) {
 
-		case 'hello':
-			succeed(['response'=>'hi there!']);
-			break;
-
 		default:
 			fail("Unknown GET action '$_GET[action]'");
 

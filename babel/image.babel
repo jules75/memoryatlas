@@ -24,7 +24,8 @@ class ImageBlot extends Inline {
 
     function onImageUploadSuccess(cloudinaryResponse) {
         destroyOverlay();
-        // onOk() // cloudinaryResponse
+        $('#imageUploader').remove();
+        onOk(cloudinaryResponse.image_url);
     };
 
     function uploadImage(e) {
@@ -34,18 +35,16 @@ class ImageBlot extends Inline {
         data.append('upload', $('#imageUploaderInput')[0].files[0]);
 
         setUploadStatus("Uploading...");
-
-        console.warn("To be implemented");
         
-        // $.ajax({
-        //     url: '/api.php',
-        //     data: data,
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     type: 'POST',
-        //     success: imagePlugin._onImageUploadSuccess
-        // });
+        $.ajax({
+            url: '/api.php',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: onImageUploadSuccess
+        });
     }
 
     var container = $(`

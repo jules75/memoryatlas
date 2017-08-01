@@ -111,7 +111,24 @@ class DateBlot extends Inline {
   }
 
   static popupShow(yyyymmdd) {
-    alert(yyyymmdd);
+
+    function friendlyYYYYMMDD(yyyymmdd) {
+      var months = ["??", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var [s, y, m, d] = yyyymmdd.match(/^(\d{4})(\d{2})(\d{2})$/);
+
+      let month = months[Number(m)];
+
+      if (d != "00") {
+        return d + " " + month + " " + y;
+      }
+
+      if (m != "00") {
+        return month + " " + y;
+      }
+
+      return y;
+    }
+    alert(friendlyYYYYMMDD(yyyymmdd));
   }
 
 }
@@ -167,7 +184,7 @@ $("#editor-container").click(function (e) {
     switch (t.dataset.tagtype) {
 
       case 'coord':
-        let coord = {lat: t.dataset.lat, lng: t.dataset.lng};
+        let coord = { lat: t.dataset.lat, lng: t.dataset.lng };
         CoordBlot.popupShow(coord);
         break;
 

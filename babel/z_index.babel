@@ -1,0 +1,71 @@
+
+function createOverlay() {
+  var div = $("<div/>");
+  div.attr("id", "fullScreenOverlay");
+  div.css("position", "fixed");
+  div.css("background-color", "#ccc");
+  div.css("top", 0);
+  div.css("bottom", 0);
+  div.css("left", 0);
+  div.css("right", 0);
+  div.css("opacity", 0.85);
+  $("body").append(div);
+}
+
+function destroyOverlay() {
+  $("#fullScreenOverlay").remove();
+}
+
+Quill.register(CoordBlot);
+Quill.register(DateBlot);
+Quill.register(YoutubeBlot);
+
+let quill = new Quill('#editor-container');
+
+// handle clicks on tagged text
+$("#editor-container").click(function (e) {
+
+  let t = e.target;
+
+  if (t.dataset.tagtype !== undefined) {
+
+    switch (t.dataset.tagtype) {
+
+      case 'coord':
+        let coord = { lat: t.dataset.lat, lng: t.dataset.lng };
+        CoordBlot.popupShow(coord);
+        break;
+
+      case 'date':
+        DateBlot.popupShow(t.dataset.yyyymmdd);
+        break;
+
+      case 'youtube':
+        YoutubeBlot.popupShow(t.dataset.videoid);
+        break;
+
+    }
+
+  }
+});
+
+// button listeners
+$('#coord-button').click(function () {
+  CoordBlot.popupEditor(function (gLatLng) {
+    quill.format('coord', gLatLng);
+  });
+});
+$('#date-button').click(function () {
+  DateBlot.popupEditor(function (yyyymmdd) {
+    quill.format('date', yyyymmdd);
+  });
+});
+$('#youtube-button').click(function () {
+  YoutubeBlot.popupEditor(function (vid) {
+    quill.format('youtube', vid);
+  });
+});
+
+function initMap() {
+  console.log("initMap()");
+}

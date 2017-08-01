@@ -29,10 +29,10 @@ body {
   border: none;
   cursor: pointer;
   display: inline-block;
-  font-size: 18px;
+  font-size: 28px;
   padding: 0;
-  height: 32px;
-  width: 32px;
+  height: 36px;
+  width: 36px;
   text-align: center;
 }
 button:active, button:focus {

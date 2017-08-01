@@ -1,15 +1,6 @@
 
 let Inline = Quill.import('blots/inline');
 
-class BoldBlot extends Inline { }
-BoldBlot.blotName = 'bold';
-BoldBlot.tagName = 'strong';
-
-class ItalicBlot extends Inline { }
-ItalicBlot.blotName = 'italic';
-ItalicBlot.tagName = 'em';
-
-
 function createOverlay() {
   var div = $("<div/>");
   div.attr("id", "fullScreenOverlay");
@@ -95,21 +86,12 @@ CoordBlot.tagName = 'span';
 
 
 
-
-Quill.register(BoldBlot);
-Quill.register(ItalicBlot);
 Quill.register(CoordBlot);
 
 let quill = new Quill('#editor-container');
 
 
 // button listeners
-$('#bold-button').click(function () {
-  quill.format('bold', true);
-});
-$('#italic-button').click(function () {
-  quill.format('italic', true);
-});
 $('#coord-button').click(function () {
   CoordBlot.popupUI(function (gLatLng) {
     quill.format('coord', gLatLng);

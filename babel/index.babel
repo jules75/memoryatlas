@@ -10,6 +10,23 @@ ItalicBlot.blotName = 'italic';
 ItalicBlot.tagName = 'em';
 
 
+function createOverlay() {
+    var div = $("<div/>");
+    div.attr("id", "fullScreenOverlay");
+    div.css("position", "fixed");
+    div.css("background-color", "white");
+    div.css("top", 0);
+    div.css("bottom", 0);
+    div.css("left", 0);
+    div.css("right", 0);
+    div.css("opacity", 0.75);
+    $("body").append(div);
+}
+
+function destroyOverlay() {
+  $("#fullScreenOverlay").remove();
+}
+
 
 /**
  * COORD
@@ -32,6 +49,8 @@ class CoordBlot extends Inline {
 
   static popupUI(onCoordOk, onCoordCancel) {
 
+    createOverlay();
+
     let mapDiv = $(`
     <div id="mapContainer">
       <div id="map"></div>
@@ -52,6 +71,7 @@ class CoordBlot extends Inline {
     // close on any button
     $('#mapContainer button').click(function(e) { 
       $('#mapContainer').remove();
+      destroyOverlay();
     });
 
     // handle OK button

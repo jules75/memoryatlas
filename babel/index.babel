@@ -24,11 +24,11 @@ function destroyOverlay() {
  */
 class CoordBlot extends Inline {
 
-  static create(coord) {
+  static create(coordLatLng) {
     let node = super.create();
     node.setAttribute('data-tagtype', 'coord');
-    node.setAttribute('data-lat', coord.lat());
-    node.setAttribute('data-lng', coord.lng());
+    node.setAttribute('data-lat', coordLatLng.lat());
+    node.setAttribute('data-lng', coordLatLng.lng());
     return node;
   }
 
@@ -38,7 +38,7 @@ class CoordBlot extends Inline {
     return { lat: lat, lng: lng };
   }
 
-  static popupUI(onCoordOk, onCoordCancel) {
+  static popupEditor(onCoordOk, onCoordCancel) {
 
     createOverlay();
 
@@ -79,6 +79,11 @@ class CoordBlot extends Inline {
 
   }
 
+  static popupShow(coord) {
+    let url = `http://google.com/maps?q=${coord.lat},${coord.lng}`;
+    window.open(url, '_blank');
+  }
+
 }
 CoordBlot.blotName = 'coord';
 CoordBlot.tagName = 'span';
@@ -91,9 +96,28 @@ Quill.register(CoordBlot);
 let quill = new Quill('#editor-container');
 
 
+$("#editor-container").click(function (e) {
+
+  let t = e.target;
+
+  if (t.dataset.tagtype !== undefined) {
+
+    switch (t.dataset.tagtype) {
+
+      case 'coord':
+        let coord = {lat: t.dataset.lat, lng: t.dataset.lng};
+        CoordBlot.popupShow(coord);
+        break;
+
+    }
+
+  }
+})
+
+
 // button listeners
 $('#coord-button').click(function () {
-  CoordBlot.popupUI(function (gLatLng) {
+  CoordBlot.popupEditor(function (gLatLng) {
     quill.format('coord', gLatLng);
   });
 });

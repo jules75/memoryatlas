@@ -3,11 +3,12 @@ let Inline = Quill.import('blots/inline');
 
 class CoordBlot extends Inline {
 
-  static create(coordLatLng) {
+  static create(coord) {
+    console.log("CoordBlot create()");
     let node = super.create();
     node.setAttribute('data-tagtype', 'coord');
-    node.setAttribute('data-lat', coordLatLng.lat());
-    node.setAttribute('data-lng', coordLatLng.lng());
+    node.setAttribute('data-lat', coord.lat);
+    node.setAttribute('data-lng', coord.lng);
     return node;
   }
 
@@ -53,7 +54,8 @@ class CoordBlot extends Inline {
 
     // handle OK button
     $('#mapContainer #ok').click(function (e) {
-      onOk(map.getCenter());
+      let center = map.getCenter();      
+      onOk({lat: center.lat(), lng: center.lng()});
     });
 
   }

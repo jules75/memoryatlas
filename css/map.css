@@ -1,0 +1,13 @@
+
+#mapContainer {
+  height: auto;
+  width: 530px;
+  background-color: white;
+}
+  #mapContainer .buttonRow {
+    margin-top: 1em;
+  }
+#map {
+  height: 500px;
+  width: 500px; 
+}

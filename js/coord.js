@@ -22,7 +22,7 @@ class CoordBlot extends Inline {
     createOverlay();
 
     let mapDiv = $(`
-    <div id="mapContainer">
+    <div id="mapContainer" class="modal">
       <div id="map"></div>
       <div class="buttonRow">
         <button id="ok">OK</button>

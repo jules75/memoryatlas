@@ -19,7 +19,7 @@ class DateBlot extends Inline {
     createOverlay();
 
     var div = $(`
-      <div id="calendarPicker">
+      <div id="calendarPicker" class="modal">
       <form>
       <div>
       <label>Year</label>

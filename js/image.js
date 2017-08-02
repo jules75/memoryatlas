@@ -48,7 +48,7 @@ class ImageBlot extends Inline {
     }
 
     var container = $(`
-      <div id="imageUploader">
+      <div id="imageUploader" class="modal">
         <p id="imageUploaderStatus">Loading...</p>
         <input type="file" name="upload" id="imageUploaderInput"></input>
         <button>Cancel</button>

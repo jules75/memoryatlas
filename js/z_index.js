@@ -82,7 +82,8 @@ $('#youtube-button').click(function () {
   });
 });
 $('#erase-button').click(function () {
-  quill.removeFormat(0, quill.getLength(), 'user');
+  let sel = quill.getSelection();
+  quill.removeFormat(sel.index, sel.length, 'user');
 });
 
 

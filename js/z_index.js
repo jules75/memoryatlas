@@ -81,6 +81,10 @@ $('#youtube-button').click(function () {
     quill.format('youtube', vid);
   });
 });
+$('#erase-button').click(function () {
+  quill.removeFormat(0, quill.getLength(), 'user');
+});
+
 
 function initMap() {
   console.log("initMap()");

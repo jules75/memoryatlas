@@ -33,7 +33,10 @@ body {
   height: 45px;
   width: 36px;
   text-align: center;
-  color: #eee;
+  color: #ccc;
+}
+#tooltip-controls button:hover {
+  color: white;
 }
 button:active, button:focus {
   outline: none;

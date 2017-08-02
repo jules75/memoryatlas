@@ -21,7 +21,13 @@ Quill.register(DateBlot);
 Quill.register(ImageBlot);
 Quill.register(YoutubeBlot);
 
-let quill = new Quill('#editor-container');
+let quill = new Quill('#editor-container', {
+  modules: {
+    toolbar: '#tooltip-controls'
+  },
+  scrollingContainer: '#scrolling-container',
+  theme: 'bubble'
+});
 
 // handle clicks on tagged text
 $("#editor-container").click(function (e) {
@@ -43,7 +49,7 @@ $("#editor-container").click(function (e) {
 
       case 'image':
         ImageBlot.popupShow(t.dataset.url);
-        break;        
+        break;
 
       case 'youtube':
         YoutubeBlot.popupShow(t.dataset.videoid);

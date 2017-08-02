@@ -28,11 +28,12 @@ body {
   border: none;
   cursor: pointer;
   display: inline-block;
-  font-size: 28px;
+  font-size: 23px;
   padding: 0;
-  height: 36px;
+  height: 45px;
   width: 36px;
   text-align: center;
+  color: #eee;
 }
 button:active, button:focus {
   outline: none;

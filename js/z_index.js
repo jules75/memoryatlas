@@ -92,7 +92,7 @@ function initMap() {
 }
 
 
-function enumerateImages() {
+function loadImages() {
 
   function injectImage(i, el) {
     let img = $('<img>').attr('src', el.dataset.url);
@@ -102,5 +102,9 @@ function enumerateImages() {
 
   $('span[data-tagtype="image"]').each(injectImage);
 
+}
+
+function initHoverHandlers() {
+  $('span[data-tagtype="image"]').hover(ImageBlot.onHover);
 }
 

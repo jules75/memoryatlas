@@ -86,4 +86,8 @@ span[data-tagtype="youtube"] {
 }
   #image-container img {
     margin: 5px;
+    opacity: 0.5;
+  }
+  #image-container img.highlight {
+    opacity: 1.0;
   }

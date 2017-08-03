@@ -73,6 +73,14 @@ class ImageBlot extends Inline {
     window.open(url, '_blank');
   }
 
+  static onHover(e) {
+
+    // highlight any loaded image with matching url
+    let url = e.target.dataset.url;
+    let selector = `img[src="${url}"]`;
+    $(selector).toggleClass('highlight');
+  }
+
 }
 
 ImageBlot.blotName = 'image';

@@ -100,6 +100,9 @@ function loadImages() {
   }
 
   $('span[data-tagtype="image"]').each(injectImage);
+  $('#image-container img').click(function(e) { 
+    $.featherlight($(this));
+  });
 
 }
 
@@ -107,3 +110,7 @@ function initHoverHandlers() {
   $('span[data-tagtype="image"]').hover(ImageBlot.onHover);
 }
 
+function initApp() {
+  loadImages();
+  initHoverHandlers();
+}

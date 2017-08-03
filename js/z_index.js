@@ -90,3 +90,17 @@ $('#erase-button').click(function () {
 function initMap() {
   console.log("initMap()");
 }
+
+
+function enumerateImages() {
+
+  function injectImage(i, el) {
+    let img = $('<img>').attr('src', el.dataset.url);
+    $('#image-container').append(img);
+    img.css('height', '100px');
+  }
+
+  $('span[data-tagtype="image"]').each(injectImage);
+
+}
+

@@ -97,7 +97,6 @@ function loadImages() {
   function injectImage(i, el) {
     let img = $('<img>').attr('src', el.dataset.url);
     $('#image-container').append(img);
-    img.css('height', '100px');
   }
 
   $('span[data-tagtype="image"]').each(injectImage);

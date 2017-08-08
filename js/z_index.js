@@ -110,9 +110,35 @@ function initHoverHandlers() {
   $('span[data-tagtype="image"]').hover(ImageBlot.onHover);
 }
 
+function initBackgroundSlideshow() {
+
+  let imageElements = $('span[data-tagtype="image"]');
+  let index = 0;
+
+  function changeBackground() {
+
+    // skip non-images
+    while (imageElements[index] == undefined) {
+      index++;
+      if (index > imageElements.length) {
+        index = 0;
+      }
+    }
+
+    // set background
+    if (imageElements[index]) {
+      setBackground(imageElements[index].dataset.url);
+      index++;
+    }
+  }
+
+  setInterval(changeBackground, 1000);
+}
+
 function initApp() {
   loadImages();
   initHoverHandlers();
+  initBackgroundSlideshow();
 }
 
 function setBackground(imageUrl) {

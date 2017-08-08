@@ -114,3 +114,9 @@ function initApp() {
   loadImages();
   initHoverHandlers();
 }
+
+function setBackground(imageUrl) {
+  $('html').css('background-image', `url(${imageUrl})`);
+  $('html').css('background-size', 'cover');
+  $('body').css('background-color', 'rgba(255,255,255,0.8)');
+}

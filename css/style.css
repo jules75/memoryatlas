@@ -94,3 +94,19 @@ span[data-tagtype="youtube"] {
   #image-container img.highlight, #image-container img:hover {
     opacity: 1.0;
   }
+
+
+@keyframes fade-in-out {
+  0% {
+    background: rgba(255,255,255,1);
+  }
+  10% {
+    background: rgba(255,255,255,0.7);
+  }
+  90% {
+    background: rgba(255,255,255,0.7);
+  }
+  100% {
+    background: rgba(255,255,255,1);
+  }
+}

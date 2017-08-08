@@ -132,7 +132,9 @@ function initBackgroundSlideshow() {
     }
   }
 
-  setInterval(changeBackground, 1000);
+  // update once, then every 60 seconds
+  changeBackground();
+  setInterval(changeBackground, 60*1000);
 }
 
 function initApp() {
@@ -144,5 +146,7 @@ function initApp() {
 function setBackground(imageUrl) {
   $('html').css('background-image', `url(${imageUrl})`);
   $('html').css('background-size', 'cover');
-  $('body').css('background-color', 'rgba(255,255,255,0.8)');
+
+  $('body').css('animation', 'fade-in-out 60s');
+  $('body').css('animation-iteration-count', 'infinite');
 }

@@ -100,7 +100,7 @@ function loadImages() {
   }
 
   $('span[data-tagtype="image"]').each(injectImage);
-  $('#image-container img').click(function(e) { 
+  $('#image-container img').click(function (e) {
     $.featherlight($(this));
   });
 
@@ -112,29 +112,22 @@ function initHoverHandlers() {
 
 function initBackgroundSlideshow() {
 
-  let imageElements = $('span[data-tagtype="image"]');
+  let imageTags = $.makeArray($('span[data-tagtype="image"]'));
   let index = 0;
 
   function changeBackground() {
-
-    // skip non-images
-    while (imageElements[index] == undefined) {
-      index++;
-      if (index > imageElements.length) {
-        index = 0;
-      }
+    if (index >= imageTags.length) {
+      index = 0;
     }
-
-    // set background
-    if (imageElements[index]) {
-      setBackground(imageElements[index].dataset.url);
-      index++;
-    }
+    setBackground(imageTags[index].dataset.url);
+    index++;
   }
 
-  // update once, then every 60 seconds
-  changeBackground();
-  setInterval(changeBackground, 60*1000);
+  // if images tags present, update once, then every 60 seconds
+  if (imageTags.length > 0) {
+    changeBackground();
+    setInterval(changeBackground, 60 * 1000);
+  }
 }
 
 function initApp() {

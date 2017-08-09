@@ -15,7 +15,7 @@ require_once 'lib/3rdparty/cloudinary/Api.php';
 
 // setup mongodb document database
 require_once 'vendor/autoload.php';
-$mongo = new MongoDB\Client("mongodb://localhost:27017");
+$mongo = new MongoDB\Driver\Manager('mongodb://localhost:27017');
 
 
 function succeed($result) {
@@ -41,9 +41,28 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 		case 'page':
 			$page_id = filter_hex($_GET['page_id']);
-			$collection = $mongo->memoryatlas->pages;
-			$result = $collection->findOne(['page_id' =>  $page_id]);
-			succeed($result);
+
+			$filter = [
+				'page_id' => $page_id
+			];
+
+			$options = [
+				'sort' => [
+					'_id' => -1
+				],
+				'limit' => 1
+			];
+
+			$query = new MongoDB\Driver\Query($filter, $options);
+			$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
+			$cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
+
+			// Couldn't figure out how to get JUST the first doc from the cursor :-/
+			foreach($cursor AS $doc) {
+				succeed($doc);
+				break;
+			}
+
 			break;
 
 		default:

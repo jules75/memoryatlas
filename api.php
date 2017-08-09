@@ -7,12 +7,15 @@
 
 require_once 'config.php';
 
+// setup Cloudinary cloud image host
 require_once 'lib/3rdparty/cloudinary/Cloudinary.php';
 require_once 'lib/3rdparty/cloudinary/Uploader.php';
 require_once 'lib/3rdparty/cloudinary/Api.php';
-
-
 \Cloudinary::config(MEMORY_ATLAS_CONFIG['cloudinary']);
+
+// setup mongodb document database
+require_once 'vendor/autoload.php';
+$mongo = new MongoDB\Client("mongodb://localhost:27017");
 
 
 function succeed($result) {
@@ -27,9 +30,21 @@ function fail($message) {
 	die();
 }
 
+// Returns string with non hex characters removed
+function filter_hex($string) {
+	return preg_replace('/[^a-fA-F0-9]+/', '', $string);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	switch($_GET['action']) {
+
+		case 'page':
+			$page_id = filter_hex($_GET['page_id']);
+			$collection = $mongo->memoryatlas->pages;
+			$result = $collection->findOne(['page_id' =>  $page_id]);
+			succeed($result);
+			break;
 
 		default:
 			fail("Unknown GET action '$_GET[action]'");

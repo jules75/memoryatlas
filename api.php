@@ -39,19 +39,30 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	
 	switch($_GET['action']) {
 
+		// Return all revisions of single page, newest first
+		case 'history':
+			$page_id = filter_hex($_GET['page_id']);
+
+			$filter = ['page_id' => $page_id];
+			$options = ['sort' => ['_id' => -1]];
+
+			$query = new MongoDB\Driver\Query($filter, $options);
+			$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
+			$cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
+
+			$result = [];
+			foreach($cursor AS $doc) {
+				$result[] = $doc;
+			}
+			succeed($result);
+			break;		
+
+		// Return newest revision of single page
 		case 'page':
 			$page_id = filter_hex($_GET['page_id']);
 
-			$filter = [
-				'page_id' => $page_id
-			];
-
-			$options = [
-				'sort' => [
-					'_id' => -1
-				],
-				'limit' => 1
-			];
+			$filter = ['page_id' => $page_id];
+			$options = ['sort' => ['_id' => -1], 'limit' => 1];
 
 			$query = new MongoDB\Driver\Query($filter, $options);
 			$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);

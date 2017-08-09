@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Atlas</title>
+
+
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300,400,600,700'>
+  <link rel='stylesheet prefetch' href='http://cdn.quilljs.com/1.0.0/quill.core.css'>
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+  <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/calendarPicker.css">
+  <link rel="stylesheet" href="css/imageUploader.css">
+
+</head>
+
+<body>
+
+  <div id="image-container">
+  </div>
+
+  <div id="youtube-container">
+  </div>
+
+  <div id="tooltip-controls">
+    <button id="coord-button" title="Place on map"> <i class="fa fa-map-marker" ></i></button>
+    <button id="date-button" title="Calendar date"> <i class="fa fa-calendar" ></i></button>
+    <button id="image-button" title="Upload image"><i class="fa fa-file-image-o"></i></button>
+    <button id="youtube-button" title="Link a Youtube"><i class="fa fa-youtube"></i></button>
+    <button id="erase-button" title="Erase formatting"><i class="fa fa-ban"></i></button>
+  </div>
+
+  <div id="scrolling-container">
+    <div id="editor-container">Tell your story...</div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
+  <script src="//cdn.quilljs.com/1.3.0/quill.min.js"></script>
+  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
+
+  <script src="app.compiled.js"></script>
+
+  <script>
+    
+    let userUrl = new URL(location.href);
+    let pageId = userUrl.searchParams.get('page_id');
+    let apiUrl = `/api.php?action=page&page_id=${pageId}`;
+
+    $.getJSON(apiUrl, function (data) {
+      quill.setContents(data.ops);
+      initApp();
+    });
+  </script>
+
+</body>
+
+</html>

@@ -16,6 +16,7 @@ require_once 'lib/3rdparty/cloudinary/Api.php';
 // setup mongodb document database
 require_once 'vendor/autoload.php';
 $mongo = new MongoDB\Driver\Manager('mongodb://localhost:27017');
+$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
 
 
 function succeed($result) {
@@ -45,9 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			$filter = ['page_id' => $page_id];
 			$options = ['sort' => ['_id' => -1]];
-
 			$query = new MongoDB\Driver\Query($filter, $options);
-			$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
 			$cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
 
 			$result = [];
@@ -55,7 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				$result[] = $doc;
 			}
 			succeed($result);
-			break;		
+			break;
+
+		// Return all pages (newest revision)
+		case 'list':
+			$command = new MongoDB\Driver\Command([
+				'aggregate' => 'pages',
+				'pipeline' => [
+					['$group' => ['_id' => '$page_id', 'revisions' => ['$sum' => 1]]],
+					['$project' => ['_id' => 0, 'page_id' => '$_id', 'revisions' => 1]]
+				]
+			]);
+
+			$cursor = $mongo->executeCommand('memoryatlas', $command);
+
+			// Couldn't figure out how to get JUST the first doc from the cursor :-/
+			foreach($cursor AS $doc) {
+				succeed($doc);
+				break;
+			}
+			break;
 
 		// Return newest revision of single page
 		case 'page':
@@ -63,9 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 			$filter = ['page_id' => $page_id];
 			$options = ['sort' => ['_id' => -1], 'limit' => 1];
-
 			$query = new MongoDB\Driver\Query($filter, $options);
-			$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
 			$cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
 
 			// Couldn't figure out how to get JUST the first doc from the cursor :-/
@@ -73,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				succeed($doc);
 				break;
 			}
-
 			break;
 
 		default:

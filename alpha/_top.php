@@ -11,9 +11,9 @@ session_start();
   <meta charset="UTF-8">
   <title>Memory Atlas</title>
 
-  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300,400,600,700'>
-  <link rel='stylesheet prefetch' href='http://cdn.quilljs.com/1.0.0/quill.core.css'>
+  <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+  <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Open+Sans%3A300,400,600,700'>
+  <link rel='stylesheet prefetch' href='//cdn.quilljs.com/1.0.0/quill.core.css'>
   <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 
   <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">  
@@ -23,7 +23,7 @@ session_start();
   <link rel="stylesheet" href="/css/calendarPicker.css">
   <link rel="stylesheet" href="/css/imageUploader.css">
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
 
 </head>
 

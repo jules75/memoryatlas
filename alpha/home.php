@@ -24,7 +24,7 @@
 
     function onEntryData(data) {
       let imageOp = randomItem(data.ops.filter(isImage));
-      let title = data.ops[0].insert;
+      let title = data.ops[0].insert.match(/(.*?)[\r\n]/)[1];
       let item = $(`
         <li>
           <a href="/alpha/entry.php?page_id=${data.page_id}">

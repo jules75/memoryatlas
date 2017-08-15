@@ -1,4 +1,6 @@
 
+let saveIsRequired = false;
+
 function createOverlay() {
   var div = $("<div/>");
   div.attr("id", "fullScreenOverlay");
@@ -143,3 +145,38 @@ function setBackground(imageUrl) {
   $('body').css('animation', 'fade-in-out 60s');
   $('body').css('animation-iteration-count', 'infinite');
 }
+
+// set flag if save is required
+quill.on('text-change', function (delta, oldDelta, source) {
+  saveIsRequired = true;
+});
+
+function onSaveSuccess(i) {
+  console.log(i);
+  saveIsRequired = false;
+}
+
+function urlPageId() {
+  return window.location.href.match(/page_id=([a-f0-9]+)/)[1];
+}
+
+// periodically check if save requied
+setInterval(function () {
+  if (saveIsRequired) {
+    console.log("Saving document...");
+    let contents = quill.getContents();
+    contents = JSON.parse(JSON.stringify(contents));  // breaks if you don't do this
+    contents.page_id = urlPageId();
+    $.post('/api.php',
+      {
+        action: 'save',
+        payload: contents
+      },
+      onSaveSuccess
+    ).fail(function(data) {
+      alert(data.responseText);
+      saveIsRequired = false; // TODO: this is not an optimal solution!!!!!
+    });
+  }
+}, 2000);
+

@@ -19,9 +19,7 @@ if (isset($_POST['email'])) {
 
 		if (password_verify($_POST['password'], $doc->password_hash)) {
 			$_SESSION['user']['email'] = $_POST['email'];
-		}
-		else {
-			unset($_SESSION['user']);
+			header('Location: /alpha/home.php');
 		}
 	}
 

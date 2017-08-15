@@ -24,7 +24,6 @@
 
     function onEntryData(data) {
       let imageOp = randomItem(data.ops.filter(isImage));
-      let imageUrl = imageOp.attributes.image;
       let title = data.ops[0].insert;
       let item = $(`
         <li>
@@ -34,7 +33,12 @@
           </a>
           </li>
           `);
-      $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
+          
+      if (imageOp !== undefined) {
+        let imageUrl = imageOp.attributes.image;        
+        $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
+      }
+        
       $('#entry_previews').append(item);
     }
 

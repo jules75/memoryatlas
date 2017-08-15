@@ -9,7 +9,12 @@
 
     function onPageData(data) {
       let title = data.ops[0].insert;
-      let item = $(`<li><a href="/alpha/entry.php?page_id=${data.page_id}">${title}</a></li>`);
+      let item = $(`
+        <li data-page-id="${data.page_id}">
+          <img></img>
+          <a href="/alpha/entry.php?page_id=${data.page_id}">${title}</a>
+          </li>
+          `);
       $('#page_previews').append(item);
     }
 

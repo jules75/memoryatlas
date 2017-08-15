@@ -13,8 +13,18 @@
       return false;
     }
 
+    function randomItem(arr) {
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+
+    // ask Cloudinary to generate smart thumbnail for us
+    function cloudinaryThumbnailUrl(imageUrl) {
+      return imageUrl.replace(new RegExp('upload/.*?/'), 'upload/w_200,h_300,c_thumb,g_auto/');
+    }
+
     function onEntryData(data) {
-      let imageUrl = data.ops.filter(isImage)[0].attributes.image;
+      let imageOp = randomItem(data.ops.filter(isImage));
+      let imageUrl = imageOp.attributes.image;
       let title = data.ops[0].insert;
       let item = $(`
         <li>
@@ -22,7 +32,7 @@
           <a href="/alpha/entry.php?page_id=${data.page_id}">${title}</a>
           </li>
           `);
-      $(item).children("img").attr('src', imageUrl);
+      $(item).children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
       $('#entry_previews').append(item);
     }
 

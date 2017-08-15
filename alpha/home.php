@@ -28,11 +28,13 @@
       let title = data.ops[0].insert;
       let item = $(`
         <li>
+          <a href="/alpha/entry.php?page_id=${data.page_id}">
           <img></img>
-          <a href="/alpha/entry.php?page_id=${data.page_id}">${title}</a>
+          <span>${title}</span>          
+          </a>
           </li>
           `);
-      $(item).children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
+      $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
       $('#entry_previews').append(item);
     }
 

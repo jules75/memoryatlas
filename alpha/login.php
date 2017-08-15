@@ -29,9 +29,9 @@ if (isset($_POST['email'])) {
 
 <form method="post">
 	<label for="email">Email address</label>
-	<input type="email" autofocus="autofocus" name="email" id="email" />
+	<input type="email" required="required" autofocus="autofocus" name="email" id="email" />
 	<label for="password">Password</label>
-	<input type="password" name="password" id="password" />
+	<input type="password" required="required" name="password" id="password" />
 	
 	<button>Login</button>
 

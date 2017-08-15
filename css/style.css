@@ -39,6 +39,15 @@ nav {
     color: #eee;
   }
 
+form label, form button {
+  display: block;
+  margin-top: 1em;
+}
+
+button {
+  padding: 5px 10px;
+}
+
 #content {
   padding: 25px;
 }

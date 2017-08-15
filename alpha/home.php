@@ -1,33 +1,39 @@
 <?php include_once '_top.php'; ?>
 
-
-  <ul id="page_previews">
-
-  </ul>
+  <ul id="entry_previews"></ul>
 
   <script>
 
-    function onPageData(data) {
+    function isImage(quillOp) {
+      if (quillOp.hasOwnProperty('attributes')) {
+        if (quillOp.attributes.hasOwnProperty('image')) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function onEntryData(data) {
+      let imageUrl = data.ops.filter(isImage)[0].attributes.image;
       let title = data.ops[0].insert;
       let item = $(`
-        <li data-page-id="${data.page_id}">
+        <li>
           <img></img>
           <a href="/alpha/entry.php?page_id=${data.page_id}">${title}</a>
           </li>
           `);
-      $('#page_previews').append(item);
+      $(item).children("img").attr('src', imageUrl);
+      $('#entry_previews').append(item);
     }
 
-    function onPageListData(data) {
-      
+    function onEntryListData(data) {
       data.result.forEach(function(entry) {
         let url = `/api.php?action=page&page_id=${entry.page_id}`;
-        $.getJSON(url, onPageData);
+        $.getJSON(url, onEntryData);
       });
-
     }
 
-    $.getJSON("/api.php?action=list", onPageListData);
+    $.getJSON("/api.php?action=list", onEntryListData);
 
   </script>
 

@@ -157,7 +157,7 @@ function onSaveSuccess(i) {
 }
 
 function urlPageId() {
-  return window.location.href.match(/page_id=([a-f0-9]+)/)[1];
+  return window.location.href.match(/page_id=([a-fA-F0-9]+)/)[1];
 }
 
 // periodically check if save requied

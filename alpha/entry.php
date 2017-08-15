@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>Memory Atlas</title>
-
-
-  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300,400,600,700'>
-  <link rel='stylesheet prefetch' href='http://cdn.quilljs.com/1.0.0/quill.core.css'>
-  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-  <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/map.css">
-  <link rel="stylesheet" href="css/calendarPicker.css">
-  <link rel="stylesheet" href="css/imageUploader.css">
-
-</head>
-
-<body>
+<?php include_once '_top.php'; ?>
 
   <div id="image-container">
   </div>
@@ -47,7 +25,7 @@
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
 
-  <script src="app.compiled.js"></script>
+  <script src="/app.compiled.js"></script>
 
   <script>
     
@@ -61,6 +39,4 @@
     });
   </script>
 
-</body>
-
-</html>
+<?php include_once('_bottom.php'); ?>

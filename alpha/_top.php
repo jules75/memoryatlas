@@ -16,12 +16,14 @@ session_start();
   <link rel='stylesheet prefetch' href='http://cdn.quilljs.com/1.0.0/quill.core.css'>
   <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 
-  <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">
+  <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">  
 
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/map.css">
   <link rel="stylesheet" href="/css/calendarPicker.css">
   <link rel="stylesheet" href="/css/imageUploader.css">
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
 
 </head>
 
@@ -33,12 +35,11 @@ session_start();
       <h2>Stories worth telling</h2>
       </div>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Add entry</a></li>
+      <li><a href="/alpha/home.php">Home</a></li>
         <?php if (isset($_SESSION['user'])) : ?>
-      <li><a href="#">Logout</a></li>
+      <li><a href="/alpha/logout.php">Logout</a></li>
         <?php else : ?>
-      <li><a href="#">Login</a></li>
+      <li><a href="/alpha/login.php">Login</a></li>
         <?php endif; ?>
       </ul>
       </nav>

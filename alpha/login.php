@@ -18,6 +18,7 @@ if (isset($_POST['email'])) {
 	foreach($cursor AS $doc) {	// need better way to get first object from cursor
 
 		if (password_verify($_POST['password'], $doc->password_hash)) {
+			$_SESSION['user']['id'] = (String)$doc->_id;
 			$_SESSION['user']['email'] = $_POST['email'];
 			header('Location: /alpha/home.php');
 		}

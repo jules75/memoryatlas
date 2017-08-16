@@ -30,8 +30,8 @@
   <script>
     
     let userUrl = new URL(location.href);
-    let pageId = userUrl.searchParams.get('page_id');
-    let apiUrl = `/api.php?action=page&page_id=${pageId}`;
+    let entryId = userUrl.searchParams.get('entry_id');
+    let apiUrl = `/api.php?action=page&entry_id=${entryId}`;
 
     $.getJSON(apiUrl, function (data) {
       quill.setContents(data.ops);

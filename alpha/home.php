@@ -36,7 +36,7 @@
   
       let item = $(`
         <li>
-          <a href="/alpha/entry.php?page_id=${data.page_id}">
+          <a href="/alpha/entry.php?entry_id=${data.entry_id}">
           <img></img>
           <span>${title}</span>          
           </a>
@@ -55,7 +55,7 @@
 
     function onEntryListData(data) {
       data.result.forEach(function(entry) {
-        let url = `/api.php?action=page&page_id=${entry.page_id}`;
+        let url = `/api.php?action=page&entry_id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });
     }

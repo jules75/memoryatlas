@@ -157,7 +157,7 @@ function onSaveSuccess(i) {
 }
 
 function urlPageId() {
-  return window.location.href.match(/page_id=([a-fA-F0-9]+)/)[1];
+  return window.location.href.match(/entry_id=([a-fA-F0-9]+)/)[1];
 }
 
 // periodically check if save requied
@@ -166,7 +166,7 @@ setInterval(function () {
     console.log("Saving document...");
     let contents = quill.getContents();
     contents = JSON.parse(JSON.stringify(contents));  // breaks if you don't do this
-    contents.page_id = urlPageId();
+    contents.entry_id = urlPageId();
     $.post('/api.php',
       {
         action: 'save',

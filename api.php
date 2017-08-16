@@ -46,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     switch ($_GET['action']) {
         // Return all revisions of single page, newest first
         case 'history':
-            $page_id = filter_hex($_GET['page_id']);
+            $entry_id = filter_hex($_GET['entry_id']);
 
-            $filter = ['page_id' => $page_id];
+            $filter = ['entry_id' => $entry_id];
             $options = ['sort' => ['_id' => -1]];
             $query = new MongoDB\Driver\Query($filter, $options);
             $cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $command = new MongoDB\Driver\Command([
                 'aggregate' => 'pages',
                 'pipeline' => [
-                    ['$group' => ['_id' => '$page_id', 'revisions' => ['$sum' => 1]]],
-                    ['$project' => ['_id' => 0, 'page_id' => '$_id', 'revisions' => 1]]
+                    ['$group' => ['_id' => '$entry_id', 'revisions' => ['$sum' => 1]]],
+                    ['$project' => ['_id' => 0, 'entry_id' => '$_id', 'revisions' => 1]]
                 ]
             ]);
 
@@ -81,9 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         // Return newest revision of single page
         case 'page':
-            $page_id = filter_hex($_GET['page_id']);
+            $entry_id = filter_hex($_GET['entry_id']);
 
-            $filter = ['page_id' => $page_id];
+            $filter = ['entry_id' => $entry_id];
             $options = ['sort' => ['_id' => -1], 'limit' => 1];
             $query = new MongoDB\Driver\Query($filter, $options);
             $cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);

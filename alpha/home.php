@@ -23,8 +23,17 @@
     }
 
     function onEntryData(data) {
-      let imageOp = randomItem(data.ops.filter(isImage));
-      let title = data.ops[0].insert.match(/(.*?)[\r\n]/)[1];
+      
+      // get title from first paragraph
+      let regex = /(.*?)[\r\n]/;
+      var title;
+      if (regex.test(data.ops[0].insert)) {
+        title = data.ops[0].insert.match(regex)[1];
+      }
+      else {
+        title = data.ops[0].insert;
+      }
+  
       let item = $(`
         <li>
           <a href="/alpha/entry.php?page_id=${data.page_id}">
@@ -34,6 +43,8 @@
           </li>
           `);
           
+      // load random image from entry as background
+      let imageOp = randomItem(data.ops.filter(isImage));
       if (imageOp !== undefined) {
         let imageUrl = imageOp.attributes.image;        
         $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));

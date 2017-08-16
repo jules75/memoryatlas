@@ -44,14 +44,14 @@ function filter_hex($string)
 
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     switch ($_GET['action']) {
-        // Return all revisions of single page, newest first
+        // Return all revisions of single entry, newest first
         case 'history':
             $entry_id = filter_hex($_GET['entry_id']);
 
             $filter = ['entry_id' => $entry_id];
             $options = ['sort' => ['_id' => -1]];
             $query = new MongoDB\Driver\Query($filter, $options);
-            $cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
+            $cursor = $mongo->executeQuery('memoryatlas.entries', $query, $readPreference);
 
             $result = [];
             foreach ($cursor as $doc) {
@@ -60,10 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             succeed($result);
             break;
 
-        // Return all pages (newest revision)
+        // Return all entries (newest revision)
         case 'list':
             $command = new MongoDB\Driver\Command([
-                'aggregate' => 'pages',
+                'aggregate' => 'entries',
                 'pipeline' => [
                     ['$group' => ['_id' => '$entry_id', 'revisions' => ['$sum' => 1]]],
                     ['$project' => ['_id' => 0, 'entry_id' => '$_id', 'revisions' => 1]]
@@ -79,14 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             }
             break;
 
-        // Return newest revision of single page
-        case 'page':
+        // Return newest revision of single entry
+        case 'entry':
             $entry_id = filter_hex($_GET['entry_id']);
 
             $filter = ['entry_id' => $entry_id];
             $options = ['sort' => ['_id' => -1], 'limit' => 1];
             $query = new MongoDB\Driver\Query($filter, $options);
-            $cursor = $mongo->executeQuery('memoryatlas.pages', $query, $readPreference);
+            $cursor = $mongo->executeQuery('memoryatlas.entries', $query, $readPreference);
 
             // Couldn't figure out how to get JUST the first doc from the cursor :-/
             foreach ($cursor as $doc) {
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				$_POST['payload']['user']['id'] = $_SESSION['user']['id'];
                 
 				$command = new MongoDB\Driver\Command([
-					'insert' => 'pages',
+					'insert' => 'entries',
 					'documents' => [$_POST['payload']],
 				]);
 

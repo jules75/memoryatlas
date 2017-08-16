@@ -55,7 +55,7 @@
 
     function onEntryListData(data) {
       data.result.forEach(function(entry) {
-        let url = `/api.php?action=page&entry_id=${entry.entry_id}`;
+        let url = `/api.php?action=entry&entry_id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });
     }

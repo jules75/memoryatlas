@@ -31,7 +31,7 @@
     
     let userUrl = new URL(location.href);
     let entryId = userUrl.searchParams.get('entry_id');
-    let apiUrl = `/api.php?action=page&entry_id=${entryId}`;
+    let apiUrl = `/api.php?action=entry&entry_id=${entryId}`;
 
     $.getJSON(apiUrl, function (data) {
       quill.setContents(data.ops);

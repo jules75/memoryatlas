@@ -23,7 +23,9 @@
     }
 
     function onEntryData(data) {
-      
+
+      let container = $(`[data-entry-id="${data.entry_id}"]`);
+
       // get title from first paragraph
       let regex = /(.*?)[\r\n]/;
       var title;
@@ -33,28 +35,30 @@
       else {
         title = data.ops[0].insert;
       }
-  
-      let item = $(`
-        <li>
-          <a href="/alpha/entry.php?entry_id=${data.entry_id}">
-          <img></img>
-          <span>${title}</span>          
-          </a>
-          </li>
-          `);
-          
+      $(container).children("a").children("span").text(title);
+            
       // load first image from entry as background
       let imageOp = data.ops.filter(isImage)[0];
       if (imageOp !== undefined) {
         let imageUrl = imageOp.attributes.image;        
-        $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
+        $(container).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
       }
-        
-      $('#entry_previews').append(item);
+
     }
 
     function onEntryListData(data) {
       data.result.forEach(function(entry) {
+        let item = $(`
+          <li data-entry-id="${entry.entry_id}">
+            <a href="/alpha/entry.php?entry_id=${entry.entry_id}">
+            <img></img>
+            <span>Loading&hellip;</span>          
+            </a>
+            </li>
+            `);
+
+        $('#entry_previews').append(item);
+        
         let url = `/api.php?action=entry&entry_id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });

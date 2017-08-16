@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 'aggregate' => 'entries',
                 'pipeline' => [
                     ['$group' => ['_id' => '$entry_id', 'revisions' => ['$sum' => 1]]],
+                    ['$sort' => ['_id' => 1]],
                     ['$project' => ['_id' => 0, 'entry_id' => '$_id', 'revisions' => 1]]
                 ]
             ]);

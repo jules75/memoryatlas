@@ -43,8 +43,8 @@
           </li>
           `);
           
-      // load random image from entry as background
-      let imageOp = randomItem(data.ops.filter(isImage));
+      // load first image from entry as background
+      let imageOp = data.ops.filter(isImage)[0];
       if (imageOp !== undefined) {
         let imageUrl = imageOp.attributes.image;        
         $(item).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));

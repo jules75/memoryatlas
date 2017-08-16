@@ -136,6 +136,11 @@ function initApp() {
   loadImages();
   initHoverHandlers();
   initBackgroundSlideshow();
+
+  // set flag when editor contents changes
+  quill.on('text-change', function (delta, oldDelta, source) {
+    saveIsRequired = true;
+  });
 }
 
 function setBackground(imageUrl) {
@@ -145,11 +150,6 @@ function setBackground(imageUrl) {
   $('body').css('animation', 'fade-in-out 60s');
   $('body').css('animation-iteration-count', 'infinite');
 }
-
-// set flag if save is required
-quill.on('text-change', function (delta, oldDelta, source) {
-  saveIsRequired = true;
-});
 
 function onSaveSuccess(i) {
   console.log(i);
@@ -173,7 +173,7 @@ setInterval(function () {
         payload: contents
       },
       onSaveSuccess
-    ).fail(function(data) {
+    ).fail(function (data) {
       alert(data.responseText);
       saveIsRequired = false; // TODO: this is not an optimal solution!!!!!
     });
@@ -182,16 +182,16 @@ setInterval(function () {
 
 
 // warn if unsaved document (adapted from https://stackoverflow.com/a/7317311)
-window.onload = function() {
-    window.addEventListener("beforeunload", function (e) {
-        if (!saveIsRequired) {
-            return undefined;
-        }
+window.onload = function () {
+  window.addEventListener("beforeunload", function (e) {
+    if (!saveIsRequired) {
+      return undefined;
+    }
 
-        // Most modern browsers don't show this message
-        var confirmationMessage = 'You should wait for your work to finish saving. Leave now?';
+    // Most modern browsers don't show this message
+    var confirmationMessage = 'You should wait for your work to finish saving. Leave now?';
 
-        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-    });
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+  });
 };

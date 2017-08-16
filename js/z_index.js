@@ -180,3 +180,18 @@ setInterval(function () {
   }
 }, 2000);
 
+
+// warn if unsaved document (adapted from https://stackoverflow.com/a/7317311)
+window.onload = function() {
+    window.addEventListener("beforeunload", function (e) {
+        if (!saveIsRequired) {
+            return undefined;
+        }
+
+        // Most modern browsers don't show this message
+        var confirmationMessage = 'You should wait for your work to finish saving. Leave now?';
+
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+    });
+};

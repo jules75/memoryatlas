@@ -94,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 succeed($doc);
                 break;
             }
+
+            fail("No entry found for id " . $_GET['entry_id']);
             break;
 
         default:

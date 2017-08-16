@@ -15,7 +15,7 @@
   </div>
 
   <div id="scrolling-container">
-    <div id="editor-container">Tell your story...</div>
+    <div id="editor-container"></div>
   </div>
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
@@ -33,8 +33,49 @@
     let entryId = userUrl.searchParams.get('entry_id');
     let apiUrl = `/api.php?action=entry&entry_id=${entryId}`;
 
+    let newEntryOps = {
+      "ops": [
+        {
+          "insert": "Welcome to your new entry. To get started, just click somewhere in here and start typing. Start by deleting this text!\n\nYou can add "
+        },
+        {
+          "attributes": {
+            "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1502853913/vw1dbe6rcgclamrgtpmh.jpg"
+          },
+          "insert": "images and photos"
+        },
+        {
+          "insert": ", "
+        },
+        {
+          "attributes": {
+            "coord": {
+              "lat": -37.56261960591671,
+              "lng": 143.85745019340519
+            }
+          },
+          "insert": "map coordinates"
+        },
+        {
+          "insert": ", "
+        },
+        {
+          "attributes": {
+            "date": "19410414"
+          },
+          "insert": "dates"
+        },
+        {
+          "insert": " and more. Just highlight some text with your mouse and choose from the menu.\n\nTell your story!\n"
+        }
+      ]
+    };
+
     $.getJSON(apiUrl, function (data) {
       quill.setContents(data.ops);
+    }).fail(function(data) {
+      quill.setContents(newEntryOps);
+    }).always(function() {
       initApp();
     });
   </script>

@@ -2,6 +2,10 @@
 
 session_start();
 
+function generateRandomEntryId() {
+  return sha1(mt_rand().mt_rand().mt_rand());
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -37,6 +41,7 @@ session_start();
     <ul>
       <li><a href="/alpha/home.php">Home</a></li>
         <?php if (isset($_SESSION['user'])) : ?>
+      <li><a href="/alpha/entry.php?page_id=<?php echo generateRandomEntryId() ?>">New entry</a></li>
       <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');">Logout <?php echo $_SESSION['user']['email'] ?></a></li>
         <?php else : ?>
       <li><a href="/alpha/login.php">Login</a></li>

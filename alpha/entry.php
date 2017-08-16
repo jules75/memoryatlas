@@ -40,7 +40,7 @@
         },
         {
           "attributes": {
-            "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1502853913/vw1dbe6rcgclamrgtpmh.jpg"
+            "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1502854465/dowczp3wbndh6og3wpaq.jpg"
           },
           "insert": "images and photos"
         },

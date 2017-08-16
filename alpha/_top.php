@@ -45,12 +45,12 @@ ini_set('session.cookie_lifetime', '604800');
       <h2>Stories worth telling</h2>
       </div>
     <ul>
-      <li><a href="/alpha/home.php">Home</a></li>
+      <li><a href="/alpha/home.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
         <?php if (isset($_SESSION['user'])) : ?>
-      <li><a href="/alpha/entry.php?page_id=<?php echo generateRandomEntryId() ?>">New entry</a></li>
-      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');">Logout <?php echo $_SESSION['user']['email'] ?></a></li>
+      <li><a href="/alpha/entry.php?page_id=<?php echo generateRandomEntryId() ?>"><i class="fa fa-plus" aria-hidden="true"></i> New entry</a></li>
+      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');"><i class="fa fa-user" aria-hidden="true"></i> Logout <?php echo $_SESSION['user']['email'] ?></a></li>
         <?php else : ?>
-      <li><a href="/alpha/login.php">Login</a></li>
+      <li><a href="/alpha/login.php"><i class="fa fa-user" aria-hidden="true"></i> Login</a></li>
         <?php endif; ?>
       </ul>
       </nav>

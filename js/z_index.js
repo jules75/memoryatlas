@@ -18,6 +18,15 @@ function destroyOverlay() {
   $("#fullScreenOverlay").remove();
 }
 
+function isMap(quillOp) {
+  if (quillOp.hasOwnProperty('attributes')) {
+    if (quillOp.attributes.hasOwnProperty('coord')) {
+      return true;
+    }
+  }
+  return false;
+}
+
 Quill.register(CoordBlot);
 Quill.register(DateBlot);
 Quill.register(ImageBlot);
@@ -90,7 +99,38 @@ $('#erase-button').click(function () {
 
 
 function initMap() {
-  console.log("initMap()");
+
+  let mapOps = quill.getContents().ops.filter(isMap);
+  
+  if (mapOps.length == 0) {
+    return;
+  }
+
+  let mapDiv = $(`<div id="mapShow"></div>`);
+  let bounds = new google.maps.LatLngBounds();
+
+  // create map
+  $('#map-container').append(mapDiv);
+  let map = new google.maps.Map(document.getElementById('mapShow'), {
+    center: { lat: -37.397, lng: 143.644 },
+    zoom: 8
+  });
+
+  function createMarker(quillOp) {
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(quillOp.attributes.coord.lat, quillOp.attributes.coord.lng),
+      map: map,
+      title: quillOp.insert
+    });
+
+    bounds.extend(marker.getPosition());    
+  }
+
+  // create markers, fit to bounds
+  mapOps.map(createMarker);
+  map.fitBounds(bounds);  
+
 }
 
 

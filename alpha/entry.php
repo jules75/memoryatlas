@@ -3,7 +3,7 @@
   <div id="image-container">
   </div>
 
-  <div id="youtube-container">
+  <div id="map-container">
   </div>
 
   <div id="tooltip-controls">

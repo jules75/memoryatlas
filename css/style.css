@@ -13,6 +13,11 @@ body {
   height: 100%;
 }
 
+input[type="password"], input[type="text"], input[type="email"] {
+  font-family: monospace;
+  width: 20em;
+}
+
 nav {
   background-color: rgb(50,100,215);
   color: #eee;
@@ -204,4 +209,7 @@ span[data-tagtype="youtube"] {
 
 .error {
   color: red;
+}
+.success {
+  color: green;
 }

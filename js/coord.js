@@ -61,8 +61,26 @@ class CoordBlot extends Inline {
   }
 
   static popupShow(coord) {
-    let url = `https://google.com/maps?q=${coord.lat},${coord.lng}`;
-    window.open(url, '_blank');
+    
+    function nearlyEqual(a, b) {
+      return Math.abs(a-b) < 0.000001;
+    }
+
+    function isMatchingMarker(marker) {
+      return nearlyEqual(marker.getPosition().lat(), coord.lat) 
+        && nearlyEqual(marker.getPosition().lng(), coord.lng);
+    }
+
+    // find marker with matching coordinates
+    let markers = mapShowMarkers.filter(isMatchingMarker);
+    if (markers.length == 0) {
+      console.warn("No map markers found for given coordinate");
+    }
+    else {
+      mapShow.panTo(markers[0].getPosition());
+      mapShow.setZoom(16);
+    }
+
   }
 
 }

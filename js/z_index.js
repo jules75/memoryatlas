@@ -1,5 +1,8 @@
 
+// globals
 let saveIsRequired = false;
+let mapShow = {};
+let mapShowMarkers = [];
 
 function createOverlay() {
   var div = $("<div/>");
@@ -111,7 +114,7 @@ function createMap() {
 
   // create map
   $('#map-container').append(mapDiv);
-  let map = new google.maps.Map(document.getElementById('mapShow'), {
+  mapShow = new google.maps.Map(document.getElementById('mapShow'), {
     center: { lat: -37.397, lng: 143.644 },
     zoom: 8
   });
@@ -120,16 +123,18 @@ function createMap() {
 
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(quillOp.attributes.coord.lat, quillOp.attributes.coord.lng),
-      map: map,
+      map: mapShow,
       title: quillOp.insert
     });
+
+    mapShowMarkers.push(marker);
 
     bounds.extend(marker.getPosition());    
   }
 
   // create markers, fit to bounds
   mapOps.map(createMarker);
-  map.fitBounds(bounds);  
+  mapShow.fitBounds(bounds);  
 
 }
 

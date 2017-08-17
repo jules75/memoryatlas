@@ -14,33 +14,40 @@ $readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreferenc
 
 if (isset($_POST['old_password'])) {
 
-	// retrieve user account with given email address
-	$filter = ['email' => $_SESSION['user']['email']];
-	$options = ['limit' => 1];
-	$query = new MongoDB\Driver\Query($filter, $options);
-	$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
+	if(strlen($_POST['new_password']) < 5) {
+		echo "<p class='error'>New password must be at least 5 characters</p>";
+	}	
 
-	foreach($cursor AS $doc) {	// need better way to get first object from cursor
+	else {
 
-		if (password_verify($_POST['old_password'], $doc->password_hash)) {
-			
-            $bulk = new MongoDB\Driver\BulkWrite;
-			$bulk->update(
-				['email' => $_SESSION['user']['email']],
-				['$set' => ['password_hash' => password_hash($_POST['new_password'], PASSWORD_DEFAULT)]]
-				);
+		// retrieve user account with given email address
+		$filter = ['email' => $_SESSION['user']['email']];
+		$options = ['limit' => 1];
+		$query = new MongoDB\Driver\Query($filter, $options);
+		$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
 
-            $result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
-			if ($result->getModifiedCount() == 1) {
-				echo "<p class='success'>Password succesfully changed</p>";
+		foreach($cursor AS $doc) {	// need better way to get first object from cursor
+
+			if (password_verify($_POST['old_password'], $doc->password_hash)) {
+
+				$bulk = new MongoDB\Driver\BulkWrite;
+				$bulk->update(
+					['email' => $_SESSION['user']['email']],
+					['$set' => ['password_hash' => password_hash($_POST['new_password'], PASSWORD_DEFAULT)]]
+					);
+
+				$result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
+				if ($result->getModifiedCount() == 1) {
+					echo "<p class='success'>Password succesfully changed</p>";
+				}
+				else {
+					echo "<p class='error'>Could not change password</p>";
+				}
+
 			}
 			else {
-				echo "<p class='error'>Could not change password</p>";
+				echo "<p class='error'>Old password not correct</p>";
 			}
-
-		}
-		else {
-			echo "<p class='error'>Old password not correct</p>";
 		}
 	}
 

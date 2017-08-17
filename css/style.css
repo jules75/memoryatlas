@@ -48,6 +48,9 @@ nav {
     text-decoration: none;
     color: #eee;
   }
+  nav i.fa {
+    font-size: 15pt;
+  }
 
 form label, form button {
   display: block;

@@ -2,6 +2,11 @@
 
 include_once '_top.php';
 
+// redirect if already logged in
+if (isset($_SESSION['user'])) {
+	header('Location: /alpha/home.php');
+}
+
 // setup mongodb document database
 require_once '../vendor/autoload.php';
 $mongo = new MongoDB\Driver\Manager('mongodb://localhost:27017');
@@ -23,6 +28,8 @@ if (isset($_POST['email'])) {
 			header('Location: /alpha/home.php');
 		}
 	}
+
+	echo "<p class='error'>Could not log you in</p>";
 
 }
 

@@ -98,7 +98,7 @@ $('#erase-button').click(function () {
 });
 
 
-function initMap() {
+function createMap() {
 
   let mapOps = quill.getContents().ops.filter(isMap);
   
@@ -131,6 +131,67 @@ function initMap() {
   mapOps.map(createMarker);
   map.fitBounds(bounds);  
 
+}
+
+function initApp() {
+
+  let userUrl = new URL(location.href);
+  let entryId = userUrl.searchParams.get('entry_id');
+  let apiUrl = `/api.php?action=entry&entry_id=${entryId}`;
+
+  let newEntryOps = {
+    "ops": [
+      {
+        "insert": "Welcome to your new entry. To get started, just click somewhere in here and start typing. Start by deleting this text!\n\nYou can add "
+      },
+      {
+        "attributes": {
+          "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1502854465/dowczp3wbndh6og3wpaq.jpg"
+        },
+        "insert": "images and photos"
+      },
+      {
+        "insert": ", "
+      },
+      {
+        "attributes": {
+          "coord": {
+            "lat": -37.56261960591671,
+            "lng": 143.85745019340519
+          }
+        },
+        "insert": "map coordinates"
+      },
+      {
+        "insert": ", "
+      },
+      {
+        "attributes": {
+          "date": "19410414"
+        },
+        "insert": "dates"
+      },
+      {
+        "insert": " and more. Just highlight some text with your mouse and choose from the menu.\n\nTell your story!\n"
+      }
+    ]
+  };
+
+  $.getJSON(apiUrl, function (data) {
+    quill.setContents(data.ops);
+  }).fail(function(data) {
+    quill.setContents(newEntryOps);
+  }).always(function() {
+    createMap();
+    loadImages();
+    initHoverHandlers();
+    initBackgroundSlideshow();
+
+    // set flag when editor contents changes
+    quill.on('text-change', function (delta, oldDelta, source) {
+      saveIsRequired = true;
+    });
+  });
 }
 
 
@@ -170,17 +231,6 @@ function initBackgroundSlideshow() {
     changeBackground();
     setInterval(changeBackground, 60 * 1000);
   }
-}
-
-function initApp() {
-  loadImages();
-  initHoverHandlers();
-  initBackgroundSlideshow();
-
-  // set flag when editor contents changes
-  quill.on('text-change', function (delta, oldDelta, source) {
-    saveIsRequired = true;
-  });
 }
 
 function setBackground(imageUrl) {

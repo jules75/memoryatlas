@@ -7,10 +7,7 @@ if (!isset($_SESSION['user'])) {
 	header('Location: /alpha/login.php');
 }
 
-// setup mongodb document database
-require_once '../vendor/autoload.php';
-$mongo = new MongoDB\Driver\Manager('mongodb://localhost:27017');
-$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
+include_once '../db.php';
 
 if (isset($_POST['old_password'])) {
 
@@ -19,35 +16,19 @@ if (isset($_POST['old_password'])) {
 	}	
 
 	else {
+		$result = get_user($_SESSION['user']['email']);
 
-		// retrieve user account with given email address
-		$filter = ['email' => $_SESSION['user']['email']];
-		$options = ['limit' => 1];
-		$query = new MongoDB\Driver\Query($filter, $options);
-		$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
-
-		foreach($cursor AS $doc) {	// need better way to get first object from cursor
-
-			if (password_verify($_POST['old_password'], $doc->password_hash)) {
-
-				$bulk = new MongoDB\Driver\BulkWrite;
-				$bulk->update(
-					['email' => $_SESSION['user']['email']],
-					['$set' => ['password_hash' => password_hash($_POST['new_password'], PASSWORD_DEFAULT)]]
-					);
-
-				$result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
-				if ($result->getModifiedCount() == 1) {
-					echo "<p class='success'>Password succesfully changed</p>";
-				}
-				else {
-					echo "<p class='error'>Could not change password</p>";
-				}
-
+		if (password_verify($_POST['old_password'], $result->password_hash)) {
+			$result = update_password_hash($_SESSION['user']['email'], password_hash($_POST['new_password'], PASSWORD_DEFAULT));
+			if ($result == 1) {
+				echo "<p class='success'>Password succesfully changed</p>";
 			}
 			else {
-				echo "<p class='error'>Old password not correct</p>";
+				echo "<p class='error'>Could not change password</p>";
 			}
+		}
+		else {
+			echo "<p class='error'>Old password not correct</p>";
 		}
 	}
 

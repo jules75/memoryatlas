@@ -100,3 +100,17 @@ function get_user($email) {
 	}
 }
 
+
+// Update password hash for user with given email, returns # of modified rows
+function update_password_hash($email, $password_hash) {
+
+    global $mongo;
+
+    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk->update(
+        ['email' => $email],
+        ['$set' => ['password_hash' => $password_hash]]);
+
+    $result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
+    return $result->getModifiedCount();
+}

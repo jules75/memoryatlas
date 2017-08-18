@@ -7,30 +7,19 @@ if (isset($_SESSION['user'])) {
 	header('Location: /alpha/home.php');
 }
 
-// setup mongodb document database
-require_once '../vendor/autoload.php';
-$mongo = new MongoDB\Driver\Manager('mongodb://localhost:27017');
-$readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreference::RP_PRIMARY);
+require_once '../db.php';
 
 if (isset($_POST['email'])) {
 
-	// retrieve user account with given email address
-	$filter = ['email' => $_POST['email']];
-	$options = ['limit' => 1];
-	$query = new MongoDB\Driver\Query($filter, $options);
-	$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
+	$result = get_user($_POST['email']);
 
-	foreach($cursor AS $doc) {	// need better way to get first object from cursor
-
-		if (password_verify($_POST['password'], $doc->password_hash)) {
-			$_SESSION['user']['id'] = (String)$doc->_id;
-			$_SESSION['user']['email'] = $_POST['email'];
-			header('Location: /alpha/home.php');
-		}
+	if (password_verify($_POST['password'], $result->password_hash)) {
+		$_SESSION['user']['id'] = (String)$result->_id;
+		$_SESSION['user']['email'] = $_POST['email'];
+		header('Location: /alpha/home.php');
 	}
 
 	echo "<p class='error'>Could not log you in</p>";
-
 }
 
 ?>

@@ -35,7 +35,7 @@ function get_entries()
 // Return newest revision of single entry
 function get_entry($entry_id) {
 
-    global $mongo;
+    global $mongo, $readPreference;
 
     $filter = ['entry_id' => $entry_id];
     $options = ['sort' => ['_id' => -1], 'limit' => 1];
@@ -51,7 +51,7 @@ function get_entry($entry_id) {
 // Return all revisions of single entry, newest first
 function get_entry_history($entry_id) {
 
-    global $mongo;
+    global $mongo, $readPreference;
 
     $filter = ['entry_id' => $entry_id];
     $options = ['sort' => ['_id' => -1]];
@@ -82,5 +82,21 @@ function insert_entry($entry_contents) {
     foreach ($cursor as $doc) {
         return $doc;
     }
+}
+
+
+// Return user account with given email address
+function get_user($email) {
+
+    global $mongo, $readPreference;
+
+	$filter = ['email' => $email];
+	$options = ['limit' => 1];
+	$query = new MongoDB\Driver\Query($filter, $options);
+	$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
+
+	foreach($cursor AS $doc) {
+        return $doc;
+	}
 }
 

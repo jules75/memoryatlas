@@ -18,6 +18,10 @@ input[type="password"], input[type="text"], input[type="email"] {
   width: 20em;
 }
 
+p {
+  margin: 1em 0;
+}
+
 nav {
   background: linear-gradient(#191919 0%, #45484d 100%);
   color: #fbc239;
@@ -58,6 +62,12 @@ nav {
   nav i.fa {
     font-size: 15pt;
   }
+
+@media screen and (max-width: 800px) {
+    nav a span {
+      display: none;
+    }
+}  
 
 form label, form button {
   display: block;

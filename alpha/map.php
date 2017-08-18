@@ -1,7 +1,8 @@
 <?php include_once '_top.php'; ?>
 
-  <div id="map-large">
-  </div>
+  <div id="map-large"></div>
+
+  <p>New map markers will not appear here instantly.</p>  
 
   <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
 
@@ -28,6 +29,10 @@
 
       markers.push(marker);
       bounds.extend(marker.getPosition());
+
+      marker.addListener('click', function() {
+        document.location.href = `/alpha/entry.php?entry_id=${dataRow.entry_id}`;
+      });
     }
 
     function onDataReceived(dataRows) {

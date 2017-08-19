@@ -22,6 +22,17 @@
       return imageUrl.replace(new RegExp('upload/.*?/'), 'upload/w_200,h_300,c_thumb,g_auto/');
     }
 
+    // from https://css-tricks.com/snippets/javascript/get-url-variables/
+    function getQueryVariable(variable){
+          var query = window.location.search.substring(1);
+          var vars = query.split("&");
+          for (var i=0;i<vars.length;i++) {
+                  var pair = vars[i].split("=");
+                  if(pair[0] == variable){return pair[1];}
+          }
+          return(false);
+    }
+
     function onEntryData(data) {
 
       let container = $(`[data-entry-id="${data.entry_id}"]`);
@@ -64,7 +75,19 @@
       });
     }
 
-    $.getJSON("/api.php?action=list", onEntryListData);
+    // only show entries with matching hashtag
+    let hashtag = getQueryVariable('hashtag');
+    if (hashtag) {
+      $('#content').prepend($(`<p>#${hashtag}</p>`));
+      $.getJSON("/cache/hashtags.json", function(result) {
+        onEntryListData(result['#' + hashtag]);
+      });
+    } 
+
+    // show all entries
+    else {
+      $.getJSON("/api.php?action=list", onEntryListData);
+    }
 
   </script>
 

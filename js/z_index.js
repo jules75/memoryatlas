@@ -239,7 +239,7 @@ function initBackgroundSlideshow() {
 }
 
 function setBackground(imageUrl) {
-  $('html').css('background-image', `url(${imageUrl})`);
+  $('html').css('background-image', `url(${cloudinaryGrayscaleUrl(imageUrl)})`);
   $('html').css('background-size', 'cover');
 
   $('body').css('animation', 'fade-in-out 60s');

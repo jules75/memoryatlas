@@ -3,7 +3,7 @@
 session_start();
 
 function generateRandomEntryId() {
-  return sha1(mt_rand().mt_rand().mt_rand());
+    return sha1(mt_rand().mt_rand().mt_rand());
 }
 
 
@@ -34,6 +34,7 @@ ini_set('session.cookie_lifetime', '604800');
   <link rel="stylesheet" href="/css/imageUploader.css">
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
+  <script src="/js/cloudinary.js"></script>
 
 </head>
 

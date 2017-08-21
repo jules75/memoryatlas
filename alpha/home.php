@@ -17,11 +17,6 @@
       return arr[Math.floor(Math.random()*arr.length)];
     }
 
-    // ask Cloudinary to generate smart thumbnail for us
-    function cloudinaryThumbnailUrl(imageUrl) {
-      return imageUrl.replace(new RegExp('upload/.*?/'), 'upload/w_200,h_300,c_thumb,g_auto/');
-    }
-
     // from https://css-tricks.com/snippets/javascript/get-url-variables/
     function getQueryVariable(variable){
           var query = window.location.search.substring(1);

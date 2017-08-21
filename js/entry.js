@@ -138,6 +138,10 @@ function createMap() {
 
 }
 
+function autolinkHashtags() {
+  console.log('autolinkHashtags');
+}
+
 function initApp() {
 
   let userUrl = new URL(location.href);
@@ -191,6 +195,8 @@ function initApp() {
     loadImages();
     initHoverHandlers();
     initBackgroundSlideshow();
+
+    autolinkHashtags();
 
     // set flag when editor contents changes
     quill.on('text-change', function (delta, oldDelta, source) {

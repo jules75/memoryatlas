@@ -22,7 +22,7 @@
   <script src="//cdn.quilljs.com/1.3.0/quill.min.js"></script>
   <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 
-  <script src="/app.compiled.js"></script>
+  <script src="/entry.compiled.js"></script>
 
   <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initApp"></script>
 

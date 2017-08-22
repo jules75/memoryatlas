@@ -147,33 +147,30 @@ function createMap() {
 // e.g. "A #sentence with #hashtags in it" => ["A ", "#sentence", " with ", "#hashtags", " in it"]
 function splitHashtags(s) {
 
-  var arr=[], i=0, word='', inhash=false;
+  var arr=[], i=0, word='', inhash=false, c;
 
   while(i < s.length) {
 
-    switch(s[i]) {
+    c = s[i];
 
-      case '#':
+    if (c == '#') {
         if (i > 0) {
           arr.push(word);
         }
         inhash=true;
         word = '';
-        break;
+    }
 
-      case ' ':
-      case '\t':
-      case '\r':
-      case '\n':
+    // break hashtag on whitespace or certain punctuation marks
+    if (' \t\r\n,.:;'.indexOf(c) > -1) {
         if (inhash) {
           arr.push(word);
           inhash=false;
           word = '';
         }
-        break;
     }
 
-    word += s[i];
+    word += c;
     i++;
   } 
 

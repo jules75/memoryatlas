@@ -135,6 +135,10 @@ span[data-tagtype="youtube"] {
   border-bottom: 1px solid #d06d16;
   background-color: #ffc898;
 }
+span[data-tagtype="hashtag"] {
+  text-decoration: underline;
+  color: blue;
+}
 
 .buttonRow {
   zoom: 1.1;

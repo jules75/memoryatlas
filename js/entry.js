@@ -32,6 +32,7 @@ function isMap(quillOp) {
 
 Quill.register(CoordBlot);
 Quill.register(DateBlot);
+Quill.register(HashtagBlot);
 Quill.register(ImageBlot);
 Quill.register(YoutubeBlot);
 
@@ -59,6 +60,10 @@ $("#editor-container").click(function (e) {
 
       case 'date':
         DateBlot.popupShow(t.dataset.yyyymmdd);
+        break;
+
+      case 'hashtag':
+        HashtagBlot.popupShow(t.dataset.hashtag);
         break;
 
       case 'image':
@@ -138,8 +143,72 @@ function createMap() {
 
 }
 
-function autolinkHashtags() {
-  console.log('autolinkHashtags');
+// Takes string, returns array of string with hashtags in their own entries
+// e.g. "A #sentence with #hashtags in it" => ["A ", "#sentence", " with ", "#hashtags", " in it"]
+function splitHashtags(s) {
+
+  var arr=[], i=0, word='', inhash=false;
+
+  while(i < s.length) {
+
+    switch(s[i]) {
+
+      case '#':
+        if (i > 0) {
+          arr.push(word);
+        }
+        inhash=true;
+        word = '';
+        break;
+
+      case ' ':
+      case '\t':
+      case '\r':
+      case '\n':
+        if (inhash) {
+          arr.push(word);
+          inhash=false;
+          word = '';
+        }
+        break;
+    }
+
+    word += s[i];
+    i++;
+  } 
+
+  arr.push(word);
+  return arr;
+}
+
+function autolinkHashtags() { 
+
+  function makeHashtagOp(s) {
+    if (s[0] == '#') {
+      return {insert: s, attributes: {hashtag: s.slice(1)}};
+    }
+    return {insert: s};
+  }
+
+  // lock editor
+  quill.disable();
+
+  // iterate ops, split by hashtags
+  var result = [];  
+  for (let op of quill.getContents().ops) {
+
+    // don't search for hashtags in tagged text
+    if (op.hasOwnProperty('attributes')) {
+      result = result.concat(op);
+      continue;
+    }
+
+    result = result.concat(splitHashtags(op.insert).map(makeHashtagOp));
+  }
+
+  // save to editor, unlock
+  quill.setContents({ops: result});
+  quill.enable();
 }
 
 function initApp() {

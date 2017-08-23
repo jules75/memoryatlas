@@ -42,7 +42,7 @@ function create_tag_cache() {
             $words = preg_split("/\s/", $op->insert);
 
             foreach($words AS $word) {
-                if ($word[0] == '#') {
+                if (isset($word[0]) && $word[0] == '#') {
                     // same data structure as 'list' API call
                     $result[$word]['result'][] = [
                         'entry_id' => $entry->entry_id, 
@@ -57,7 +57,8 @@ function create_tag_cache() {
     file_put_contents('cache/hashtags.json', json_encode($result, JSON_PRETTY_PRINT));
 }
 
-
+echo "Creating JSON cache files...";
 create_coord_cache();
 create_tag_cache();
+echo "Done.";
 

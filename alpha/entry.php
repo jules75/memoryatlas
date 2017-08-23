@@ -1,5 +1,18 @@
 <?php include_once '_top.php'; ?>
 
+<?php require_once('../db.php'); ?>
+
+  <noscript>
+  <pre style="white-space: pre-line;">
+  <?php 
+    $entry = get_entry($_GET['entry_id']);
+    foreach ($entry->ops AS $op) {
+      echo ($op->insert);
+    }
+    ?>
+  </pre>
+  </noscript>
+
   <div id="image-container">
   </div>
 

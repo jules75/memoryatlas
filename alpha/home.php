@@ -1,5 +1,15 @@
 <?php include_once '_top.php'; ?>
 
+<?php require_once('../db.php'); ?>
+
+  <noscript>
+  <ul>
+  <?php foreach(get_entries()->result AS $entry): ?>
+  <li><a href="/alpha/entry.php?entry_id=<?php echo $entry->entry_id; ?>">Link to entry</a></li>
+  <?php endforeach; ?>
+  </ul>
+  </noscript>
+
   <ul id="entry_previews"></ul>
 
   <script>
@@ -11,10 +21,6 @@
         }
       }
       return false;
-    }
-
-    function randomItem(arr) {
-      return arr[Math.floor(Math.random()*arr.length)];
     }
 
     // from https://css-tricks.com/snippets/javascript/get-url-variables/

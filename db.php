@@ -48,6 +48,22 @@ function get_entry($entry_id) {
 }
 
 
+// Return requested revision of single entry
+function get_entry_revision($entry_id, $revision_id) {
+
+    global $mongo, $readPreference;
+
+    $filter = ['entry_id' => $entry_id, '_id' => new MongoDB\BSON\ObjectID($revision_id)];
+    $options = ['sort' => ['_id' => -1], 'limit' => 1];
+    $query = new MongoDB\Driver\Query($filter, $options);
+    $cursor = $mongo->executeQuery('memoryatlas.entries', $query, $readPreference);
+
+    foreach ($cursor as $doc) {
+        return $doc;
+    }
+}
+
+
 // Return all revisions of single entry, newest first
 function get_entry_history($entry_id) {
 

@@ -15,8 +15,12 @@ class YoutubeBlot extends Inline {
   }
 
   static popupEditor(onOk) {
-    let vid = prompt("Enter Youtube video id, e.g. RLoHcB8A63M");
-    onOk(vid);
+    var picker = new google.picker.PickerBuilder().
+        addView(new google.picker.VideoSearchView().
+        setSite(google.picker.VideoSearchView.YOUTUBE)).
+        setCallback(onOk).
+        build();
+    picker.setVisible(true);
   }
 
   static popupShow(vid) {

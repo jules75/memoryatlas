@@ -106,8 +106,11 @@ $('#link-button').click(function () {
   });
 });
 $('#youtube-button').click(function () {
-  YoutubeBlot.popupEditor(function (vid) {
-    quill.format('youtube', vid);
+  YoutubeBlot.popupEditor(function (response) {
+    if (response.action == "picked") {
+      let vid = response.docs[0].id;
+      quill.format('youtube', vid);
+    }
   });
 });
 $('#erase-button').click(function () {

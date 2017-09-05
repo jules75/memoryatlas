@@ -23,6 +23,7 @@
     <button id="coord-button" title="Place on map"> <i class="fa fa-map-marker" ></i></button>
     <button id="date-button" title="Calendar date"> <i class="fa fa-calendar" ></i></button>
     <button id="image-button" title="Upload image"><i class="fa fa-file-image-o"></i></button>
+    <button id="link-button" title="Link web page"><i class="fa fa-link"></i></button>
     <button id="youtube-button" title="Link a Youtube"><i class="fa fa-youtube"></i></button>
     <button id="erase-button" title="Erase formatting"><i class="fa fa-ban"></i></button>
   </div>

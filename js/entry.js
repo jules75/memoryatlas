@@ -35,6 +35,7 @@ Quill.register(DateBlot);
 Quill.register(HashtagBlot);
 Quill.register(ImageBlot);
 Quill.register(YoutubeBlot);
+Quill.register(LinkBlot);
 
 let quill = new Quill('#editor-container', {
   modules: {
@@ -70,6 +71,10 @@ $("#editor-container").click(function (e) {
         ImageBlot.popupShow(t.dataset.url);
         break;
 
+      case 'link':
+        LinkBlot.popupShow(t.dataset.url);
+        break;
+
       case 'youtube':
         YoutubeBlot.popupShow(t.dataset.videoid);
         break;
@@ -93,6 +98,11 @@ $('#date-button').click(function () {
 $('#image-button').click(function () {
   ImageBlot.popupEditor(function (url) {
     quill.format('image', url);
+  });
+});
+$('#link-button').click(function () {
+  LinkBlot.popupEditor(function (url) {
+    quill.format('link', url);
   });
 });
 $('#youtube-button').click(function () {

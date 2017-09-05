@@ -135,7 +135,7 @@ span[data-tagtype="youtube"] {
   border-bottom: 1px solid #d06d16;
   background-color: #ffc898;
 }
-span[data-tagtype="hashtag"] {
+span[data-tagtype="hashtag"], span[data-tagtype="link"] {
   text-decoration: underline;
   color: blue;
 }

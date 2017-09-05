@@ -4,7 +4,6 @@ let Inline = Quill.import('blots/inline');
 class CoordBlot extends Inline {
 
   static create(coord) {
-    console.log("CoordBlot create()");
     let node = super.create();
     node.setAttribute('data-tagtype', 'coord');
     node.setAttribute('data-lat', coord.lat);

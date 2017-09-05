@@ -7,6 +7,7 @@ class YoutubeBlot extends Inline {
     let node = super.create();
     node.setAttribute('data-tagtype', 'youtube');
     node.setAttribute('data-videoid', videoid);
+    node.setAttribute('title', `https://www.youtube.com/watch?v=${videoid}`);
     return node;
   }
 

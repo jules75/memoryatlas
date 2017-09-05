@@ -74,6 +74,13 @@ form label, form button {
   margin-top: 1em;
 }
 
+table thead {
+  font-weight: bold;
+}
+table td {
+  padding: 0 15px 2px 0;
+}
+
 button {
   padding: 5px 10px;
 }

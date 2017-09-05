@@ -4,9 +4,9 @@
 
   <noscript>
   <ul>
-  <?php foreach(get_entries()->result AS $entry): ?>
+    <?php foreach (get_entries()->result as $entry) : ?>
   <li><a href="/alpha/entry.php?entry_id=<?php echo $entry->entry_id; ?>">Link to entry</a></li>
-  <?php endforeach; ?>
+    <?php endforeach; ?>
   </ul>
   </noscript>
 
@@ -34,9 +34,17 @@
           return(false);
     }
 
+    function hasNoContent(entryData) {
+      return (entryData.ops[0].insert.length == 1);
+    }
+
     function onEntryData(data) {
 
       let container = $(`[data-entry-id="${data.entry_id}"]`);
+
+      if (hasNoContent(data)) {
+        $(container).hide();
+      }
 
       // get title from first paragraph
       let regex = /(.*?)[\r\n]/;

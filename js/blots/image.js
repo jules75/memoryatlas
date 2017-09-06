@@ -70,7 +70,7 @@ class ImageBlot extends Inline {
   }
 
   static popupShow(url) {
-    $.featherlight($(`img[src="${url}"`));
+    window.open(url, '_blank');
   }
 
   static onHover(e) {

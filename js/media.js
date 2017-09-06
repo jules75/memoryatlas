@@ -39,7 +39,8 @@ function createMap() {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(quillOp.attributes.coord.lat, quillOp.attributes.coord.lng),
             map: mapShow,
-            title: quillOp.insert
+            title: quillOp.insert,
+            opacity: 0.75
         });
 
         marker.addListener('mouseover', onMarkerHover);
@@ -99,14 +100,23 @@ function onImageHover(e) {
 }
 
 function onMarkerHover(e) {
+    
     var spans = $('span[data-tagtype="coord"]');
     spans = spans.filter(function (i, el) {
         return (nearlyEqual(el.dataset.lat, e.latLng.lat()) && nearlyEqual(el.dataset.lng, e.latLng.lng()));
     });
+
+    var markers = mapShowMarkers.filter(function (marker) {
+        return (nearlyEqual(marker.position.lat(), e.latLng.lat()) && nearlyEqual(marker.position.lng(), e.latLng.lng()));
+    });
+
+    markers[0].setOptions({opacity: 1.0});
+
     $(spans[0]).addClass('highlight');
 }
 
 function onMarkerUnhover(e) {
+    mapShowMarkers.map(function(m) { m.setOptions({opacity: 0.75}) });
     $('span[data-tagtype="coord"]').removeClass('highlight');
 }
 

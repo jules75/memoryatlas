@@ -224,12 +224,17 @@ function autolinkHashtags() {
 
 function createImagePreview(i, el) {
   let rect = el.getBoundingClientRect();
-  let img = $(`<img src="${el.dataset.url}" class="preview"></img>`);
-  img.css('position', 'absolute');
-  img.css('right', '5px');
-  img.css('top', rect.top + window.scrollY);
-  img.css('height', '100px');
-  $('body').append(img);
+  let url = el.dataset.url;
+  let img = $(`<img src="${url}" class="preview"></img>`);
+  $(img).css('position', 'absolute');
+  $(img).css('right', '5px');
+  $(img).css('top', rect.top + window.scrollY);
+  $(img).css('height', '100px');
+  $(img).click(function (e) { 
+    window.open(url, '_blank');
+    // $.featherlight($(this)); // can't get featherlight working here??
+  });
+  $('body').append(img);  
 }
 
 
@@ -283,7 +288,6 @@ function initApp() {
     quill.setContents(newEntryOps);
   }).always(function() {
     createMap();
-    loadImages();
     initHoverHandlers();
     // initBackgroundSlideshow();
 
@@ -298,20 +302,6 @@ function initApp() {
   });
 }
 
-
-function loadImages() {
-
-  function injectImage(i, el) {
-    let img = $('<img>').attr('src', el.dataset.url);
-    $('#image-container').append(img);
-  }
-
-  $('span[data-tagtype="image"]').each(injectImage);
-  $('#image-container img').click(function (e) {
-    $.featherlight($(this));
-  });
-
-}
 
 function initHoverHandlers() {
   $('span[data-tagtype="image"]').hover(ImageBlot.onHover);

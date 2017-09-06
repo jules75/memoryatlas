@@ -13,9 +13,6 @@
   </pre>
   </noscript>
 
-  <div id="image-container">
-  </div>
-
   <div id="map-container">
   </div>
 

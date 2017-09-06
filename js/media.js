@@ -12,6 +12,9 @@ function isMap(quillOp) {
     return false;
 }
 
+function nearlyEqual(a, b) {
+    return Math.abs(a-b) < 0.000001;
+}
 
 function createMap() {
 
@@ -38,6 +41,9 @@ function createMap() {
             map: mapShow,
             title: quillOp.insert
         });
+
+        marker.addListener('mouseover', onMarkerHover);
+        marker.addListener('mouseout', onMarkerUnhover);
 
         mapShowMarkers.push(marker);
         bounds.extend(marker.getPosition());
@@ -90,6 +96,18 @@ function onImageHover(e) {
     let fn = (e.type=='mouseenter') ? 'addClass' : 'removeClass';
     let url = e.target.src || e.target.dataset.url;
      $(`#media-panel div.images img[src="${url}"], span[data-url="${url}"]`)[fn]('highlight');
+}
+
+function onMarkerHover(e) {
+    var spans = $('span[data-tagtype="coord"]');
+    spans = spans.filter(function (i, el) {
+        return (nearlyEqual(el.dataset.lat, e.latLng.lat()) && nearlyEqual(el.dataset.lng, e.latLng.lng()));
+    });
+    $(spans[0]).addClass('highlight');
+}
+
+function onMarkerUnhover(e) {
+    $('span[data-tagtype="coord"]').removeClass('highlight');
 }
 
 function renderMediaPanel() {

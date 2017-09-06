@@ -43,8 +43,8 @@ function createMap() {
             opacity: 0.75
         });
 
-        marker.addListener('mouseover', onMarkerHover);
-        marker.addListener('mouseout', onMarkerUnhover);
+        marker.addListener('mouseover', onCoordOrMarkerHover);
+        marker.addListener('mouseout', onCoordOrMarkerUnhover);
 
         mapShowMarkers.push(marker);
         bounds.extend(marker.getPosition());
@@ -99,24 +99,44 @@ function onImageHover(e) {
      $(`#media-panel div.images img[src="${url}"], span[data-url="${url}"]`)[fn]('highlight');
 }
 
-function onMarkerHover(e) {
-    
-    var spans = $('span[data-tagtype="coord"]');
-    spans = spans.filter(function (i, el) {
-        return (nearlyEqual(el.dataset.lat, e.latLng.lat()) && nearlyEqual(el.dataset.lng, e.latLng.lng()));
-    });
-
-    var markers = mapShowMarkers.filter(function (marker) {
-        return (nearlyEqual(marker.position.lat(), e.latLng.lat()) && nearlyEqual(marker.position.lng(), e.latLng.lng()));
-    });
-
-    markers[0].setOptions({opacity: 1.0});
-
-    $(spans[0]).addClass('highlight');
+function unhighlightAllMarkers() {
+    mapShowMarkers.map(function(m) { m.setOptions({opacity: 0.75}) });
 }
 
-function onMarkerUnhover(e) {
-    mapShowMarkers.map(function(m) { m.setOptions({opacity: 0.75}) });
+function highlightMarker(lat, lng) {
+    let markers = mapShowMarkers.filter(function (marker) {
+        return (nearlyEqual(marker.position.lat(), lat) && nearlyEqual(marker.position.lng(), lng));
+    });
+    markers[0].setOptions({opacity: 1.0});
+}
+
+function highlightCoordText(lat, lng) {
+    let spans = $('span[data-tagtype="coord"]').filter(function (i, el) {
+        return (nearlyEqual(el.dataset.lat, lat) && nearlyEqual(el.dataset.lng, lng));
+    });
+    $(spans[0]).addClass('highlight');    
+}
+
+function onCoordOrMarkerHover(e) {
+
+    let lat, lng;
+
+    if (e.hasOwnProperty('latLng')) {
+        lat = Number(e.latLng.lat());
+        lng = Number(e.latLng.lng());
+    }
+    else {
+        lat = Number(e.target.dataset.lat);
+        lng = Number(e.target.dataset.lng);
+    }
+
+    unhighlightAllMarkers();
+    highlightMarker(lat, lng);
+    highlightCoordText(lat, lng);
+}
+
+function onCoordOrMarkerUnhover(e) {
+    unhighlightAllMarkers();
     $('span[data-tagtype="coord"]').removeClass('highlight');
 }
 
@@ -147,6 +167,9 @@ function renderMediaPanel() {
 
     // highlight img + text together
     $("#media-panel div.images img, span[data-tagtype='image']").hover(onImageHover);
+
+    // coord text hover
+    $("span[data-tagtype='coord']").hover(onCoordOrMarkerHover, onCoordOrMarkerUnhover);
 
 }
 

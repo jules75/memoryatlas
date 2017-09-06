@@ -221,6 +221,18 @@ function autolinkHashtags() {
   quill.enable();
 }
 
+
+function createImagePreview(i, el) {
+  let rect = el.getBoundingClientRect();
+  let img = $(`<img src="${el.dataset.url}" class="preview"></img>`);
+  img.css('position', 'absolute');
+  img.css('right', '5px');
+  img.css('top', rect.top + window.scrollY);
+  img.css('height', '100px');
+  $('body').append(img);
+}
+
+
 function initApp() {
 
   let userUrl = new URL(location.href);
@@ -273,9 +285,11 @@ function initApp() {
     createMap();
     loadImages();
     initHoverHandlers();
-    initBackgroundSlideshow();
+    // initBackgroundSlideshow();
 
     autolinkHashtags();
+
+    $("span[data-tagtype='image']").each(createImagePreview);
 
     // set flag when editor contents changes
     quill.on('text-change', function (delta, oldDelta, source) {

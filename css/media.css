@@ -17,12 +17,15 @@
     }
 
 #media-panel div.images img {
-    padding-right: 0.5em;
+    margin-right: 1em;
 }
-
 
 #map-container {
 }
   #mapShow {
     height: 500px;
   }
+
+.highlight {
+    outline: 3px dashed red;
+}

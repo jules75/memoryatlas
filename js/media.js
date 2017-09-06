@@ -86,14 +86,18 @@ function onHeadingClick(e) {
     google.maps.event.trigger(mapShow, 'resize')
 }
 
+function onImageHover(e) {
+    let fn = (e.type=='mouseenter') ? 'addClass' : 'removeClass';
+    let url = e.target.src || e.target.dataset.url;
+     $(`#media-panel div.images img[src="${url}"], span[data-url="${url}"]`)[fn]('highlight');
+}
+
 function renderMediaPanel() {
 
     // create tab headings
     var headings = `<ul>
         <li>Images</li>
         <li>Map</li>
-        <li>YouTubes</li>        
-        <li>Dates</li>
         </ul>`;
     $('#media-panel').append(headings);
 
@@ -112,6 +116,9 @@ function renderMediaPanel() {
 
     // click first tab heading
     $('#media-panel li:first-child').click();
+
+    // highlight img + text together
+    $("#media-panel div.images img, span[data-tagtype='image']").hover(onImageHover);
 
 }
 

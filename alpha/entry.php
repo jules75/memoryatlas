@@ -1,5 +1,7 @@
 <?php include_once '_top.php'; ?>
 
+  <link rel="stylesheet" href="/css/media.css">
+
 <?php require_once('../db.php'); ?>
 
   <noscript>
@@ -13,9 +15,6 @@
   </pre>
   </noscript>
 
-  <div id="map-container">
-  </div>
-
   <div id="tooltip-controls">
     <button id="coord-button" title="Place on map"> <i class="fa fa-map-marker" ></i></button>
     <button id="date-button" title="Calendar date"> <i class="fa fa-calendar" ></i></button>
@@ -27,6 +26,9 @@
 
   <div id="scrolling-container">
     <div id="editor-container"></div>
+  </div>
+
+  <div id="media-panel">
   </div>
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>

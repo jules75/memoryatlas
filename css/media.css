@@ -1,0 +1,28 @@
+
+#media-panel ul {
+    margin-bottom: 20px;
+}
+
+#media-panel li {
+    display: table-cell;
+    cursor: pointer;
+    border: 1px solid #999;
+    border-width: 0 0 1px 0;
+    padding: 8px 15px;
+    color: #666;
+}
+    #media-panel li.selected {
+        border-width: 1px 1px 0 1px;
+        color: black;
+    }
+
+#media-panel div.images img {
+    padding-right: 0.5em;
+}
+
+
+#map-container {
+}
+  #mapShow {
+    height: 500px;
+  }

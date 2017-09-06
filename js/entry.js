@@ -21,14 +21,6 @@ function destroyOverlay() {
   $("#fullScreenOverlay").remove();
 }
 
-function isMap(quillOp) {
-  if (quillOp.hasOwnProperty('attributes')) {
-    if (quillOp.attributes.hasOwnProperty('coord')) {
-      return true;
-    }
-  }
-  return false;
-}
 
 Quill.register(CoordBlot);
 Quill.register(DateBlot);
@@ -119,43 +111,6 @@ $('#erase-button').click(function () {
 });
 
 
-function createMap() {
-
-  let mapOps = quill.getContents().ops.filter(isMap);
-  
-  if (mapOps.length == 0) {
-    return;
-  }
-
-  let mapDiv = $(`<div id="mapShow"></div>`);
-  let bounds = new google.maps.LatLngBounds();
-
-  // create map
-  $('#map-container').append(mapDiv);
-  mapShow = new google.maps.Map(document.getElementById('mapShow'), {
-    center: { lat: -37.397, lng: 143.644 },
-    zoom: 8
-  });
-
-  function createMarker(quillOp) {
-
-    var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(quillOp.attributes.coord.lat, quillOp.attributes.coord.lng),
-      map: mapShow,
-      title: quillOp.insert
-    });
-
-    mapShowMarkers.push(marker);
-
-    bounds.extend(marker.getPosition());    
-  }
-
-  // create markers, fit to bounds
-  mapOps.map(createMarker);
-  mapShow.fitBounds(bounds);  
-
-}
-
 // Takes string, returns array of string with hashtags in their own entries
 // e.g. "A #sentence with #hashtags in it" => ["A ", "#sentence", " with ", "#hashtags", " in it"]
 function splitHashtags(s) {
@@ -222,22 +177,6 @@ function autolinkHashtags() {
 }
 
 
-function createImagePreview(i, el) {
-  let rect = el.getBoundingClientRect();
-  let url = el.dataset.url;
-  let img = $(`<img src="${url}" class="preview"></img>`);
-  $(img).css('position', 'absolute');
-  $(img).css('right', '5px');
-  $(img).css('top', rect.top + window.scrollY);
-  $(img).css('height', '100px');
-  $(img).click(function (e) { 
-    window.open(url, '_blank');
-    // $.featherlight($(this)); // can't get featherlight working here??
-  });
-  $('body').append(img);  
-}
-
-
 function initApp() {
 
   let userUrl = new URL(location.href);
@@ -287,14 +226,10 @@ function initApp() {
   }).fail(function(data) {
     quill.setContents(newEntryOps);
   }).always(function() {
-    createMap();
-    initHoverHandlers();
-    // initBackgroundSlideshow();
-
+    // initHoverHandlers();
     autolinkHashtags();
-
-    $("span[data-tagtype='image']").each(createImagePreview);
-
+    renderMediaPanel();
+    
     // set flag when editor contents changes
     quill.on('text-change', function (delta, oldDelta, source) {
       saveIsRequired = true;
@@ -303,29 +238,10 @@ function initApp() {
 }
 
 
-function initHoverHandlers() {
-  $('span[data-tagtype="image"]').hover(ImageBlot.onHover);
-}
+// function initHoverHandlers() {
+//   $('span[data-tagtype="image"]').hover(ImageBlot.onHover);
+// }
 
-function initBackgroundSlideshow() {
-
-  let imageTags = $.makeArray($('span[data-tagtype="image"]'));
-  let index = 0;
-
-  function changeBackground() {
-    if (index >= imageTags.length) {
-      index = 0;
-    }
-    setBackground(imageTags[index].dataset.url);
-    index++;
-  }
-
-  // if images tags present, update once, then every 60 seconds
-  if (imageTags.length > 0) {
-    changeBackground();
-    setInterval(changeBackground, 60 * 1000);
-  }
-}
 
 function setBackground(imageUrl) {
   $('html').css('background-image', `url(${cloudinaryGrayscaleUrl(imageUrl)})`);

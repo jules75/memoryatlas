@@ -164,3 +164,8 @@ button:active, button:focus {
 .success {
   color: green;
 }
+
+
+.highlight {
+    outline: 3px dashed red;
+}

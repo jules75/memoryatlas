@@ -32,17 +32,34 @@
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(dataRow.lat, dataRow.lng),
         map: map,
-        opacity: 0.85,
+        opacity: 0.65,
         entry_id: dataRow.entry_id,
         title: ''
       });
 
       markers.push(marker);
-    //   bounds.extend(marker.getPosition());
+    }
 
-    //   marker.addListener('click', function() {
-    //     document.location.href = `/alpha/entry.php?entry_id=${dataRow.entry_id}`;
-    //   });
+    function highlight(marker) {
+       marker.setOptions({opacity: 1.0});
+    }
+
+    function unhighlight(marker) {
+       marker.setOptions({opacity: 0.65});
+    }
+
+    function onPreviewHover(e) {
+      let li = e.target.parentElement.parentElement;
+      let id = li.dataset.entryId;
+      $(li).addClass('highlight');
+      markers.filter((m) => m.entry_id==id).map(highlight);
+    }
+
+    function onPreviewUnhover(e) {
+      let li = e.target.parentElement.parentElement;
+      let id = li.dataset.entryId;
+      $(li).removeClass('highlight');
+      markers.map(unhighlight);
     }
 
     function onEntryReceived(result) {
@@ -55,6 +72,7 @@
             </li>
             `);
       $('#entry_previews').append(item);
+      $(item).hover(onPreviewHover, onPreviewUnhover);
       $(item).fadeIn();
       result.data.coords.map(createMarker);
     }

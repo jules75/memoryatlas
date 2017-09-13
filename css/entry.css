@@ -29,10 +29,6 @@
     height: 500px;
   }
 
-.highlight {
-    outline: 3px dashed red;
-}
-
 #calendarPicker {
 	position: fixed;
 	right: 100px;

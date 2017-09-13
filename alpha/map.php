@@ -11,12 +11,15 @@
 
   <script>
 
+  var mapLastMovedTimestamp = 0;
+  var shouldFetchPreviews = true;
+
+  var markers = [];    
+
+
   function initMap() {
 
     let twoSeconds = 2000;
-
-    var mapLastMovedTimestamp = 0;
-    var shouldFetchPreviews = true;
 
     // create map
     map = new google.maps.Map(document.getElementById('map-large'), {
@@ -24,21 +27,21 @@
       zoom: 8
     });
 
-    // function createMarker(dataRow) {
-     
-    //   var marker = new google.maps.Marker({
-    //     position: new google.maps.LatLng(dataRow.coord.lat, dataRow.coord.lng),
-    //     map: map,
-    //     title: dataRow.title
-    //   });
+    function createMarker(dataRow) {
 
-    //   markers.push(marker);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(dataRow.lat, dataRow.lng),
+        map: map,
+        title: ''
+      });
+
+      markers.push(marker);
     //   bounds.extend(marker.getPosition());
 
     //   marker.addListener('click', function() {
     //     document.location.href = `/alpha/entry.php?entry_id=${dataRow.entry_id}`;
     //   });
-    // }
+    }
 
     function onEntryReceived(result) {
       let item = $(`
@@ -50,6 +53,7 @@
             </li>
             `);
       $('#entry_previews').append(item);
+      result.data.coords.map(createMarker);
     }
 
     function fetchEntryPreview(entryId) {
@@ -59,6 +63,8 @@
 
     function onEntryIdsReceived(result) {
       $('#entry_previews').empty();
+      markers.map(function(m) { m.setMap(null); });
+      markers = [];
       result.data.entry_ids.map(fetchEntryPreview);
     }
 

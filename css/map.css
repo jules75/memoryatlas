@@ -1,23 +1,19 @@
 
-#mapContainer {
-  height: auto;
-  width: 530px;
-  background-color: white;
+#content {
+  display: flex;  
 }
-  #mapContainer .buttonRow {
-    margin-top: 1em;
-  }
-#map {
-  height: 500px;
-  width: 500px; 
+
+#entry_previews, #map-large {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+#entry_previews {
+  zoom: 0.8;
+  order: 2;
 }
 
 #map-large {
   height: 700px;
   width: 100%;
-}
-
-#entry_previews {
-  height: 320px;
-  zoom: 0.6;
 }

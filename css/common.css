@@ -17,9 +17,6 @@ body {
 img.preview {
   cursor: pointer;
 }
-  img.preview:hover {
-    z-index: 999;
-  }
 
 input[type="password"], input[type="text"], input[type="email"] {
   font-family: monospace;
@@ -134,32 +131,6 @@ button:active, button:focus {
   outline: none;
 }
 
-
-span[data-tagtype] {
-  cursor: pointer;
-}
-
-span[data-tagtype="image"] {
-  border-bottom: 1px solid #3185d8;
-  background-color: #cfdbf5;
-}
-span[data-tagtype="date"] {
-  border-bottom: 1px solid #419c41;
-  background-color: #b2f5b2;
-}
-span[data-tagtype="coord"] {
-  border-bottom: 1px solid #ea4553;
-  background-color: #ffdae0;
-}
-span[data-tagtype="youtube"] {
-  border-bottom: 1px solid #d06d16;
-  background-color: #ffc898;
-}
-span[data-tagtype="hashtag"], span[data-tagtype="link"] {
-  text-decoration: underline;
-  color: blue;
-}
-
 .buttonRow {
   zoom: 1.1;
   text-align: center;
@@ -187,39 +158,6 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
     background: rgba(255,255,255,1);
   }
 }
-
-#entry_previews li {
-  width: 200px;
-  height: 300px;
-  float: left;
-  margin: 20px;
-  background-color: #aaa;
-  overflow: hidden;
-  position: relative;
-}
-  #entry_previews li img {
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-  }
-  #entry_previews li span {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #444;
-    color: #ff8;
-    opacity: 0.8;
-  }
-  #entry_previews li:hover {
-    background-color: #888;
-  }
-  #entry_previews li:hover * {
-    opacity: 1;
-  }
 
 .error {
   color: red;

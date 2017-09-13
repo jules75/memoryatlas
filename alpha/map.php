@@ -1,5 +1,7 @@
 <?php include_once '_top.php'; ?>
 
+  <link rel="stylesheet" href="/css/map.css">
+
   <div id="map-large"></div>
 
   <ul id="entry_previews"></ul>

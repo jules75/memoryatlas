@@ -28,10 +28,7 @@ ini_set('session.cookie_lifetime', '604800');
 
   <link href="//cdn.quilljs.com/1.3.0/quill.bubble.css" rel="stylesheet">  
 
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/map.css">
-  <link rel="stylesheet" href="/css/calendarPicker.css">
-  <link rel="stylesheet" href="/css/imageUploader.css">
+  <link rel="stylesheet" href="/css/common.css">
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
   <script src="/js/cloudinary.js"></script>

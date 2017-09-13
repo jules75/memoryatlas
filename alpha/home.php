@@ -1,5 +1,7 @@
 <?php include_once '_top.php'; ?>
 
+<link rel="stylesheet" href="/css/map.css">
+
 <?php require_once('../db.php'); ?>
 
   <noscript>

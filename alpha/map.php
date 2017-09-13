@@ -10,7 +10,10 @@
 
   function initMap() {
 
-    var lastApiCallTimeStamp = 0;
+    let twoSeconds = 2000;
+
+    var mapLastMovedTimestamp = 0;
+    var shouldFetchPreviews = true;
 
     // create map
     map = new google.maps.Map(document.getElementById('map-large'), {
@@ -35,7 +38,6 @@
     // }
 
     function onEntryReceived(result) {
-      console.log(result);
       let item = $(`
           <li data-entry-id="${result.data.entry_id}">
             <a href="/alpha/entry.php?entry_id=${result.data.entry_id}">
@@ -58,25 +60,34 @@
     }
 
     function onBoundsChange() {
-
-      // avoid thrashing the server
-      let threeSeconds = 2000;
-      if ((Date.now() - lastApiCallTimeStamp) < threeSeconds) {
-        return;
-      }
-      lastApiCallTimeStamp = Date.now();
-
-      let bounds = map.getBounds();
-      let north = bounds.getNorthEast().lat();
-      let east = bounds.getNorthEast().lng();
-      let south = bounds.getSouthWest().lat();
-      let west = bounds.getSouthWest().lng();
-
-      let url = `/api/v1/search/findEntriesByLatLng.php?north=${north}&east=${east}&south=${south}&west=${west}`;
-      $.getJSON(url, onEntryIdsReceived);
+      mapLastMovedTimestamp = Date.now();
+      shouldFetchPreviews = true;
     }
 
-     google.maps.event.addListener(map, "bounds_changed", onBoundsChange);
+    function checkMapStoppedMoving() {
+      
+      if (((Date.now() - mapLastMovedTimestamp) > twoSeconds) && shouldFetchPreviews) {
+
+        console.log('fetching');
+
+        shouldFetchPreviews = false;
+
+        let bounds = map.getBounds();
+        let north = bounds.getNorthEast().lat();
+        let east = bounds.getNorthEast().lng();
+        let south = bounds.getSouthWest().lat();
+        let west = bounds.getSouthWest().lng();
+
+        let url = `/api/v1/search/findEntriesByLatLng.php?north=${north}&east=${east}&south=${south}&west=${west}`;
+        $.getJSON(url, onEntryIdsReceived);
+      }
+
+    }
+
+    google.maps.event.addListener(map, "bounds_changed", onBoundsChange);
+
+    // periodically check if map has stopped moving for 2 seconds
+    setInterval(checkMapStoppedMoving, 250);
   }
 
   </script>

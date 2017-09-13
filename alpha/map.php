@@ -23,8 +23,8 @@
 
     // create map
     map = new google.maps.Map(document.getElementById('map-large'), {
-      center: { lat: -37.397, lng: 143.644 },
-      zoom: 8
+      center: { lat: -37.56, lng: 143.85 },
+      zoom: 14
     });
 
     function createMarker(dataRow) {

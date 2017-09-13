@@ -38,6 +38,8 @@
       });
 
       markers.push(marker);
+      marker.addListener('mouseover', onMarkerHover);
+      marker.addListener('mouseout', onMarkerUnhover);
     }
 
     function highlight(marker) {
@@ -46,6 +48,30 @@
 
     function unhighlight(marker) {
        marker.setOptions({opacity: 0.65});
+    }
+
+    function findMarkerWithLatLng(lat, lng) {
+
+      function f(m) {
+        return (m.position.lat()==lat && m.position.lng()==lng);
+      }
+
+      return markers.filter(f)[0];
+    }
+
+    function onMarkerHover(e) {
+      
+      lat = e.latLng.lat();
+      lng = e.latLng.lng();
+      
+      marker = findMarkerWithLatLng(lat, lng);
+      highlight(marker);
+      $(`#entry_previews [data-entry-id="${marker.entry_id}"]`).addClass('highlight');
+    }
+
+    function onMarkerUnhover(e) {
+      markers.map(unhighlight);
+      $('#entry_previews li').removeClass('highlight');
     }
 
     function onPreviewHover(e) {

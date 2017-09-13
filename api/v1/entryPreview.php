@@ -42,7 +42,7 @@ function firstImage($entry) {
 }
 
 function title($entry) {
-    return $entry->ops[0];
+    return $entry->ops[0]->insert;
 }
 
 $entry_id = filter_hex($_GET['id']);

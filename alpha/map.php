@@ -2,7 +2,7 @@
 
   <div id="map-large"></div>
 
-  <p>New map markers will not appear here instantly.</p>  
+  <ul id="entry_previews"></ul>
 
   <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
 
@@ -10,8 +10,7 @@
 
   function initMap() {
 
-    let bounds = new google.maps.LatLngBounds();
-    let markers = [];
+    var lastApiCallTimeStamp = 0;
 
     // create map
     map = new google.maps.Map(document.getElementById('map-large'), {
@@ -19,28 +18,65 @@
       zoom: 8
     });
 
-    function createMarker(dataRow) {
+    // function createMarker(dataRow) {
      
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(dataRow.coord.lat, dataRow.coord.lng),
-        map: map,
-        title: dataRow.title
-      });
+    //   var marker = new google.maps.Marker({
+    //     position: new google.maps.LatLng(dataRow.coord.lat, dataRow.coord.lng),
+    //     map: map,
+    //     title: dataRow.title
+    //   });
 
-      markers.push(marker);
-      bounds.extend(marker.getPosition());
+    //   markers.push(marker);
+    //   bounds.extend(marker.getPosition());
 
-      marker.addListener('click', function() {
-        document.location.href = `/alpha/entry.php?entry_id=${dataRow.entry_id}`;
-      });
+    //   marker.addListener('click', function() {
+    //     document.location.href = `/alpha/entry.php?entry_id=${dataRow.entry_id}`;
+    //   });
+    // }
+
+    function onEntryReceived(result) {
+      console.log(result);
+      let item = $(`
+          <li data-entry-id="${result.data.entry_id}">
+            <a href="/alpha/entry.php?entry_id=${result.data.entry_id}">
+            <img src="${result.data.image_url}"></img>
+            <span>${result.data.title}</span>          
+            </a>
+            </li>
+            `);
+      $('#entry_previews').append(item);
     }
 
-    function onDataReceived(dataRows) {
-      dataRows.map(createMarker);
-      map.fitBounds(bounds);      
+    function fetchEntryPreview(entryId) {
+      let url = `/api/v1/entryPreview.php?id=${entryId}`;
+      $.getJSON(url, onEntryReceived);
     }
 
-    $.getJSON('/cache/coords.json', onDataReceived);
+    function onEntryIdsReceived(result) {
+      $('#entry_previews').empty();
+      result.data.entry_ids.map(fetchEntryPreview);
+    }
+
+    function onBoundsChange() {
+
+      // avoid thrashing the server
+      let threeSeconds = 2000;
+      if ((Date.now() - lastApiCallTimeStamp) < threeSeconds) {
+        return;
+      }
+      lastApiCallTimeStamp = Date.now();
+
+      let bounds = map.getBounds();
+      let north = bounds.getNorthEast().lat();
+      let east = bounds.getNorthEast().lng();
+      let south = bounds.getSouthWest().lat();
+      let west = bounds.getSouthWest().lng();
+
+      let url = `/api/v1/search/findEntriesByLatLng.php?north=${north}&east=${east}&south=${south}&west=${west}`;
+      $.getJSON(url, onEntryIdsReceived);
+    }
+
+     google.maps.event.addListener(map, "bounds_changed", onBoundsChange);
   }
 
   </script>

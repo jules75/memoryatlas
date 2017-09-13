@@ -45,6 +45,19 @@ function title($entry) {
     return $entry->ops[0]->insert;
 }
 
+function coords($entry) {
+
+    $result = [];
+
+    foreach ($entry->ops AS $op) {
+        if (isset($op->attributes->coord)) {
+            $result[] = $op->attributes->coord;
+        }
+    }
+
+    return $result;
+}
+
 $entry_id = filter_hex($_GET['id']);
 $entry = get_entry($entry_id);
 if ($entry) {
@@ -52,7 +65,8 @@ if ($entry) {
         'data' => [
             'entry_id' => $entry->entry_id,
             'image_url' => cloudinaryThumbnailUrl(firstImage($entry)),
-            'title' => title($entry)
+            'title' => title($entry),
+            'coords' => coords($entry)
         ]
     ]);
 }

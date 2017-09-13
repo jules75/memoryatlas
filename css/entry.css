@@ -99,3 +99,13 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
 }
 
 
+#mapContainer {
+  height: auto;
+  width: 530px;
+  background-color: white;
+}
+  #map {
+    height: 500px;
+    width: 500px; 
+  }
+

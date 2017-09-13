@@ -33,6 +33,7 @@
         position: new google.maps.LatLng(dataRow.lat, dataRow.lng),
         map: map,
         opacity: 0.85,
+        entry_id: dataRow.entry_id,
         title: ''
       });
 

@@ -51,7 +51,9 @@ function coords($entry) {
 
     foreach ($entry->ops AS $op) {
         if (isset($op->attributes->coord)) {
-            $result[] = $op->attributes->coord;
+            $row = $op->attributes->coord;
+            $row->entry_id = $entry->entry_id;
+            $result[] = $row;
         }
     }
 

@@ -1,6 +1,6 @@
 <?php include_once '_top.php'; ?>
 
-<link rel="stylesheet" href="/css/map.css">
+<link rel="stylesheet" href="/css/preview.css">
 
 <?php require_once('../db.php'); ?>
 

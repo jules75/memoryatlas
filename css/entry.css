@@ -1,3 +1,6 @@
+#content {
+  display: flex;
+}
 
 #media-panel ul {
     margin-bottom: 20px;

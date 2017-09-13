@@ -1,10 +1,11 @@
 <?php include_once '_top.php'; ?>
 
   <link rel="stylesheet" href="/css/map.css">
-
-  <div id="map-large"></div>
+  <link rel="stylesheet" href="/css/preview.css">
 
   <ul id="entry_previews"></ul>
+
+  <div id="map-large"></div>
 
   <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
 

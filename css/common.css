@@ -92,7 +92,6 @@ button {
 
 #content {
   padding: 25px;
-  display: flex;
 }
 
 #scrolling-container, #media-panel {

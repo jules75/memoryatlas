@@ -19,7 +19,7 @@
 
   function initMap() {
 
-    let twoSeconds = 2000;
+    let fetchWaitPeriod = 1000;
 
     // create map
     map = new google.maps.Map(document.getElementById('map-large'), {
@@ -122,7 +122,7 @@
 
     function checkMapStoppedMoving() {
       
-      if (((Date.now() - mapLastMovedTimestamp) > twoSeconds) && shouldFetchPreviews) {
+      if (((Date.now() - mapLastMovedTimestamp) > fetchWaitPeriod) && shouldFetchPreviews) {
 
         console.log('fetching');
 

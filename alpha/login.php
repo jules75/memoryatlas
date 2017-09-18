@@ -16,6 +16,7 @@ if (isset($_POST['email'])) {
 	if (password_verify($_POST['password'], $result->password_hash)) {
 		$_SESSION['user']['id'] = (String)$result->_id;
 		$_SESSION['user']['email'] = $_POST['email'];
+		$_SESSION['user']['username'] = (String)$result->username;
 		header('Location: /alpha/home.php');
 	}
 

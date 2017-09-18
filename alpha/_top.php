@@ -48,7 +48,7 @@ ini_set('session.cookie_lifetime', '604800');
         <?php if (isset($_SESSION['user'])) : ?>
       <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>" title="New entry"><i class="fa fa-plus" aria-hidden="true"></i> <span>New entry</span></a></li>
       <li><a href="/alpha/password.php" title="Account"><i class="fa fa-user" aria-hidden="true"></i> <span>Account</span></a></li>
-      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout <?php echo $_SESSION['user']['email'] ?></span></a></li>
+      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout <?php echo $_SESSION['user']['username'] ?></span></a></li>
         <?php else : ?>
       <li><a href="/alpha/login.php" title="Login"><i class="fa fa-user" aria-hidden="true"></i> <span>Login</span></a></li>
         <?php endif; ?>

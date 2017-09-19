@@ -12,6 +12,7 @@ $readPreference = new MongoDB\Driver\ReadPreference(MongoDB\Driver\ReadPreferenc
 
 
 // Return all entries (newest revision)
+// Note that this WILL INCLUDE hidden entries
 function get_entries()
 {
     global $mongo;
@@ -32,7 +33,7 @@ function get_entries()
 }
 
 
-// Return newest revision of single entry
+// Return newest revision of single entry, EVEN IF it is hidden
 function get_entry($entry_id) {
 
     global $mongo, $readPreference;

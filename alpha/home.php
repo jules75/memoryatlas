@@ -38,6 +38,23 @@
 
     function onEntryData(data) {
 
+      let entry = data.data;
+
+      if (entry.hidden) {
+        return;
+      }
+
+      let item = $(`
+        <li data-entry-id="${entry.entry_id}">
+          <a href="/alpha/entry.php?entry_id=${entry.entry_id}">
+          <img></img>
+          <span>Loading&hellip;</span>          
+          </a>
+          </li>
+          `);
+
+      $('#entry_previews').append(item);      
+
       let container = $(`[data-entry-id="${data.data.entry_id}"]`);
 
       // get title from first paragraph
@@ -62,17 +79,6 @@
 
     function onEntryListData(data) {
       data.result.forEach(function(entry) {
-        let item = $(`
-          <li data-entry-id="${entry.entry_id}">
-            <a href="/alpha/entry.php?entry_id=${entry.entry_id}">
-            <img></img>
-            <span>Loading&hellip;</span>          
-            </a>
-            </li>
-            `);
-
-        $('#entry_previews').append(item);
-        
         let url = `/api/v1/entry.php?id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });

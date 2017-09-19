@@ -21,22 +21,6 @@ require_once 'api/fns.php';
 // sessions required for user authentication
 session_start();
 
-
-
-if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    switch ($_GET['action']) {
-        
-        // Return all revisions of single entry, newest first
-        case 'history':
-            $entry_id = filter_hex($_GET['entry_id']);
-            succeed(get_entry_history($entry_id));
-            break;
-
-        default:
-            fail("Unknown GET action '$_GET[action]'");
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     switch ($_POST['action']) {
         case 'image':

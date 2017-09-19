@@ -2,22 +2,7 @@
 
 require_once '../../../config.php';
 require_once '../../../db.php';
-
-
-function succeed($result)
-{
-    header('Content-type:application/json;charset=utf-8');
-    echo json_encode($result);
-    die();
-}
-
-function fail($message)
-{
-    echo $message;
-    http_response_code(400);
-    die();
-}
-
+require_once '../../../api/fns.php';
 
 // get bounds, defaults to 0 on bad/missing entries
 $north = floatval($_GET['north']);

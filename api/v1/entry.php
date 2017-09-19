@@ -38,6 +38,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_SESSION['user'])) {
+        $_POST['payload']['user']['id'] = $_SESSION['user']['id'];                
+        succeed(insert_entry([$_POST['payload']]));
+    }
+
+    fail("You must be logged in to save changes");
+
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     $entry_id = filter_hex($_GET['id']);

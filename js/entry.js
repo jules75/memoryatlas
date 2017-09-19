@@ -267,7 +267,7 @@ setInterval(function () {
     let contents = quill.getContents();
     contents = JSON.parse(JSON.stringify(contents));  // breaks if you don't do this
     contents.entry_id = urlPageId();
-    $.post('/api.php',
+    $.post('/api/v1/entry.php',
       {
         action: 'save',
         payload: contents

@@ -6,10 +6,10 @@
 
   <noscript>
   <pre style="white-space: pre-line;">
-  <?php 
+    <?php
     $entry = get_entry($_GET['entry_id']);
-    foreach ($entry->ops AS $op) {
-      echo ($op->insert);
+    foreach ($entry->ops as $op) {
+        echo ($op->insert);
     }
     ?>
   </pre>
@@ -29,6 +29,21 @@
   </div>
 
   <div id="media-panel">
+    
+    <ul>
+    <li>Images</li>
+    <li>Map</li>
+    <li>More</li>
+    </ul>
+
+    <div class="images"></div>
+
+    <div id="map-container"></div>
+    
+    <div>
+      <p><button id="delete">Delete this entry</button></p>
+    </div>
+
   </div>
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>

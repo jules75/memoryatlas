@@ -140,23 +140,34 @@ function onCoordOrMarkerUnhover(e) {
     $('span[data-tagtype="coord"]').removeClass('highlight');
 }
 
+function deleteEntry(e) {
+    
+    
+    if (confirm("This will delete the entire entry. Continue?")) {
+    
+        let url = `/api/v1/entry.php?id=${urlPageId()}`;
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function(result) {
+                alert("Entry has been deleted");
+                window.location.replace('/alpha/home.php');
+            },
+            error: function(result) {
+                alert(result.responseText);
+            }
+        });
+
+    }
+}
+
 function renderMediaPanel() {
 
-    // create tab headings
-    var headings = `<ul>
-        <li>Images</li>
-        <li>Map</li>
-        </ul>`;
-    $('#media-panel').append(headings);
-
-    // create image container, add images
-    var container = $('<div class="images"></div>');
-    $('#media-panel').append(container);
+    // add images
     $("span[data-tagtype='image']").each(createImagePreview);
 
-    // create map container, add map
-    var container = $('<div id="map-container"></div>');
-    $('#media-panel').append(container);
+    // add map
     createMap();
 
     // listen for heading clicks
@@ -170,6 +181,9 @@ function renderMediaPanel() {
 
     // coord text hover
     $("span[data-tagtype='coord']").hover(onCoordOrMarkerHover, onCoordOrMarkerUnhover);
+
+    // listen for delete button
+    $("button#delete").click(deleteEntry);
 
 }
 

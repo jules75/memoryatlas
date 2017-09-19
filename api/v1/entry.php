@@ -8,6 +8,18 @@ require_once '../../api/fns.php';
 session_start();
 
 
+function entryCreator($entry_id) {
+ 
+    $entries = get_entry_history($entry_id);
+    $user_ids = [];
+    foreach ($entries as $entry) {
+        $user_ids[] = $entry->user->id;
+    }
+
+    return array_slice($user_ids, -1)[0];
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $entry_id = filter_hex($_GET['id']);
@@ -32,9 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
         // user must be logged in to save
         if (isset($_SESSION['user'])) {
-            $entry->user->id = $_SESSION['user']['id'];                
-            $result = insert_entry([$entry]);
-            succeed("Entry marked as hidden");
+
+            if (entryCreator($entry_id) == $_SESSION['user']['id']) {
+                $entry->user->id = $_SESSION['user']['id'];                
+                $result = insert_entry([$entry]);
+                succeed("Entry marked as hidden");
+            }
+            else {
+                fail("You did not create this entry, you can't delete it");
+            }
         }
 
         else {

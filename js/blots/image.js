@@ -37,7 +37,7 @@ class ImageBlot extends Inline {
         setUploadStatus("Uploading...");
         
         $.ajax({
-            url: '/api.php',
+            url: '/api/v1/image.php',
             data: data,
             cache: false,
             contentType: false,

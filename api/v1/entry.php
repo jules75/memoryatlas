@@ -22,13 +22,20 @@ function entryCreator($entry_id) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    $entry_id = filter_hex($_GET['id']);
+    if (isset($_GET['id'])) {
 
-    $entry = get_entry($entry_id);
-    if ($entry) {
-        succeed(['data' => $entry]);
+        $entry_id = filter_hex($_GET['id']);
+
+        $entry = get_entry($entry_id);
+        if ($entry) {
+            succeed(['data' => $entry]);
+        }
+        fail("No entry found for id $entry_id");
     }
-    fail("No entry found for id $entry_id");
+
+    else {
+        succeed(['data' => get_entries()]);
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {

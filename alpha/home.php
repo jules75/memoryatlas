@@ -78,7 +78,7 @@
     }
 
     function onEntryListData(data) {
-      data.result.forEach(function(entry) {
+      data.data.forEach(function(entry) {
         let url = `/api/v1/entry.php?id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });
@@ -95,7 +95,7 @@
 
     // show all entries
     else {
-      $.getJSON("/api.php?action=list", onEntryListData);
+      $.getJSON("/api/v1/entry.php", onEntryListData);
     }
 
   </script>

@@ -32,11 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             succeed(get_entry_history($entry_id));
             break;
 
-        // Return all entries (newest revision)
-        case 'list':
-            succeed(get_entries());
-            break;
-
         default:
             fail("Unknown GET action '$_GET[action]'");
     }

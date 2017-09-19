@@ -28,7 +28,7 @@ function get_entries()
 
     $cursor = $mongo->executeCommand('memoryatlas', $command);
     foreach ($cursor as $doc) {
-        return $doc;
+        return $doc->result;
     }
 }
 

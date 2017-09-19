@@ -42,6 +42,11 @@ function create_tag_cache() {
     foreach (get_entries()->result AS $e) {
 
         $entry = get_entry($e->entry_id);
+
+        if ($entry->hidden) {
+            continue;
+        }
+
         foreach($entry->ops AS $op) {
             
             $words = preg_split("/\s/", $op->insert);

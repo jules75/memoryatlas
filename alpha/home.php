@@ -36,17 +36,9 @@
           return(false);
     }
 
-    function hasNoContent(entryData) {
-      return (entryData.ops[0].insert.length == 1);
-    }
-
     function onEntryData(data) {
 
       let container = $(`[data-entry-id="${data.entry_id}"]`);
-
-      if (hasNoContent(data)) {
-        $(container).hide();
-      }
 
       // get title from first paragraph
       let regex = /(.*?)[\r\n]/;

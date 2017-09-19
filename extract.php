@@ -14,6 +14,11 @@ function create_coord_cache() {
     foreach (get_entries()->result AS $e) {
 
         $entry = get_entry($e->entry_id);
+
+        if ($entry->hidden) {
+            continue;
+        }
+
         foreach($entry->ops AS $op) {
             if (isset($op->attributes->coord)) {
                 $result[] = [

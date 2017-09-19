@@ -54,16 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             succeed(get_entries());
             break;
 
-        // Return newest revision of single entry
-        case 'entry':
-            $entry_id = filter_hex($_GET['entry_id']);
-            $entry = get_entry($entry_id);
-            if ($entry) {
-                succeed($entry);
-            }
-            fail("No entry found for id $entry_id");
-            break;
-
         default:
             fail("Unknown GET action '$_GET[action]'");
     }

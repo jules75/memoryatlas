@@ -181,7 +181,7 @@ function initApp() {
 
   let userUrl = new URL(location.href);
   let entryId = userUrl.searchParams.get('entry_id');
-  let apiUrl = `/api.php?action=entry&entry_id=${entryId}`;
+  let apiUrl = `/api/v1/entry.php?id=${entryId}`;
 
   let newEntryOps = {
     "ops": [
@@ -222,7 +222,7 @@ function initApp() {
   };
 
   $.getJSON(apiUrl, function (data) {
-    quill.setContents(data.ops);
+    quill.setContents(data.data.ops);
   }).fail(function(data) {
     quill.setContents(newEntryOps);
   }).always(function() {

@@ -38,21 +38,21 @@
 
     function onEntryData(data) {
 
-      let container = $(`[data-entry-id="${data.entry_id}"]`);
+      let container = $(`[data-entry-id="${data.data.entry_id}"]`);
 
       // get title from first paragraph
       let regex = /(.*?)[\r\n]/;
       var title;
-      if (regex.test(data.ops[0].insert)) {
-        title = data.ops[0].insert.match(regex)[1];
+      if (regex.test(data.data.ops[0].insert)) {
+        title = data.data.ops[0].insert.match(regex)[1];
       }
       else {
-        title = data.ops[0].insert;
+        title = data.data.ops[0].insert;
       }
       $(container).children("a").children("span").text(title);
             
       // load first image from entry as background
-      let imageOp = data.ops.filter(isImage)[0];
+      let imageOp = data.data.ops.filter(isImage)[0];
       if (imageOp !== undefined) {
         let imageUrl = imageOp.attributes.image;        
         $(container).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
@@ -73,7 +73,7 @@
 
         $('#entry_previews').append(item);
         
-        let url = `/api.php?action=entry&entry_id=${entry.entry_id}`;
+        let url = `/api/v1/entry.php?id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });
     }

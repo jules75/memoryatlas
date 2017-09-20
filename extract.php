@@ -15,17 +15,19 @@ function create_coord_cache() {
 
         $entry = get_entry($e->entry_id);
 
-        if ($entry->hidden) {
+        if (isset($entry->hidden) && $entry->hidden) {
             continue;
         }
 
-        foreach($entry->ops AS $op) {
-            if (isset($op->attributes->coord)) {
-                $result[] = [
-                    'coord' => $op->attributes->coord,
-                    'title' => $op->insert,
-                    'entry_id' => $entry->entry_id
-                    ];
+        if (isset($entry->ops)) {
+            foreach($entry->ops AS $op) {
+                if (isset($op->attributes->coord)) {
+                    $result[] = [
+                        'coord' => $op->attributes->coord,
+                        'title' => $op->insert,
+                        'entry_id' => $entry->entry_id
+                        ];
+                }
             }
         }
 
@@ -43,21 +45,23 @@ function create_tag_cache() {
 
         $entry = get_entry($e->entry_id);
 
-        if ($entry->hidden) {
+        if (isset($entry->hidden) && $entry->hidden) {
             continue;
         }
 
-        foreach($entry->ops AS $op) {
-            
-            $words = preg_split("/\s/", $op->insert);
+        if (isset($entry->ops)) {
+            foreach($entry->ops AS $op) {
+                
+                $words = preg_split("/\s/", $op->insert);
 
-            foreach($words AS $word) {
-                if (isset($word[0]) && $word[0] == '#') {
-                    // same data structure as 'list' API call
-                    $result[$word]['result'][] = [
-                        'entry_id' => $entry->entry_id, 
-                        'revisions' => $e->revisions
-                        ];
+                foreach($words AS $word) {
+                    if (isset($word[0]) && $word[0] == '#') {
+                        // same data structure as 'list' API call
+                        $result[$word]['result'][] = [
+                            'entry_id' => $entry->entry_id, 
+                            'revisions' => $e->revisions
+                            ];
+                    }
                 }
             }
         }

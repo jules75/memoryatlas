@@ -78,7 +78,7 @@
     }
 
     function onEntryListData(data) {
-      data.data.forEach(function(entry) {
+      data.data.result.forEach(function(entry) {
         let url = `/api/v1/entry.php?id=${entry.entry_id}`;
         $.getJSON(url, onEntryData);
       });

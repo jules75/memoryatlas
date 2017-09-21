@@ -7,8 +7,6 @@
 
   <div id="map-large"></div>
 
-  <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>
-
   <script>
 
   var mapLastMovedTimestamp = 0;
@@ -147,5 +145,7 @@
   }
 
   </script>
+
+  <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>  
 
 <?php include_once('_bottom.php'); ?>

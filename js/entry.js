@@ -1,8 +1,9 @@
 
 // globals
 let saveIsRequired = false;
-let mapShow = {};
-let mapShowMarkers = [];
+var mapShow = {};
+var mapShowMarkers = [];
+
 
 function createOverlay() {
   var div = $("<div/>");
@@ -233,6 +234,7 @@ function initApp() {
     // set flag when editor contents changes
     quill.on('text-change', function (delta, oldDelta, source) {
       saveIsRequired = true;
+      renderMediaPanel();
     });
   });
 }

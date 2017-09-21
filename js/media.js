@@ -164,6 +164,9 @@ function deleteEntry(e) {
 
 function renderMediaPanel() {
 
+    $("#media-panel div.images").empty();
+    $("#media-panel #map-container").empty();
+
     // add images
     $("span[data-tagtype='image']").each(createImagePreview);
 

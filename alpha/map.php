@@ -20,48 +20,46 @@
     let fetchWaitPeriod = 1000;
 
     // create map
-    map = new google.maps.Map(document.getElementById('map-large'), {
-      center: { lat: -37.56, lng: 143.85 },
-      zoom: 14
-    });
+    var map = L.map('map-large').setView([-37.56, 143.85], 14);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
     function createMarker(dataRow) {
 
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(dataRow.lat, dataRow.lng),
-        map: map,
-        opacity: 0.65,
-        entry_id: dataRow.entry_id,
-        title: ''
-      });
+      var marker = L.marker([dataRow.lat, dataRow.lng]).addTo(map);
+      marker.entry_id = dataRow.entry_id;
 
+      unhighlight(marker);
       markers.push(marker);
-      marker.addListener('mouseover', onMarkerHover);
-      marker.addListener('mouseout', onMarkerUnhover);
+
+      marker.on('mouseover', onMarkerHover);
+      marker.on('mouseout', onMarkerUnhover);
     }
 
     function highlight(marker) {
-       marker.setOptions({opacity: 1.0});
+       marker.setOpacity(1.0);
     }
 
     function unhighlight(marker) {
-       marker.setOptions({opacity: 0.65});
+       marker.setOpacity(0.7);
     }
 
     function findMarkerWithLatLng(lat, lng) {
 
       function f(m) {
-        return (m.position.lat()==lat && m.position.lng()==lng);
+        return (m.getLatLng().lat==lat && m.getLatLng().lng==lng);
       }
 
       return markers.filter(f)[0];
     }
 
     function onMarkerHover(e) {
-      
-      lat = e.latLng.lat();
-      lng = e.latLng.lng();
-      
+
+      lat = e.target.getLatLng().lat;
+      lng = e.target.getLatLng().lng;
+
       marker = findMarkerWithLatLng(lat, lng);
       highlight(marker);
       $(`#entry_previews [data-entry-id="${marker.entry_id}"]`).addClass('highlight');
@@ -108,7 +106,7 @@
 
     function onEntryIdsReceived(result) {
       $('#entry_previews').empty();
-      markers.map(function(m) { m.setMap(null); });
+      markers.map(function(m) { map.removeLayer(m); });
       markers = [];
       result.data.entry_ids.map(fetchEntryPreview);
     }
@@ -126,26 +124,22 @@
 
         shouldFetchPreviews = false;
 
-        let bounds = map.getBounds();
-        let north = bounds.getNorthEast().lat();
-        let east = bounds.getNorthEast().lng();
-        let south = bounds.getSouthWest().lat();
-        let west = bounds.getSouthWest().lng();
-
-        let url = `/api/v1/search/findEntriesByLatLng.php?north=${north}&east=${east}&south=${south}&west=${west}`;
+        let b = map.getBounds();
+        let url = `/api/v1/search/findEntriesByLatLng.php?north=${b.getNorth()}&east=${b.getEast()}&south=${b.getSouth()}&west=${b.getWest()}`;
         $.getJSON(url, onEntryIdsReceived);
       }
 
     }
 
-    google.maps.event.addListener(map, "bounds_changed", onBoundsChange);
+    map.on('moveend', onBoundsChange);
 
     // periodically check if map has stopped moving for 2 seconds
-    setInterval(checkMapStoppedMoving, 250);
+    setInterval(checkMapStoppedMoving, 250);    
+  
   }
 
-  </script>
+  initMap();
 
-  <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initMap"></script>  
+  </script>
 
 <?php include_once('_bottom.php'); ?>

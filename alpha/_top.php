@@ -33,6 +33,9 @@ ini_set('session.cookie_lifetime', '604800');
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>  
   <script src="/js/cloudinary.js"></script>
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>  
+
 </head>
 
 <body>

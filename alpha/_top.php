@@ -50,7 +50,7 @@ ini_set('session.cookie_lifetime', '604800');
   <nav id="secondary">
     <ul>
       <li><a href="/alpha/map.php">Explore map</a></li>
-      <li><a href="#" onclick="alert('Not implemented yet')">Explore timeline</a></li>
+      <li><a href="/alpha/timeline.php">Explore timeline</a></li>
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>
       <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>">Add entry</a></li>

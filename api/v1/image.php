@@ -1,14 +1,14 @@
 <?php
 
-require_once '../../config.php';
-require_once '../../db.php';
-require_once '../../api/fns.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/api/fns.php');
 
 
 // setup Cloudinary cloud image host
-require_once '../../lib/3rdparty/cloudinary/Cloudinary.php';
-require_once '../../lib/3rdparty/cloudinary/Uploader.php';
-require_once '../../lib/3rdparty/cloudinary/Api.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/lib/3rdparty/cloudinary/Cloudinary.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/lib/3rdparty/cloudinary/Uploader.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/lib/3rdparty/cloudinary/Api.php');
 \Cloudinary::config(MEMORY_ATLAS_CONFIG['cloudinary']);
 
 

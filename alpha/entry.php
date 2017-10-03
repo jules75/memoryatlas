@@ -2,7 +2,7 @@
 
   <link rel="stylesheet" href="/css/entry.css">
 
-<?php require_once('../db.php'); ?>
+<?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php'); ?>
 
   <noscript>
   <pre style="white-space: pre-line;">

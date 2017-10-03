@@ -7,7 +7,7 @@ if (isset($_SESSION['user'])) {
 	header('Location: /alpha/home.php');
 }
 
-require_once '../db.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php');
 
 if (isset($_POST['email'])) {
 

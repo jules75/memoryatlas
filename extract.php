@@ -5,7 +5,7 @@
  * These are long-running tasks not intended to be called by web user.
  */
 
-require_once 'db.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php');
 
 
 // returns new array with $value added, unchanged if $value already present

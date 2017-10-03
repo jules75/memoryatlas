@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../../config.php';
-require_once '../../../db.php';
-require_once '../../../api/fns.php';
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php');
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/api/fns.php');
 
 // get bounds, defaults to 0 on bad/missing entries
 $north = floatval($_GET['north']);

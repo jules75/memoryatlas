@@ -54,7 +54,7 @@ ini_set('session.cookie_lifetime', '604800');
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>
       <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>">Add entry</a></li>
-      <li><a href="#" onclick="alert('Not implemented yet')">My entries</a></li>
+      <li><a href="/alpha/entries.php">My entries</a></li>
       <li>&nbsp;</li>
       <li><a href="/alpha/password.php">My account</a></li>
       <li><a href="#" onclick="alert('Not implemented yet')">Help &amp; tutorials</a></li>

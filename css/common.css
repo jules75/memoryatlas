@@ -56,6 +56,7 @@ nav#primary {
 nav#secondary {
   float: left;
   padding: 20px 40px 20px 20px;
+  background: inherit;
 }
   nav#secondary ul {
     list-style-type: none;

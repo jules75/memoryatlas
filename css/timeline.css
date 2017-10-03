@@ -1,8 +1,13 @@
 
 #content {
   text-align: right;
+  max-width: 800px;
 }
 
 h3 {
-  margin-top: 50px;
+  border-bottom: 1px solid #bbb;
+}
+
+h3:not(:first-of-type) {
+  margin-top: 100px;
 }

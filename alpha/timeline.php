@@ -31,7 +31,7 @@
 
 <?php foreach($date_arr AS $date=>$entries): ?>
 
-  <h3><?php echo friendlyDate($date); ?></h3>
+  <h3><?php echo friendlyDate($date); ?> <i class="fa fa-calendar" aria-hidden="true"></i></h3>
 
   <?php foreach($entries AS $entry_data): ?>
   <p><a href="entry.php?entry_id=<?php echo $entry_data->entry_id ?>"><?php echo $entry_data->title ?></a></p>

@@ -1,6 +1,9 @@
 <?php include_once '_top.php'; ?>
 
+<?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/lib/entry.php'); ?>
+
 <link rel="stylesheet" href="/css/entries.css">
+<link rel="stylesheet" href="/css/preview.css">
 
 <?php
 
@@ -13,18 +16,22 @@
 
 <h3>Created by me</h3>
 
-<ul>
-<?php foreach($created_entry_ids AS $id): ?>
-<li><a href="/alpha/entry.php?entry_id=<?php echo $id ?>"><?php echo $id ?></a></li>
-<?php endforeach; ?>
+<ul id="entry_previews">
+<?php 
+  foreach($created_entry_ids AS $id) {
+    echo entry_preview_html($id);
+  }  
+?>
 </ul>
 
 
 <h3>Contributed to by me</h3>
 
-<ul>
-<?php foreach($contributed_entry_ids AS $id): ?>
-<li><a href="/alpha/entry.php?entry_id=<?php echo $id ?>"><?php echo $id ?></a></li>
-<?php endforeach; ?>
+<ul id="entry_previews">
+<?php 
+  foreach($contributed_entry_ids AS $id) {
+    echo entry_preview_html($id);
+  }  
+?>
 </ul>
 

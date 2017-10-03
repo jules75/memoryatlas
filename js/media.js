@@ -191,5 +191,9 @@ function renderMediaPanel() {
     // listen for delete button
     $("button#delete").click(deleteEntry);
 
+    // counters
+    $("#image-count").text($("span[data-tagtype='image']").length);
+    $("#coord-count").text($("span[data-tagtype='coord']").length);
+
 }
 

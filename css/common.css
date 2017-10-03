@@ -169,3 +169,11 @@ button:active, button:focus {
 .highlight {
     outline: 3px dashed red;
 }
+
+.counter {
+  background-color: #f75b5b;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 10px;
+  font-size: 8pt;
+}

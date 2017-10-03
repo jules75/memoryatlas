@@ -31,8 +31,8 @@
   <div id="media-panel">
     
     <ul>
-    <li>Images</li>
-    <li>Map</li>
+    <li>Images <span id="image-count" class="counter"></span></li>
+    <li>Map <span id="coord-count" class="counter"></span></li>
     <li>More</li>
     </ul>
 

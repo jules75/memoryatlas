@@ -191,7 +191,7 @@ function initApp() {
       },
       {
         "attributes": {
-          "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1502854465/dowczp3wbndh6og3wpaq.jpg"
+          "image": "https://res.cloudinary.com/dtnrj96uf/image/upload/v1507006963/sample.jpg"
         },
         "insert": "images and photos"
       },

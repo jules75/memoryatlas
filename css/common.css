@@ -28,7 +28,7 @@ p {
 }
 
 nav#primary {
-  background: linear-gradient(to left, #222 0%, #888 100%);
+  background: #333;
   color: #fbc239;
   padding: 15px;
   overflow: auto;

@@ -41,6 +41,39 @@ function create_coord_cache() {
 }
 
 
+function create_date_cache() {
+    
+    $result = [];
+    
+    foreach (get_entries()->result AS $e) {
+
+        $entry = get_entry($e->entry_id);
+
+        if (isset($entry->hidden) && $entry->hidden) {
+            continue;
+        }
+
+        if (isset($entry->ops)) {
+            foreach($entry->ops AS $op) {
+                if (isset($op->attributes->date)) {
+                    $result[$op->attributes->date][] = [
+                        'title' => $op->insert,
+                        'entry_id' => $entry->entry_id,
+                        'indexed' => time()
+                        ];
+                }
+            }
+        }
+
+    }
+
+    // sort by keys
+    ksort($result);
+    
+    file_put_contents('cache/dates.json', json_encode($result, JSON_PRETTY_PRINT));
+}
+
+
 function create_tag_cache() {
     
     $result = [];
@@ -78,6 +111,7 @@ function create_tag_cache() {
 
 echo "Creating JSON index files...";
 create_coord_cache();
+create_date_cache();
 create_tag_cache();
 echo "Done.";
 

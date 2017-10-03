@@ -33,17 +33,24 @@ class CoordBlot extends Inline {
 
     // create map
     $('body').append(mapDiv);
-    let map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: -37.397, lng: 143.644 },
-      zoom: 8
-    });
+    let map = L.map('map').setView([-37.56, 143.85], 8);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    // create crosshairs
-    var chDiv = document.createElement("div");
-    chDiv.style.background = "url(/img/center.png) no-repeat";
-    chDiv.style.width = "50px";
-    chDiv.style.height = "50px";
-    map.controls[google.maps.ControlPosition.CENTER].push(chDiv);
+    // add crosshair (thanks to https://gis.stackexchange.com/a/90230)
+    var crosshairIcon = L.icon({
+        iconUrl: '/img/center.png',
+        iconSize:     [50, 50], // size of the icon
+        iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
+    });
+    var crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, clickable:false});
+    crosshair.addTo(map);
+
+    // center crosshair when map moves
+    map.on('move', function(e) {
+        crosshair.setLatLng(map.getCenter());
+    });
 
     // close on any button
     $('#mapContainer button').click(function (e) {
@@ -53,8 +60,8 @@ class CoordBlot extends Inline {
 
     // handle OK button
     $('#mapContainer #ok').click(function (e) {
-      let center = map.getCenter();      
-      onOk({lat: center.lat(), lng: center.lng()});
+      let center = map.getCenter();
+      onOk({lat: center.lat, lng: center.lng});
     });
 
   }

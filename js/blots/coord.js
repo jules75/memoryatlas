@@ -60,14 +60,14 @@ class CoordBlot extends Inline {
   }
 
   static popupShow(coord) {
-    
+
     function nearlyEqual(a, b) {
       return Math.abs(a-b) < 0.000001;
     }
 
     function isMatchingMarker(marker) {
-      return nearlyEqual(marker.getPosition().lat(), coord.lat) 
-        && nearlyEqual(marker.getPosition().lng(), coord.lng);
+      return nearlyEqual(marker.getLatLng().lat, Number(coord.lat)) 
+        && nearlyEqual(marker.getLatLng().lng, Number(coord.lng));
     }
 
     // find marker with matching coordinates
@@ -76,8 +76,8 @@ class CoordBlot extends Inline {
       console.warn("No map markers found for given coordinate");
     }
     else {
-      mapShow.panTo(markers[0].getPosition());
       mapShow.setZoom(16);
+      mapShow.panTo(markers[0].getLatLng());
     }
 
   }

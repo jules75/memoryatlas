@@ -29,7 +29,7 @@ function createMap() {
 
     // create map
     $('#map-container').append(mapDiv);
-    var mapShow = L.map('mapShow').setView([-37.56, 143.85], 8);
+    mapShow = L.map('mapShow').setView([-37.56, 143.85], 8);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapShow);
@@ -38,7 +38,6 @@ function createMap() {
     function createMarker(quillOp) {
 
         var marker = L.marker([quillOp.attributes.coord.lat, quillOp.attributes.coord.lng]).addTo(mapShow);
-        // marker.entry_id = dataRow.entry_id;
 
         unhighlight(marker);
         mapShowMarkers.push(marker);
@@ -46,7 +45,6 @@ function createMap() {
         marker.on('mouseover', onCoordOrMarkerHover);
         marker.on('mouseout', onCoordOrMarkerUnhover);        
 
-        mapShowMarkers.push(marker);
         // bounds.extend(marker.getPosition());
     }
 
@@ -108,7 +106,7 @@ function unhighlight(marker) {
 }
 
 function unhighlightAllMarkers() {
-    mapShowMarkers.map(highlight);
+    mapShowMarkers.map(unhighlight);
 }
 
 function highlightMarker(lat, lng) {

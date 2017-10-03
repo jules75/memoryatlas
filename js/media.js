@@ -28,7 +28,7 @@ function createMap() {
     // let bounds = new google.maps.LatLngBounds();
 
     // create map
-    $('#map-container').append(mapDiv);
+    $('#mapShowContainer').append(mapDiv);
     mapShow = L.map('mapShow').setView([-37.56, 143.85], 8);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -168,7 +168,7 @@ function deleteEntry(e) {
 function renderMediaPanel() {
 
     $("#media-panel div.images").empty();
-    $("#media-panel #map-container").empty();
+    $("#media-panel #mapShowContainer").empty();
 
     // add images
     $("span[data-tagtype='image']").each(createImagePreview);

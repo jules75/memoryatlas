@@ -22,8 +22,8 @@ class CoordBlot extends Inline {
     createOverlay();
 
     let mapDiv = $(`
-    <div id="mapContainer" class="modal">
-      <div id="map"></div>
+    <div id="mapChooseContainer" class="modal">
+      <div id="mapChoose"></div>
       <div class="buttonRow">
         <button id="ok">OK</button>
         <button id="cancel">Cancel</button>
@@ -33,7 +33,7 @@ class CoordBlot extends Inline {
 
     // create map
     $('body').append(mapDiv);
-    let map = L.map('map').setView([-37.56, 143.85], 8);
+    let map = L.map('mapChoose').setView([-37.56, 143.85], 8);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -53,13 +53,13 @@ class CoordBlot extends Inline {
     });
 
     // close on any button
-    $('#mapContainer button').click(function (e) {
-      $('#mapContainer').remove();
+    $('#mapChooseContainer button').click(function (e) {
+      $('#mapChooseContainer').remove();
       destroyOverlay();
     });
 
     // handle OK button
-    $('#mapContainer #ok').click(function (e) {
+    $('#mapChooseContainer #ok').click(function (e) {
       let center = map.getCenter();
       onOk({lat: center.lat, lng: center.lng});
     });

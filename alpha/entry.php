@@ -38,7 +38,7 @@
 
     <div class="images"></div>
 
-    <div id="map-container"></div>
+    <div id="mapShowContainer"></div>
     
     <div>
       <p><button id="delete">Delete this entry</button></p>

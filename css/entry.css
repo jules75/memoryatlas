@@ -23,11 +23,9 @@
     margin-right: 1em;
 }
 
-#map-container {
+#mapShow {
+  height: 500px;
 }
-  #mapShow {
-    height: 500px;
-  }
 
 #calendarPicker {
 	position: fixed;
@@ -95,12 +93,12 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
 }
 
 
-#mapContainer {
+#mapChooseContainer {
   height: auto;
   width: 530px;
   background-color: white;
 }
-  #map {
+  #mapChoose {
     height: 500px;
     width: 500px; 
   }

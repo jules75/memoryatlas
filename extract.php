@@ -23,9 +23,13 @@ function create_coord_cache() {
             foreach($entry->ops AS $op) {
                 if (isset($op->attributes->coord)) {
                     $result[] = [
-                        'coord' => $op->attributes->coord,
+                        'coord' => [
+                            'lat' => floatval($op->attributes->coord->lat),
+                            'lng' => floatval($op->attributes->coord->lng)
+                        ],
                         'title' => $op->insert,
-                        'entry_id' => $entry->entry_id
+                        'entry_id' => $entry->entry_id,
+                        'indexed' => time()
                         ];
                 }
             }
@@ -59,7 +63,8 @@ function create_tag_cache() {
                         // same data structure as 'list' API call
                         $result[$word]['result'][] = [
                             'entry_id' => $entry->entry_id, 
-                            'revisions' => $e->revisions
+                            'revisions' => $e->revisions,
+                            'indexed' => time()
                             ];
                     }
                 }
@@ -71,7 +76,7 @@ function create_tag_cache() {
     file_put_contents('cache/hashtags.json', json_encode($result, JSON_PRETTY_PRINT));
 }
 
-echo "Creating JSON cache files...";
+echo "Creating JSON index files...";
 create_coord_cache();
 create_tag_cache();
 echo "Done.";

@@ -38,8 +38,8 @@ $result = [];
 
 foreach (json_decode($json) AS $item) {
 
-    $lat = floatval($item->coord->lat);
-    $lng = floatval($item->coord->lng);
+    $lat = $item->coord->lat;
+    $lng = $item->coord->lng;
 
     if ($north > $lat && $lat > $south &&
         $east > $lng && $lng > $west) {

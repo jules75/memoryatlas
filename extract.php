@@ -146,6 +146,9 @@ function create_user_cache() {
         foreach($entry_history AS $entry) {
             $result[$entry->user->id]['contributed'] = array_add($result[$entry->user->id]['contributed'], $entry->entry_id);
         }
+
+        // exclude 'created' entries from 'contributed'
+        $result[$entry->user->id]['contributed'] = array_diff($result[$entry->user->id]['contributed'], $result[$oldest_entry->user->id]['created']);
     }
 
     file_put_contents('cache/users.json', json_encode($result, JSON_PRETTY_PRINT));

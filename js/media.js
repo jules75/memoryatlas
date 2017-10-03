@@ -25,34 +25,34 @@ function createMap() {
     }
 
     let mapDiv = $(`<div id="mapShow"></div>`);
-    let bounds = new google.maps.LatLngBounds();
+    // let bounds = new google.maps.LatLngBounds();
 
     // create map
     $('#map-container').append(mapDiv);
-    mapShow = new google.maps.Map(document.getElementById('mapShow'), {
-        center: { lat: -37.397, lng: 143.644 },
-        zoom: 8
-    });
+    var mapShow = L.map('mapShow').setView([-37.56, 143.85], 8);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapShow);
+
 
     function createMarker(quillOp) {
 
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(quillOp.attributes.coord.lat, quillOp.attributes.coord.lng),
-            map: mapShow,
-            title: quillOp.insert,
-            opacity: 0.75
-        });
+        var marker = L.marker([quillOp.attributes.coord.lat, quillOp.attributes.coord.lng]).addTo(mapShow);
+        // marker.entry_id = dataRow.entry_id;
 
-        marker.addListener('mouseover', onCoordOrMarkerHover);
-        marker.addListener('mouseout', onCoordOrMarkerUnhover);
+        unhighlight(marker);
+        mapShowMarkers.push(marker);
+
+        marker.on('mouseover', onCoordOrMarkerHover);
+        marker.on('mouseout', onCoordOrMarkerUnhover);        
 
         mapShowMarkers.push(marker);
-        bounds.extend(marker.getPosition());
+        // bounds.extend(marker.getPosition());
     }
 
     // create markers, fit to bounds
     mapOps.map(createMarker);
-    mapShow.fitBounds(bounds);
+    // mapShow.fitBounds(bounds);
 }
 
 
@@ -90,7 +90,7 @@ function onHeadingClick(e) {
     $(`#media-panel > div:nth-of-type(${n+1})`).show();
 
     // force map redraw
-    google.maps.event.trigger(mapShow, 'resize')
+    // google.maps.event.trigger(mapShow, 'resize')
 }
 
 function onImageHover(e) {
@@ -99,15 +99,23 @@ function onImageHover(e) {
      $(`#media-panel div.images img[src="${url}"], span[data-url="${url}"]`)[fn]('highlight');
 }
 
+function highlight(marker) {
+    marker.setOpacity(1.0);
+}
+
+function unhighlight(marker) {
+    marker.setOpacity(0.7);
+}
+
 function unhighlightAllMarkers() {
-    mapShowMarkers.map(function(m) { m.setOptions({opacity: 0.75}) });
+    mapShowMarkers.map(highlight);
 }
 
 function highlightMarker(lat, lng) {
     let markers = mapShowMarkers.filter(function (marker) {
-        return (nearlyEqual(marker.position.lat(), lat) && nearlyEqual(marker.position.lng(), lng));
+        return (nearlyEqual(marker.getLatLng().lat, lat) && nearlyEqual(marker.getLatLng().lng, lng));
     });
-    markers[0].setOptions({opacity: 1.0});
+    highlight(markers[0]);
 }
 
 function highlightCoordText(lat, lng) {
@@ -121,9 +129,9 @@ function onCoordOrMarkerHover(e) {
 
     let lat, lng;
 
-    if (e.hasOwnProperty('latLng')) {
-        lat = Number(e.latLng.lat());
-        lng = Number(e.latLng.lng());
+    if (e.hasOwnProperty('latlng')) {
+        lat = Number(e.latlng.lat);
+        lng = Number(e.latlng.lng);
     }
     else {
         lat = Number(e.target.dataset.lat);

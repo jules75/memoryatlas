@@ -53,8 +53,10 @@
   <script src="/entry.compiled.js"></script>
 
   <script src="//www.google.com/jsapi?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4"></script>
-  <script async src="//maps.googleapis.com/maps/api/js?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4&callback=initApp"></script>
 
-  <script> google.load('picker', '1', {'language':'en'}); </script>
+  <script> 
+    google.load('picker', '1', {'language':'en'}); 
+    initApp();
+  </script>
 
 <?php include_once('_bottom.php'); ?>

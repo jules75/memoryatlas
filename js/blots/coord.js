@@ -83,6 +83,7 @@ class CoordBlot extends Inline {
       console.warn("No map markers found for given coordinate");
     }
     else {
+      mapShow._onResize();
       mapShow.setZoom(16);
       mapShow.panTo(markers[0].getLatLng());
     }

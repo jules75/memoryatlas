@@ -86,9 +86,6 @@ function onHeadingClick(e) {
     let n = childNumber(e.target);
     $(`#media-panel > div`).hide();
     $(`#media-panel > div:nth-of-type(${n+1})`).show();
-
-    // force map redraw
-    // google.maps.event.trigger(mapShow, 'resize')
 }
 
 function onImageHover(e) {

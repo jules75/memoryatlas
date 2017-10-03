@@ -27,49 +27,54 @@ p {
   margin: 1em 0;
 }
 
-nav {
+nav#primary {
   background: linear-gradient(#191919 0%, #45484d 100%);
   color: #fbc239;
   padding: 15px;
   overflow: auto;
 }
-  nav div {
+  nav#primary div {
     float: right;
     text-align: right;
     font-size: 1em;
     font-family: Cinzel, serif;
   }
-    nav div * {
+    nav#primary div * {
       font-weight: normal;
     }
-    nav div h1 {
+    nav#primary div h1 {
       font-weight: bold;
       letter-spacing: 2px;
     }
-    nav div h2 {
+    nav#primary div h2 {
       font-size: 1em;
       font-style: italic;
       text-transform: uppercase;
       font-family: Arial, Helvetica, sans-serif;
     }
-  nav ul {
-    margin: 10px;
+
+nav#secondary {
+  float: left;
+  padding: 20px 40px 20px 20px;
+}
+  nav#secondary ul {
     list-style-type: none;
   }
-  nav li {
-    float: left;
-    padding-right: 25px;
+  nav#secondary li {
+    padding: 5px 0;
   }
-  nav a {
+  nav#secondary a {
     text-decoration: none;
-    color: #eee;
+    color: #444;
+    padding: 5px;
   }
-  nav i.fa {
-    font-size: 15pt;
+  nav#secondary a:hover {
+    color: #eee;
+    background-color: #333;
   }
 
 @media screen and (max-width: 800px) {
-    nav a span {
+    nav#primary a span {
       display: none;
     }
 }  

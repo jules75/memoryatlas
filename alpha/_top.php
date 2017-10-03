@@ -40,22 +40,30 @@ ini_set('session.cookie_lifetime', '604800');
 
 <body>
 
-  <nav>
+  <nav id="primary">
     <div>
       <h1>The Memory Atlas</h1>
       <h2>History is you</h2>
       </div>
-    <ul>
-      <li><a href="/alpha/home.php" title="Home"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a></li>
-      <li><a href="/alpha/map.php" title="Explore"><i class="fa fa-map-marker" aria-hidden="true"></i> <span>Explore</span></a></li>
-        <?php if (isset($_SESSION['user'])) : ?>
-      <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>" title="New entry"><i class="fa fa-plus" aria-hidden="true"></i> <span>New entry</span></a></li>
-      <li><a href="/alpha/password.php" title="Account"><i class="fa fa-user" aria-hidden="true"></i> <span>Account</span></a></li>
-      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout <?php echo $_SESSION['user']['username'] ?></span></a></li>
-        <?php else : ?>
-      <li><a href="/alpha/login.php" title="Login"><i class="fa fa-user" aria-hidden="true"></i> <span>Login</span></a></li>
-        <?php endif; ?>
-      </ul>
       </nav>
+
+  <nav id="secondary">
+    <ul>
+      <li><a href="/alpha/map.php">Explore map</a></li>
+      <li><a href="#">Explore timeline</a></li>
+      <li>&nbsp;</li>
+        <?php if (isset($_SESSION['user'])) : ?>
+      <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>">Add entry</a></li>
+      <li><a href="#">My entries</a></li>
+      <li><a href="#">My contributions</a></li>
+      <li>&nbsp;</li>      
+      <li><a href="/alpha/password.php">My account</a></li>   
+      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');">Logout <?php echo $_SESSION['user']['username'] ?></a></li>
+        <?php else : ?>
+      <li><a href="/alpha/login.php" title="Login">Login</a></li>
+        <?php endif; ?>        
+      </ul>
+    </nav>
+
 
   <div id="content">

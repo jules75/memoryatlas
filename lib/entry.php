@@ -49,11 +49,8 @@ function entry_preview_html($entry_id)
     $img = cloudinaryThumbnailUrl(firstImage($entry));
     $title = title($entry);
 
-    return "<li data-entry-id='$entry_id'>
-            <a href='/alpha/entry.php?entry_id=$entry_id'>
-            <img src='$img'>
-            <span>$title</span>
-            </a>
-            </li>";
+    return "<li data-entry-id='$entry_id'><a href='/alpha/entry.php?entry_id=$entry_id'>" . 
+            ($img ? "<img src='$img'>" : "")
+            . "<span>$title</span></a></li>";
 }
 

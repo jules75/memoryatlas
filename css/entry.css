@@ -108,3 +108,9 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
     width: 500px; 
   }
 
+
+#readOnlyWarning {
+  background: red;
+  color: white;
+  padding: 1em;
+}

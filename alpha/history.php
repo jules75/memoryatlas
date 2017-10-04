@@ -35,8 +35,8 @@ function memoized_get_user_by_id($id) {
 <?php foreach(get_entry_history($_GET['entry_id']) AS $entry): ?>
 
 <tr>
-<?php $url = "revision.php?entry_id=" . $_GET['entry_id'] . "&revision_id=" . $entry->_id; ?>
-<td><a href="<?php echo $url ?>"><?php echo date('Y-m-d H:i:s', mongoIdToTimestamp($entry->_id)); ?></a></td>
+<?php $url = "entry.php?entry_id=" . $_GET['entry_id'] . "&revision_id=" . $entry->_id; ?>
+<td><a href="<?php echo $url ?>" rel="nofollow"><?php echo date('Y-m-d H:i:s', mongoIdToTimestamp($entry->_id)); ?></a></td>
 <?php $user = memoized_get_user_by_id($entry->user->id); ?>
 <td><?php if (isset($user->username)) echo $user->username;  ?></td>
 </tr>

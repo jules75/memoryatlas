@@ -15,6 +15,10 @@
   </pre>
   </noscript>
 
+  <?php $isReadOnly = isset($_GET['revision_id']); ?>
+
+  <script>var isReadOnly = <?php echo $isReadOnly ? "true" : "false"; ?></script>
+
   <div id="tooltip-controls">
     <button id="image-button" title="Upload image"><i class="fa fa-file-image-o"></i></button>
     <button id="coord-button" title="Place on map"> <i class="fa fa-map-marker" ></i></button>
@@ -25,6 +29,14 @@
   </div>
 
   <div id="scrolling-container">
+
+    <?php if($isReadOnly): ?>
+    <div id="readOnlyWarning">
+    <p>You are viewing an old version of this entry.</p>
+    <p>Editing has been disabled.</p>
+    </div>
+    <?php endif; ?>
+
     <div id="editor-container"></div>
   </div>
 
@@ -40,8 +52,9 @@
 
     <div id="mapShowContainer"></div>
     
-    <div>
+    <div id="actions">
       <p><button id="delete">Delete this entry</button></p>
+      <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View old versions of this entry</a></p>
     </div>
 
   </div>

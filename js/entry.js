@@ -231,11 +231,17 @@ function initApp() {
     autolinkHashtags();
     renderMediaPanel();
     
-    // set flag when editor contents changes
-    quill.on('text-change', function (delta, oldDelta, source) {
-      saveIsRequired = true;
-      renderMediaPanel();
-    });
+    if (isReadOnly) {
+      quill.disable();
+      $("#actions").remove();
+    }
+    else {
+      // set flag when editor contents changes
+      quill.on('text-change', function (delta, oldDelta, source) {
+        saveIsRequired = true;
+        renderMediaPanel();
+      });
+    }
   });
 }
 

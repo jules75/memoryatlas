@@ -1,0 +1,5 @@
+* * * * * php /path/to/memoryatlas/lib/index/build_index_coord.php > /path/to/memoryatlas/cache/coords.json 2>&1
+* * * * * php /path/to/memoryatlas/lib/index/build_index_date.php > /path/to/memoryatlas/cache/dates.json 2>&1
+* * * * * php /path/to/memoryatlas/lib/index/build_index_hashtag.php > /path/to/memoryatlas/cache/hashtags.json 2>&1
+* * * * * php /path/to/memoryatlas/lib/index/build_index_user.php > /path/to/memoryatlas/cache/users.json 2>&1
+

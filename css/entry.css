@@ -114,3 +114,6 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
   color: white;
   padding: 1em;
 }
+#readOnlyWarning a {
+  color: white;
+}

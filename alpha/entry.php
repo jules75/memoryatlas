@@ -32,6 +32,7 @@
     <div id="readOnlyWarning">
     <p>You are viewing an old version of this entry.</p>
     <p>Editing has been disabled.</p>
+    <p><a href="entry.php?entry_id=<?php echo $_GET['entry_id']; ?>">Show current version of entry</a></p>
     </div>
     <?php endif; ?>
 

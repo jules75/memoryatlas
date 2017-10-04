@@ -30,9 +30,9 @@
 
     <?php if($isReadOnly): ?>
     <div id="readOnlyWarning">
-    <p>You are viewing an old version of this entry.</p>
-    <p>Editing has been disabled.</p>
-    <p><a href="entry.php?entry_id=<?php echo $_GET['entry_id']; ?>">Show current version of entry</a></p>
+    <p>This revision created <?php echo date('Y-m-d H:i:s', mongoIdToTimestamp($_GET['revision_id'])); ?></p>
+    <p>Editing is disabled</p>
+    <p><a href="entry.php?entry_id=<?php echo $_GET['entry_id']; ?>">Go to newest revision</a></p>
     </div>
     <?php endif; ?>
 

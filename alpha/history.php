@@ -4,10 +4,6 @@
 
 <?php
 
-function mongoIdToTimestamp($id) {
-  return hexdec(substr($id, 0, 8));
-}
-
 // avoid thrashing database
 function memoized_get_user_by_id($id) {
 

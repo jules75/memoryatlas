@@ -6,6 +6,9 @@ function generateRandomEntryId() {
     return sha1(mt_rand().mt_rand().mt_rand());
 }
 
+function mongoIdToTimestamp($id) {
+  return hexdec(substr($id, 0, 8));
+}
 
 // set session timeout to 1 week - not sure if this is working
 ini_set('session.gc_maxlifetime', '604800');

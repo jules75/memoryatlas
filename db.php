@@ -118,6 +118,22 @@ function get_user($email) {
 }
 
 
+// Return user account with given Mongo id string
+function get_user_by_id($id) {
+
+    global $mongo, $readPreference;
+
+	$filter = ['_id' => new MongoDB\BSON\ObjectID($id)];
+	$options = ['limit' => 1];
+	$query = new MongoDB\Driver\Query($filter, $options);
+	$cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
+
+	foreach($cursor AS $doc) {
+        return $doc;
+	}
+}
+
+
 // Update password hash for user with given email, returns # of modified rows
 function update_password_hash($email, $password_hash) {
 

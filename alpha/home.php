@@ -85,18 +85,18 @@
     }
 
     // only show entries with matching hashtag
-    let hashtag = getQueryVariable('hashtag');
-    if (hashtag) {
-      $('#content').prepend($(`<p>#${hashtag}</p>`));
-      $.getJSON("/cache/hashtags.json", function(result) {
-        onEntryListData(result['#' + hashtag]);
-      });
-    } 
+    // let hashtag = getQueryVariable('hashtag');
+    // if (hashtag) {
+    //   $('#content').prepend($(`<p>#${hashtag}</p>`));
+    //   $.getJSON("/cache/hashtags.json", function(result) {
+    //     onEntryListData(result['#' + hashtag]);
+    //   });
+    // } 
 
-    // show all entries
-    else {
-      $.getJSON("/api/v1/entry.php", onEntryListData);
-    }
+    // // show all entries
+    // else {
+    //   $.getJSON("/api/v1/entry.php", onEntryListData);
+    // }
 
   </script>
 

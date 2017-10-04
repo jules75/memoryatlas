@@ -14,7 +14,7 @@
 
 ?>
 
-<h3>Created by me</h3>
+<h3>Created by <span class="username"><?php echo $_SESSION['user']['username'] ?></span></h3>
 
 <ul id="entry_previews">
 <?php 
@@ -25,7 +25,7 @@
 </ul>
 
 
-<h3>Contributed to by me</h3>
+<h3>Contributions by <span class="username"><?php echo $_SESSION['user']['username'] ?></span></h3>
 
 <ul id="entry_previews">
 <?php 

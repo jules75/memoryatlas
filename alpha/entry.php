@@ -17,8 +17,6 @@
 
   <?php $isReadOnly = isset($_GET['revision_id']); ?>
 
-  <script>var isReadOnly = <?php echo $isReadOnly ? "true" : "false"; ?></script>
-
   <div id="tooltip-controls">
     <button id="image-button" title="Upload image"><i class="fa fa-file-image-o"></i></button>
     <button id="coord-button" title="Place on map"> <i class="fa fa-map-marker" ></i></button>

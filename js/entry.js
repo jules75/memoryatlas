@@ -182,7 +182,14 @@ function initApp() {
 
   let userUrl = new URL(location.href);
   let entryId = userUrl.searchParams.get('entry_id');
-  let apiUrl = `/api/v1/entry.php?id=${entryId}`;
+  let revisionId = userUrl.searchParams.get('revision_id');
+  let apiUrl;
+  if (revisionId) {
+    apiUrl = `/api/v1/entry.php?id=${entryId}&revision_id=${revisionId}`;
+  }
+  else {
+     apiUrl = `/api/v1/entry.php?id=${entryId}`;
+  }
 
   let newEntryOps = {
     "ops": [
@@ -231,7 +238,7 @@ function initApp() {
     autolinkHashtags();
     renderMediaPanel();
     
-    if (isReadOnly) {
+    if (revisionId) {
       quill.disable();
       $("#actions").remove();
     }

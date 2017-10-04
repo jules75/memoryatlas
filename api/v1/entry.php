@@ -26,7 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $entry_id = filter_hex($_GET['id']);
 
-        $entry = get_entry($entry_id);
+        if (isset($_GET['revision_id'])) {
+            $revision_id = filter_hex($_GET['revision_id']);
+            $entry = get_entry_revision($entry_id, $revision_id);
+        }
+        else {
+            $entry = get_entry($entry_id);
+        }
+        
+
         if ($entry) {
             succeed(['data' => $entry]);
         }

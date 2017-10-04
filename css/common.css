@@ -12,6 +12,7 @@ body {
   font-size: 11pt;
   min-height: 100%;
   background-color: #eee;
+  display: flex;  
 }
 
 img.preview {
@@ -27,50 +28,41 @@ p {
   margin: 1em 0;
 }
 
-nav#primary {
+nav {
+  float: left;
+  padding: 20px 20px 10px 10px;
   background: #333;
-  color: #fbc239;
-  padding: 15px;
-  overflow: auto;
+  flex-grow: 1;
+  flex-basis: 0;  
 }
-  nav#primary div {
-    float: right;
-    text-align: right;
+  nav div {
+    color: #fbc239;    
     font-size: 1em;
+    margin-bottom: 40px;
+  }
+  nav div * {
+    font-weight: normal;
+  }
+  nav div h1 {
     font-family: Cinzel, serif;
   }
-    nav#primary div * {
-      font-weight: normal;
-    }
-    nav#primary div h1 {
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-    nav#primary div h2 {
-      font-size: 1em;
-      font-style: italic;
-      text-transform: uppercase;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-nav#secondary {
-  float: left;
-  padding: 20px 40px 20px 20px;
-  background: inherit;
-}
-  nav#secondary ul {
+  nav div h2 {
+    font-size: 1em;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  nav ul {
     list-style-type: none;
   }
-  nav#secondary li {
+  nav li {
     padding: 5px 0;
   }
-  nav#secondary a {
+  nav a {
     text-decoration: none;
-    color: #444;
-    padding: 5px;
-  }
-  nav#secondary a:hover {
     color: #eee;
+  }
+  nav a:hover {
+    color: #ff8;
     background-color: #333;
   }
 
@@ -99,12 +91,12 @@ button {
 #content {
   padding: 25px;
   overflow: auto;
+  flex-grow: 6;
+  flex-basis: 0;  
 }
 
 #scrolling-container, #media-panel {
   height: 80vh;
-  flex-grow: 1;
-  flex-basis: 0;
 }
 
 #editor-container {

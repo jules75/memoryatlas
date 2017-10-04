@@ -40,14 +40,13 @@ ini_set('session.cookie_lifetime', '604800');
 
 <body>
 
-  <nav id="primary">
+  <nav>
+    
     <div>
       <h1>The Memory Atlas</h1>
-      <h2>History is you</h2>
-      </div>
-      </nav>
-
-  <nav id="secondary">
+      <h2>History is You</h2>
+      </div>    
+    
     <ul>
       <li><a href="/alpha/map.php">Explore map</a></li>
       <li><a href="/alpha/timeline.php">Explore timeline</a></li>

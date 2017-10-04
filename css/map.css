@@ -1,19 +1,16 @@
-
 #content {
-  display: flex;  
+  display: flex;
 }
 
-#entry_previews, #map-large {
-  flex-grow: 1;
+#map-large {
+  height: 700px;
+  flex-grow: 2;
   flex-basis: 0;
 }
 
 #entry_previews {
   zoom: 0.8;
   order: 2;
-}
-
-#map-large {
-  height: 700px;
-  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
 }

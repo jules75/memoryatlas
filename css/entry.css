@@ -2,6 +2,11 @@
   display: flex;
 }
 
+#scrolling-container, #media-panel {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
 #media-panel ul {
     margin-bottom: 20px;
 }

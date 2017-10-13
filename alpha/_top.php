@@ -51,7 +51,7 @@ ini_set('session.cookie_lifetime', '604800');
       </div>    
     
     <ul>
-      <li><a href="/alpha/map.php">Explore map</a></li>
+      <li><a href="/alpha/home.php">Explore map</a></li>
       <li><a href="/alpha/timeline.php">Explore timeline</a></li>
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>

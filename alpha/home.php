@@ -1,102 +1,144 @@
 <?php include_once '_top.php'; ?>
 
-<link rel="stylesheet" href="/css/preview.css">
-
-<?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php'); ?>
-
-  <noscript>
-  <ul>
-    <?php foreach (get_entries()->result as $entry) : ?>
-  <li><a href="/alpha/entry.php?entry_id=<?php echo $entry->entry_id; ?>">Link to entry</a></li>
-    <?php endforeach; ?>
-  </ul>
-  </noscript>
+  <link rel="stylesheet" href="/css/map.css">
+  <link rel="stylesheet" href="/css/preview.css">
 
   <ul id="entry_previews"></ul>
 
+  <div id="map-large"></div>
+
   <script>
 
-    function isImage(quillOp) {
-      if (quillOp.hasOwnProperty('attributes')) {
-        if (quillOp.attributes.hasOwnProperty('image')) {
-          return true;
-        }
-      }
-      return false;
+  var mapLastMovedTimestamp = 0;
+  var shouldFetchPreviews = true;
+
+  var markers = [];    
+
+
+  function initMap() {
+
+    let fetchWaitPeriod = 1000;
+
+    // create map
+    var map = L.map('map-large').setView([-37.56, 143.85], 14);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    function createMarker(dataRow) {
+
+      var marker = L.marker([dataRow.lat, dataRow.lng]).addTo(map);
+      marker.entry_id = dataRow.entry_id;
+
+      unhighlight(marker);
+      markers.push(marker);
+
+      marker.on('mouseover', onMarkerHover);
+      marker.on('mouseout', onMarkerUnhover);
     }
 
-    // from https://css-tricks.com/snippets/javascript/get-url-variables/
-    function getQueryVariable(variable){
-          var query = window.location.search.substring(1);
-          var vars = query.split("&");
-          for (var i=0;i<vars.length;i++) {
-                  var pair = vars[i].split("=");
-                  if(pair[0] == variable){return pair[1];}
-          }
-          return(false);
+    function highlight(marker) {
+       marker.setOpacity(1.0);
     }
 
-    function onEntryData(data) {
+    function unhighlight(marker) {
+       marker.setOpacity(0.7);
+    }
 
-      let entry = data.data;
+    function findMarkerWithLatLng(lat, lng) {
 
-      if (entry.hidden) {
-        return;
+      function f(m) {
+        return (m.getLatLng().lat==lat && m.getLatLng().lng==lng);
       }
 
+      return markers.filter(f)[0];
+    }
+
+    function onMarkerHover(e) {
+
+      lat = e.target.getLatLng().lat;
+      lng = e.target.getLatLng().lng;
+
+      marker = findMarkerWithLatLng(lat, lng);
+      highlight(marker);
+      $(`#entry_previews [data-entry-id="${marker.entry_id}"]`).addClass('highlight');
+    }
+
+    function onMarkerUnhover(e) {
+      markers.map(unhighlight);
+      $('#entry_previews li').removeClass('highlight');
+    }
+
+    function onPreviewHover(e) {
+      let li = e.target.parentElement.parentElement;
+      let id = li.dataset.entryId;
+      $(li).addClass('highlight');
+      markers.filter((m) => m.entry_id==id).map(highlight);
+    }
+
+    function onPreviewUnhover(e) {
+      let li = e.target.parentElement.parentElement;
+      let id = li.dataset.entryId;
+      $(li).removeClass('highlight');
+      markers.map(unhighlight);
+    }
+
+    function onEntryReceived(result) {
       let item = $(`
-        <li data-entry-id="${entry.entry_id}">
-          <a href="/alpha/entry.php?entry_id=${entry.entry_id}">
-          <img></img>
-          <span>Loading&hellip;</span>          
-          </a>
-          </li>
-          `);
+          <li data-entry-id="${result.data.entry_id}" style="display:none;">
+            <a href="/alpha/entry.php?entry_id=${result.data.entry_id}">
+            <img src="${result.data.image_url}"></img>
+            <span>${result.data.title}</span>          
+            </a>
+            </li>
+            `);
+      $('#entry_previews').append(item);
+      $(item).hover(onPreviewHover, onPreviewUnhover);
+      $(item).fadeIn();
+      result.data.coords.map(createMarker);
+    }
 
-      $('#entry_previews').append(item);      
+    function fetchEntryPreview(entryId) {
+      let url = `/api/v1/entryPreview.php?id=${entryId}`;
+      $.getJSON(url, onEntryReceived);
+    }
 
-      let container = $(`[data-entry-id="${data.data.entry_id}"]`);
+    function onEntryIdsReceived(result) {
+      $('#entry_previews').empty();
+      markers.map(function(m) { map.removeLayer(m); });
+      markers = [];
+      result.data.entry_ids.map(fetchEntryPreview);
+    }
 
-      // get title from first paragraph
-      let regex = /(.*?)[\r\n]/;
-      var title;
-      if (regex.test(data.data.ops[0].insert)) {
-        title = data.data.ops[0].insert.match(regex)[1];
-      }
-      else {
-        title = data.data.ops[0].insert;
-      }
-      $(container).children("a").children("span").text(title);
-            
-      // load first image from entry as background
-      let imageOp = data.data.ops.filter(isImage)[0];
-      if (imageOp !== undefined) {
-        let imageUrl = imageOp.attributes.image;        
-        $(container).children("a").children("img").attr('src', cloudinaryThumbnailUrl(imageUrl));
+    function onBoundsChange() {
+      mapLastMovedTimestamp = Date.now();
+      shouldFetchPreviews = true;
+    }
+
+    function checkMapStoppedMoving() {
+      
+      if (((Date.now() - mapLastMovedTimestamp) > fetchWaitPeriod) && shouldFetchPreviews) {
+
+        console.log('fetching');
+
+        shouldFetchPreviews = false;
+
+        let b = map.getBounds();
+        let url = `/api/v1/search/findEntriesByLatLng.php?north=${b.getNorth()}&east=${b.getEast()}&south=${b.getSouth()}&west=${b.getWest()}`;
+        $.getJSON(url, onEntryIdsReceived);
       }
 
     }
 
-    function onEntryListData(data) {
-      data.data.result.forEach(function(entry) {
-        let url = `/api/v1/entry.php?id=${entry.entry_id}`;
-        $.getJSON(url, onEntryData);
-      });
-    }
+    map.on('moveend', onBoundsChange);
 
-    // only show entries with matching hashtag
-    // let hashtag = getQueryVariable('hashtag');
-    // if (hashtag) {
-    //   $('#content').prepend($(`<p>#${hashtag}</p>`));
-    //   $.getJSON("/cache/hashtags.json", function(result) {
-    //     onEntryListData(result['#' + hashtag]);
-    //   });
-    // } 
+    // periodically check if map has stopped moving for 2 seconds
+    setInterval(checkMapStoppedMoving, 250);    
+  
+  }
 
-    // // show all entries
-    // else {
-    //   $.getJSON("/api/v1/entry.php", onEntryListData);
-    // }
+  initMap();
 
   </script>
 

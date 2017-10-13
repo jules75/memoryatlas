@@ -147,3 +147,20 @@ function update_password_hash($email, $password_hash) {
     $result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
     return $result->getModifiedCount();
 }
+
+
+// Returns # of modified rows
+function update_login_token($email, $login_token) {
+
+    global $mongo;
+
+    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk->update(
+        ['email' => $email],
+        ['$set' => 
+            ['login_token' => $login_token,
+            'login_token_created' => time()]]);
+
+    $result = $mongo->executeBulkWrite('memoryatlas.users', $bulk);
+    return $result->getModifiedCount();
+}

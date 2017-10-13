@@ -2,9 +2,8 @@
 
 session_start();
 
-function generateRandomEntryId() {
-    return sha1(mt_rand().mt_rand().mt_rand());
-}
+require $_SERVER['DOCUMENT_ROOT'] . '/lib/common.php';
+
 
 function mongoIdToTimestamp($id) {
   return hexdec(substr($id, 0, 8));
@@ -55,7 +54,7 @@ ini_set('session.cookie_lifetime', '604800');
       <li><a href="/alpha/timeline.php">Explore timeline</a></li>
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>
-      <li><a href="/alpha/entry.php?entry_id=<?php echo generateRandomEntryId() ?>">Add entry</a></li>
+      <li><a href="/alpha/entry.php?entry_id=<?php echo generate_token() ?>">Add entry</a></li>
       <li><a href="/alpha/entries.php">My entries</a></li>
       <li>&nbsp;</li>
       <li><a href="/alpha/password.php">My account</a></li>

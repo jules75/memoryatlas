@@ -53,7 +53,7 @@
     
     <div id="actions">
       <p><button id="delete">Delete this entry</button></p>
-      <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View old versions of this entry</a></p>
+      <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View all changes to this entry</a></p>
     </div>
 
   </div>

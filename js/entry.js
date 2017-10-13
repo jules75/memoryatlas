@@ -240,7 +240,7 @@ function initApp() {
     
     if (revisionId) {
       quill.disable();
-      $("#actions").remove();
+      $("#delete").remove();
     }
     else {
       // set flag when editor contents changes

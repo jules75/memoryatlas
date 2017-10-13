@@ -22,7 +22,7 @@ Javascript source files are 'compiled' to a single file (entry.compiled.js) usin
 
 INDEXING
 
-The 'entries' MongoDB database is regularly searched for markup data, and JSON files are created. These files can be found in the /cache directory. This is done to avoid inefficient searching of the database. Currently, these index files are updated on the server every 5 minutes via a cron job.
+The 'entries' MongoDB database is regularly searched for markup data, and JSON files are created. These files can be found in the /cache directory. This is done to avoid inefficient searching of the database. Currently, these index files are updated on the server every 1 minute via a cron job.
 
 
 CLOUDINARY

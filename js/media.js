@@ -30,8 +30,8 @@ function createMap() {
     // create map
     $('#mapShowContainer').append(mapDiv);
     mapShow = L.map('mapShow').setView([-37.56, 143.85], 8);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapShow);
 
 

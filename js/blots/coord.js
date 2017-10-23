@@ -34,8 +34,8 @@ class CoordBlot extends Inline {
     // create map
     $('body').append(mapDiv);
     let map = L.map('mapChoose').setView([-37.56, 143.85], 8);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     // add crosshair (thanks to https://gis.stackexchange.com/a/90230)

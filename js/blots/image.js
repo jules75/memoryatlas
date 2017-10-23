@@ -16,35 +16,37 @@ class ImageBlot extends Inline {
 
   static popupEditor(onOk) {
 
-    createOverlay();    
+    createOverlay();
 
     function setUploadStatus(msg) {
       $("#imageUploaderStatus").text(msg);
     }
 
     function onImageUploadSuccess(cloudinaryResponse) {
-        destroyOverlay();
-        $('#imageUploader').remove();
-        onOk(cloudinaryResponse.image_url);
+      destroyOverlay();
+      $('#imageUploader').remove();
+      onOk(cloudinaryResponse.image_url);
     };
 
     function uploadImage(e) {
-      
-        var data = new FormData();
-        data.append('action', 'image');
-        data.append('upload', $('#imageUploaderInput')[0].files[0]);
 
-        setUploadStatus("Uploading...");
-        
-        $.ajax({
-            url: '/api/v1/image.php',
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            success: onImageUploadSuccess
-        });
+      var data = new FormData();
+      data.append('action', 'image');
+      data.append('upload', $('#imageUploaderInput')[0].files[0]);
+
+      setUploadStatus("Uploading...");
+
+      $.ajax({
+        url: '/api/v1/image.php',
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: onImageUploadSuccess
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      });
     }
 
     var container = $(`

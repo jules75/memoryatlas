@@ -100,7 +100,7 @@ button {
 }
 
 #scrolling-container, #media-panel {
-  height: 80vh;
+  /* height: 80vh; */
 }
 
 #editor-container {

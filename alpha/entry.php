@@ -41,19 +41,23 @@
 
   <div id="media-panel">
     
-    <ul>
-    <li>Images <span id="image-count" class="counter"></span></li>
-    <li>Map <span id="coord-count" class="counter"></span></li>
-    <li>More</li>
-    </ul>
+    <div class="wrapper">
 
-    <div class="images"></div>
+      <ul>
+      <li>Images <span id="image-count" class="counter"></span></li>
+      <li>Map <span id="coord-count" class="counter"></span></li>
+      <li>More</li>
+      </ul>
 
-    <div id="mapShowContainer"></div>
-    
-    <div id="actions">
-      <p><button id="delete">Delete this entry</button></p>
-      <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View all changes to this entry</a></p>
+      <div class="images"></div>
+
+      <div id="mapShowContainer"></div>
+      
+      <div id="actions">
+        <p><button id="delete">Delete this entry</button></p>
+        <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View all changes to this entry</a></p>
+      </div>
+
     </div>
 
   </div>

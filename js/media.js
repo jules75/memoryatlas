@@ -84,8 +84,8 @@ function onHeadingClick(e) {
     
     // hide all divs but one
     let n = childNumber(e.target);
-    $(`#media-panel > div`).hide();
-    $(`#media-panel > div:nth-of-type(${n+1})`).show();
+    $(`#media-panel > div.wrapper > div`).hide();
+    $(`#media-panel > div.wrapper > div:nth-of-type(${n+1})`).show();
 }
 
 function onImageHover(e) {

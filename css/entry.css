@@ -72,6 +72,15 @@
 }
 
 
+div.wrapper {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 40%;
+  padding: 20px;
+}
+
+
 span[data-tagtype] {
   cursor: pointer;
 }

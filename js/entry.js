@@ -5,6 +5,14 @@ var mapShow = {};
 var mapShowMarkers = [];
 var mapChooseLatLng = {lat: -37.56, lng: 143.85};
 var mapChooseZoom = 8;
+var youTubePlayer;
+
+function onYouTubePlayerAPIReady() {
+  youTubePlayer = new YT.Player('ytplayer', {
+    width: '480',
+    height: '270'
+  });
+}
 
 function createOverlay() {
   var div = $("<div/>");

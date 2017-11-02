@@ -76,6 +76,14 @@
     margin: 20px 0;	
 }
 
+#ytplayer {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 480px;
+  height: 270px;
+  display: none;
+}
 
 div.wrapper {
   position: fixed;

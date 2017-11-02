@@ -39,6 +39,8 @@
     <div id="editor-container"></div>
   </div>
 
+  <div id="ytplayer"></div>
+
   <div id="media-panel">
     
     <div class="wrapper">
@@ -69,6 +71,7 @@
   <script src="/entry.compiled.js"></script>
 
   <script src="//www.google.com/jsapi?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4"></script>
+  <script src="//www.youtube.com/player_api"></script>
 
   <script> 
     google.load('picker', '1', {'language':'en'}); 

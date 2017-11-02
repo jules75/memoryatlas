@@ -25,8 +25,8 @@ class YoutubeBlot extends Inline {
   }
 
   static popupShow(vid) {
-    let url = `https://www.youtube.com/watch?v=${vid}`;
-    window.open(url, '_blank');
+    $('#ytplayer').show();
+    youTubePlayer.loadVideoById(vid);
   }
 
 }

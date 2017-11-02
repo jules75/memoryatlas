@@ -23,6 +23,9 @@ class CoordBlot extends Inline {
 
     let mapDiv = $(`
     <div id="mapChooseContainer" class="modal">
+      <form id="mapSearch">
+        <input type="text" placeholder="Type address here"/>
+        </form>
       <div id="mapChoose"></div>
       <div class="buttonRow">
         <button id="ok">OK</button>
@@ -50,6 +53,44 @@ class CoordBlot extends Inline {
     // center crosshair when map moves
     map.on('move', function(e) {
         crosshair.setLatLng(map.getCenter());
+    });
+
+    function onSearchAddressSuccess(data) {
+
+      $("#mapSearch :input").prop("disabled", false);
+      console.log(data);
+
+      if (data.length == 0) {
+        alert('Address not found');
+      }
+      else {
+        map.panTo(new L.LatLng(data[0].lat, data[0].lon));
+        map.setZoom(20);
+      }
+    }
+
+    function searchByAddress(addr) {
+
+      let url = `https://nominatim.openstreetmap.org/search?q=${encodeURI(addr)}&format=json`;
+
+      $.ajax({
+        url: url,
+        data: null,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'GET',
+        success: onSearchAddressSuccess
+      }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(errorThrown);
+      });
+    }
+
+    // search for address
+    $('#mapSearch').on('submit', function (e) {
+      $("#mapSearch :input").prop("disabled", true);
+      searchByAddress($('#mapSearch input').val());
+      e.preventDefault();
     });
 
     // close on any button

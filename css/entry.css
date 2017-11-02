@@ -32,6 +32,11 @@
   height: 500px;
 }
 
+#mapSearch input {
+  width: 100%;
+  margin: 10px 0;  
+}
+
 #calendarPicker {
 	position: fixed;
 	right: 100px;

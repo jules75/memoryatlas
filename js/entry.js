@@ -3,7 +3,8 @@
 let saveIsRequired = false;
 var mapShow = {};
 var mapShowMarkers = [];
-
+var mapChooseLatLng = {lat: -37.56, lng: 143.85};
+var mapChooseZoom = 8;
 
 function createOverlay() {
   var div = $("<div/>");

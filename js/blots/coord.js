@@ -36,7 +36,9 @@ class CoordBlot extends Inline {
 
     // create map
     $('body').append(mapDiv);
-    let map = L.map('mapChoose').setView([-37.56, 143.85], 8);
+    let map = L.map('mapChoose');
+    map.panTo(mapChooseLatLng);
+    map.setZoom(mapChooseZoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -52,7 +54,9 @@ class CoordBlot extends Inline {
 
     // center crosshair when map moves
     map.on('move', function(e) {
-        crosshair.setLatLng(map.getCenter());
+      mapChooseLatLng = map.getCenter();
+      mapChooseZoom = map.getZoom();
+      crosshair.setLatLng(mapChooseLatLng);  
     });
 
     function onSearchAddressSuccess(data) {

@@ -24,7 +24,7 @@ class CoordBlot extends Inline {
     let mapDiv = $(`
     <div id="mapChooseContainer" class="modal">
       <form id="mapSearch">
-        <input type="text" placeholder="Type address here"/>
+        <input type="text" placeholder="Search for address..."/>
         </form>
       <div id="mapChoose"></div>
       <div class="buttonRow">

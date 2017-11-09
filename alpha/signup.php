@@ -40,7 +40,7 @@ if (isset($email)) {
 
 ?>
 
-<h3>Register account</h3>
+<h3>Sign up</h3>
 
 <form method="post">
 	

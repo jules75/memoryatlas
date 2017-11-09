@@ -57,6 +57,7 @@ else if (isset($_POST['email'])) {
 
 	</form>
 
+<p><a href="signup.php">Sign up for an account</a></p>
 
 <!--p><a href="recover.php">Forgot your password?</a></p-->
 

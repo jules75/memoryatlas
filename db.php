@@ -134,6 +134,44 @@ function get_user_by_id($id) {
 }
 
 
+// Return user account with given username
+function get_user_by_username($username) {
+    
+    global $mongo, $readPreference;
+
+    $filter = ['username' => $username];
+    $options = ['limit' => 1];
+    $query = new MongoDB\Driver\Query($filter, $options);
+    $cursor = $mongo->executeQuery('memoryatlas.users', $query, $readPreference);
+
+    foreach($cursor AS $doc) {
+        return $doc;
+    }
+}
+
+
+// Inserts new user into database
+function insert_user($email, $username, $password_hash) {
+    
+        global $mongo;
+    
+        $command = new MongoDB\Driver\Command([
+            'insert' => 'users',
+            'documents' => [[
+                'email' => $email,
+                'username' => $username,
+                'password_hash' => $password_hash
+            ]]
+        ]);
+    
+        $cursor = $mongo->executeCommand('memoryatlas', $command);
+    
+        foreach ($cursor as $doc) {
+            return $doc;
+        }
+    }
+
+
 // Update password hash for user with given email, returns # of modified rows
 function update_password_hash($email, $password_hash) {
 

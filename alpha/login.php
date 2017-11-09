@@ -16,15 +16,23 @@ function under_ten_minutes_old($timestamp) {
 }
 
 
+// login by token (sent by recovery email)
 if (isset($_GET['email']) && isset($_GET['token'])) {
 	
 	$result = get_user($_GET['email']);
 
 	if (($_GET['token'] == $result->login_token) && under_ten_minutes_old($result->login_token_created)) {
+
+		$_SESSION['user']['id'] = (String)$result->_id;
+		$_SESSION['user']['email'] = $_GET['email'];
+		$_SESSION['user']['username'] = (String)$result->username;
+
 		$new_password = generate_token();
 		update_password_hash($_GET['email'], password_hash($new_password, PASSWORD_DEFAULT));
+
+		echo "<p>You are now logged in.</p>";
 		echo "<p>Your password has been changed to <code>$new_password</code></p>";
-		echo "<p>Please copy it, <a href='login.php'>log in</a>, and change it to something you'll remember.</p>";
+		echo "<p>Please copy it and <a href='password.php'>change it</a> to something you'll remember.</p>";
 		die();
 	}
 
@@ -59,6 +67,6 @@ else if (isset($_POST['email'])) {
 
 <p><a href="signup.php">Sign up for an account</a></p>
 
-<!--p><a href="recover.php">Forgot your password?</a></p-->
+<p><a href="recover.php">Forgotten your password?</a></p>
 
 <?php include_once('_bottom.php'); ?>

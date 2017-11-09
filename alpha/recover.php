@@ -1,17 +1,21 @@
 <?php
 
-include_once '_top.php';
+require_once '_top.php';
 
-include_once '../db.php';
+require_once '../db.php';
+require_once '../lib/email.php';
 
 if (isset($_POST['email'])) {
+	$mailgun_key = "key-6998ea87da3a90fd597e2b80cf8a74b1";	
+	$email = htmlspecialchars($_POST['email']);
 	$token = generate_token();
-	$result = update_login_token($_POST['email'], $token);
+	$result = update_login_token($email, $token);
 	if ($result) {
-		echo 'y';
+		send_recovery_email($email, $token, $mailgun_key);
+		echo "A login link has been sent to $email. The link expires in 10 minutes.";
 	}
 	else {
-		echo 'n';
+		echo 'Error: could not generate token for this account';
 	}
 	die();
 }

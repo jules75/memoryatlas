@@ -5,8 +5,11 @@ require_once '_top.php';
 require_once '../db.php';
 require_once '../lib/email.php';
 
+require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
+
+
 if (isset($_POST['email'])) {
-	$mailgun_key = "key-6998ea87da3a90fd597e2b80cf8a74b1";	
+	$mailgun_key = MEMORY_ATLAS_CONFIG['mailgun']['key'];	
 	$email = htmlspecialchars($_POST['email']);
 	$token = generate_token();
 	$result = update_login_token($email, $token);

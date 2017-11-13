@@ -25,7 +25,8 @@ function firstImage($entry) {
 }
 
 function title($entry) {
-    return $entry->ops[0]->insert;
+    $lines = explode("\n", $entry->ops[0]->insert);
+    return $lines[0];
 }
 
 function coords($entry) {

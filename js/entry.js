@@ -35,9 +35,9 @@ function destroyOverlay() {
 Quill.register(CoordBlot);
 Quill.register(DateBlot);
 Quill.register(HashtagBlot);
+Quill.register(LinkBlot); // MUST be registered before ImageBlot, otherwise causes 'double image' bug
 Quill.register(ImageBlot);
 Quill.register(YoutubeBlot);
-Quill.register(LinkBlot);
 
 let quill = new Quill('#editor-container', {
   modules: {

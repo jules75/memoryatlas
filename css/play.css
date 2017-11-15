@@ -22,3 +22,16 @@ nav {
   width: 50%;
   float: right;
 }
+
+#slideshow p:first-child {
+  font-size: 5vw;
+  text-align: center;
+}
+
+#ytplayer {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  width: 320px;
+  height: 180px;
+}

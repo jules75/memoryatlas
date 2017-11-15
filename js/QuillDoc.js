@@ -52,6 +52,10 @@ let QuillDoc = {
         return result.concat(_.map(newOps, f));
     },
 
+    hasYouTube: function (quillOp) {
+        return quillOp.hasOwnProperty('attributes') && quillOp.attributes.hasOwnProperty('youtube');
+    },
+
     // Returns document with ops grouped by paragraph (broken on newline).
     // If any of the original ops contained an image attribute, that attribute
     // is attached to the entire output op/paragraph.
@@ -59,6 +63,12 @@ let QuillDoc = {
         let a = _.reduce(ops, QuillDoc.splitByParagraph, []);
         let b = _.reduce(a, dedupe, []);
         return _.reduce(b, QuillDoc.concatPreserveImageAttributes, []);
+    },
+
+    // Returns ID of first YouTube found, otherwise null.
+    firstYouTubeId: function (ops) {
+        let op = _.find(ops, QuillDoc.hasYouTube);
+        return op ? op.attributes.youtube : null;
     }
 
 };

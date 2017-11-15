@@ -4,7 +4,7 @@
 
 <?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php'); ?>
 
-  <!-- <div id="ytplayer"></div> -->
+  <div id="ytplayer"></div>
 
   <button id="prev">prev</button>
   <button id="next">next</button>
@@ -61,17 +61,35 @@ function updateUI() {
   $(`#slideshow p:nth-child(${panelIndex+1})`).addClass('active');
 }
 
-$.getJSON(apiUrl)
-  .done(function(data) {
-    let paras = QuillDoc.coalesceParagraphs(data.data.ops);
-    _.map(paras, createSlideshowPane);
-    updateUI();
-    $('#prev').on('click', prevPanel);
-    $('#next').on('click', nextPanel);
-  })
-  .fail(function(data) {
-    alert("Error getting entry data");
-  });
+function onYouTubePlayerAPIReady() {
+
+  $.getJSON(apiUrl)
+    .done(function(data) {
+      
+      let paras = QuillDoc.coalesceParagraphs(data.data.ops);
+      let vid = QuillDoc.firstYouTubeId(data.data.ops);
+      
+      youTubePlayer = new YT.Player('ytplayer', {
+        width: '480',
+        height: '270',
+        videoId: vid,
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: vid
+        }
+      });
+
+      _.map(paras, createSlideshowPane);
+      updateUI();
+      
+      $('#prev').on('click', prevPanel);
+      $('#next').on('click', nextPanel);
+    })
+    .fail(function(data) {
+      alert("Error getting entry data");
+    });
+}
 
   </script>
 

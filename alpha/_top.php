@@ -24,7 +24,7 @@ ini_set('session.cookie_lifetime', '604800');
   <title>Memory Atlas</title>
 
   <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
-  <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Cinzel|Open+Sans%3A300,400,600,700'>
+  <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Kreon|Cinzel|Open+Sans%3A300,400,600,700'>
   <link rel='stylesheet prefetch' href='//cdn.quilljs.com/1.0.0/quill.core.css'>
   <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 

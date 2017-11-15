@@ -1,6 +1,7 @@
 body {
   background-color: #333;
   color: #eee;
+  max-width: 800px;
 }
 
 nav {
@@ -10,7 +11,7 @@ nav {
 
 #slideshow p {
   display: none;
-  font-size: 3vw;
+  font-size: 2vw;
   font-family: Kreon, serif;
 }
 
@@ -19,8 +20,9 @@ nav {
 }
 
 #slideshow p img {
-  width: 50%;
-  float: right;
+  width: 70%;
+  margin: auto auto 1em auto;
+  display: block;
 }
 
 #slideshow p:first-child {

@@ -14,7 +14,6 @@
 
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
   <script src="//www.google.com/jsapi?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4"></script>
-  <script src="//www.youtube.com/player_api"></script>
   
   <script src="/lib/3rdparty/underscore-min.js"></script>
   <script src="/js/QuillDoc.js"></script>
@@ -92,6 +91,8 @@ function onYouTubePlayerAPIReady() {
 }
 
   </script>
+
+<script src="//www.youtube.com/player_api"></script>
 
 <?php include_once('_bottom.php'); ?>
 

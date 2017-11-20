@@ -6,8 +6,8 @@
 
   <div id="ytplayer"></div>
 
-  <button id="prev">prev</button>
-  <button id="next">next</button>
+  <button id="prev">&laquo;</button>
+  <button id="next">Next</button>
 
   <div id="slideshow">
   </div>
@@ -55,7 +55,9 @@ function nextPanel(e) {
 }
 
 function updateUI() {
-  console.log(panelIndex);
+  let n = $('#slideshow p').length;
+  $('#prev').css('visibility', panelIndex>0 ? 'visible' : 'hidden');
+  $('#next').css('visibility', (panelIndex+2)<n ? 'visible' : 'hidden');
   $('#slideshow p').removeClass('active');
   $(`#slideshow p:nth-child(${panelIndex+1})`).addClass('active');
 }

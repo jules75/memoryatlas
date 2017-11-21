@@ -37,6 +37,7 @@ function coords($entry) {
         if (isset($op->attributes->coord)) {
             $row = $op->attributes->coord;
             $row->entry_id = $entry->entry_id;
+            $row->text = $op->insert;
             $result[] = $row;
         }
     }

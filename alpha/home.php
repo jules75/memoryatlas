@@ -30,10 +30,11 @@
 
       var marker = L.marker([dataRow.lat, dataRow.lng]).addTo(map);
       marker.entry_id = dataRow.entry_id;
-      marker.entry_text = dataRow.text;
 
       unhighlight(marker);
       markers.push(marker);
+
+      marker.bindTooltip(dataRow.text);
 
       marker.on('mouseover', onMarkerHover);
       marker.on('mouseout', onMarkerUnhover);
@@ -58,7 +59,7 @@
     }
 
     function onMarkerClick(e) {
-      alert(e.target.entry_text);
+      document.location.href = `entry.php?entry_id=${e.target.entry_id}`;
     }
 
     function onMarkerHover(e) {

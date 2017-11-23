@@ -52,7 +52,7 @@ paths:
         '200':
           description: Object with preview data
   
-  /search/findEntriesByLatLng.php:
+  /find/entriesByLatLng.php:
     get:
       description: Find all entries that contain a reference to a location with the area bound by north/south/east/west. Values default to 0.
       parameters:
@@ -78,7 +78,7 @@ paths:
         '403':
           description: Error message
   
-  /search/findUsersByEntry.php:
+  /find/usersByEntry.php:
     get:
       description: Find all user IDs that have contributed to given entry
       parameters:

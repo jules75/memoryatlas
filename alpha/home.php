@@ -132,7 +132,7 @@
         shouldFetchPreviews = false;
 
         let b = map.getBounds();
-        let url = `/api/v1/search/findEntriesByLatLng.php?north=${b.getNorth()}&east=${b.getEast()}&south=${b.getSouth()}&west=${b.getWest()}`;
+        let url = `/api/v1/find/entriesByLatLng.php?north=${b.getNorth()}&east=${b.getEast()}&south=${b.getSouth()}&west=${b.getWest()}`;
         $.getJSON(url, onEntryIdsReceived);
       }
 

@@ -165,6 +165,21 @@ function deleteEntry(e) {
     }
 }
 
+function loadComments() {
+
+    let userUrl = new URL(location.href);
+    let entryId = userUrl.searchParams.get('entry_id');
+    let apiUrl = `/api/v1/find/commentsByEntry.php?id=${entryId}`;
+
+    $.getJSON(apiUrl, function (data) {
+        console.log('ok', data);
+      }).fail(function(data) {
+        console.log('fail');
+      }).always(function() {
+        console.log('always');
+      });
+}
+
 function renderMediaPanel() {
 
     $("#media-panel div.images").empty();
@@ -175,6 +190,8 @@ function renderMediaPanel() {
 
     // add map
     createMap();
+
+    loadComments();    
 
     // listen for heading clicks
     $('#media-panel li').click(onHeadingClick);

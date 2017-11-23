@@ -11,7 +11,7 @@ paths:
   
   /comment.php:
     post:
-      description: Add a comment to an existing entry
+      description: Add a comment to an existing entry. Note that a comment is a Quill document, just like an entry.
       parameters: 
         - name: id
           in: query
@@ -77,6 +77,21 @@ paths:
       responses:
         '200':
           description: Object with preview data
+          
+  /find/commentsByEntry.php:
+    get:
+      description: Find all comments associated with given entry
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
+          description: Entry ID
+      responses:
+        '200':
+          description: Object with array of comments, which are Quill documents (like entries)
+        '400':
+          description: Error if entry not found
   
   /find/entriesByLatLng.php:
     get:

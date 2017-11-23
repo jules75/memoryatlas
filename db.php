@@ -121,6 +121,23 @@ function insert_comment($entry_contents) {
 }
 
 
+// Return all comments for given entry 
+function get_comments($entry_id)
+{
+    global $mongo, $readPreference;
+    
+    $filter = ['parent_entry_id' => $entry_id];
+    $query = new MongoDB\Driver\Query($filter);
+    $cursor = $mongo->executeQuery('memoryatlas.comments', $query, $readPreference);
+
+    $result = [];
+    foreach($cursor AS $doc) {
+        $result[] = $doc;
+    }
+    return $result;
+}
+
+
 // Return user account with given email address
 function get_user($email) {
 

@@ -9,6 +9,26 @@ basePath: /api/v1/
 
 paths:
   
+  /comment.php:
+    post:
+      description: Add a comment to an existing entry
+      parameters: 
+        - name: id
+          in: query
+          type: string
+          required: true
+          description: Entry ID of entry this comment will belong to
+        - name: content
+          in: query
+          type: string
+          required: true
+          description: JSON Quill document representing comment (same format as entries). Not checked for correctness.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Error
+
   /entry.php:
     get: 
       description: Returns newest revision of a given entry.
@@ -30,6 +50,12 @@ paths:
           description: Error message
     post:
       description: Save a new revision of a given entry. Must be logged in to user account for this to work.
+      parameters:
+        - name: payload
+          in: query
+          required: true
+          type: string
+          description: JSON string of Quill document. Needs entry_id property to be associated with entry history. Property .user.id will be automatically added by server.
       responses:
         '200':
           description: ???

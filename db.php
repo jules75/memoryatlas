@@ -102,6 +102,25 @@ function insert_entry($entry_contents) {
 }
 
 
+// Inserts new comment into database
+// Comments are the same as entries, but don't have a history
+function insert_comment($entry_contents) {
+    
+    global $mongo;
+
+    $command = new MongoDB\Driver\Command([
+        'insert' => 'comments',
+        'documents' => $entry_contents
+    ]);
+
+    $cursor = $mongo->executeCommand('memoryatlas', $command);
+
+    foreach ($cursor as $doc) {
+        return $doc;
+    }
+}
+
+
 // Return user account with given email address
 function get_user($email) {
 

@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $entry = get_entry($entry_id);
         }
         
-
         if ($entry) {
             succeed(['data' => $entry]);
         }
@@ -42,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     else {
-        succeed(['data' => get_entries()]);
+        fail('No id supplied');
     }
 }
 

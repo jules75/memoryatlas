@@ -37,20 +37,7 @@ paths:
       description: Soft delete a given entry. Must be logged in to user account for this to work. Will fail if logged in user did not create the entry.
       responses:
         '200':
-          description: ???          
-
-  /entryHistory.php:
-    get:
-      description: Returns entire history of a given entry. All contents, not just IDs. Result can get very large.
-      parameters:
-        - name: id
-          in: query
-          required: true
-          type: string
-          description: Entry ID
-      responses:
-        '200':
-          description: Array of Quill documents representing all changes for given entry
+          description: ???
           
   /entryPreview.php:
     get:

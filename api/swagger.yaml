@@ -1,0 +1,105 @@
+swagger: '2.0'
+info:
+  version: '0.1'
+  title: MemoryAtlas API
+schemes:
+  - https
+host: thememoryatlas.com
+basePath: /api/v1/
+
+paths:
+  
+  /entry.php:
+    get: 
+      description: Returns newest revision of a given entry.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
+          description: Entry ID
+        - name: revision_id
+          in: query
+          required: false
+          type: string
+          description: If provided, specific revision is returned
+      responses:
+        '200':
+          description: JSON Quill document representing entry contents
+        '400':
+          description: Error message
+    post:
+      description: Save a new revision of a given entry. Must be logged in to user account for this to work.
+      responses:
+        '200':
+          description: ???
+    delete:
+      description: Soft delete a given entry. Must be logged in to user account for this to work. Will fail if logged in user did not create the entry.
+      responses:
+        '200':
+          description: ???          
+
+  /entryHistory.php:
+    get:
+      description: Returns entire history of a given entry. All contents, not just IDs. Result can get very large.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
+          description: Entry ID
+      responses:
+        '200':
+          description: Array of Quill documents representing all changes for given entry
+          
+  /entryPreview.php:
+    get:
+      description: Returns image URL and title that can be used to summarise an entry, also includes all coordinates
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
+          description: Entry ID
+      responses:
+        '200':
+          description: Object with preview data
+  
+  /search/findEntriesByLatLng.php:
+    get:
+      description: Find all entries that contain a reference to a location with the area bound by north/south/east/west. Values default to 0.
+      parameters:
+        - name: north
+          in: query
+          required: true
+          type: number
+        - name: south
+          in: query
+          required: true
+          type: number
+        - name: east
+          in: query
+          required: true
+          type: number
+        - name: west
+          in: query
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Entry IDs
+        '403':
+          description: Error message
+  
+  /search/findUsersByEntry.php:
+    get:
+      description: Find all user IDs that have contributed to given entry
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
+          description: Entry ID
+      responses:
+        '200':
+          description: User ID of creator and all contributors. Returns empty user IDs if bad entry ID supplied.

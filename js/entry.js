@@ -3,7 +3,7 @@
 let saveIsRequired = false;
 var mapShow = {};
 var mapShowMarkers = [];
-var mapChooseLatLng = {lat: -37.56, lng: 143.85};
+var mapChooseLatLng = { lat: -37.56, lng: 143.85 };
 var mapChooseZoom = 8;
 var youTubePlayer;
 
@@ -12,6 +12,13 @@ function onYouTubePlayerAPIReady() {
     width: '480',
     height: '270'
   });
+
+  /* 
+  Had trouble getting first video to cue. 
+  It depends on two things happening; YouTube API is ready, and Quill has finished loading.
+  Instead set video to load after 3 seconds, ugly but it works.
+  */
+  setTimeout(loadFirstVideo, 3000);
 }
 
 function createOverlay() {
@@ -125,51 +132,51 @@ $('#erase-button').click(function () {
 // e.g. "A #sentence with #hashtags in it" => ["A ", "#sentence", " with ", "#hashtags", " in it"]
 function splitHashtags(s) {
 
-  var arr=[], i=0, word='', inhash=false, c;
+  var arr = [], i = 0, word = '', inhash = false, c;
 
-  while(i < s.length) {
+  while (i < s.length) {
 
     c = s[i];
 
     if (c == '#') {
-        if (i > 0) {
-          arr.push(word);
-        }
-        inhash=true;
-        word = '';
+      if (i > 0) {
+        arr.push(word);
+      }
+      inhash = true;
+      word = '';
     }
 
     // break hashtag on whitespace or certain punctuation marks
     if (' \t\r\n,.:;'.indexOf(c) > -1) {
-        if (inhash) {
-          arr.push(word);
-          inhash=false;
-          word = '';
-        }
+      if (inhash) {
+        arr.push(word);
+        inhash = false;
+        word = '';
+      }
     }
 
     word += c;
     i++;
-  } 
+  }
 
   arr.push(word);
   return arr;
 }
 
-function autolinkHashtags() { 
+function autolinkHashtags() {
 
   function makeHashtagOp(s) {
     if (s[0] == '#') {
-      return {insert: s, attributes: {hashtag: s.slice(1)}};
+      return { insert: s, attributes: { hashtag: s.slice(1) } };
     }
-    return {insert: s};
+    return { insert: s };
   }
 
   // lock editor
   quill.disable();
 
   // iterate ops, split by hashtags
-  var result = [];  
+  var result = [];
   for (let op of quill.getContents().ops) {
 
     // don't search for hashtags in tagged text
@@ -182,8 +189,17 @@ function autolinkHashtags() {
   }
 
   // save to editor, unlock
-  quill.setContents({ops: result});
+  quill.setContents({ ops: result });
   quill.enable();
+}
+
+
+function loadFirstVideo() {
+  let vid = QuillDoc.firstYouTubeId(quill.getContents().ops);
+  if (vid) {
+    $('#ytplayer').show();
+    youTubePlayer.cueVideoById(vid);
+  }
 }
 
 
@@ -197,7 +213,7 @@ function initApp() {
     apiUrl = `/api/v1/entry.php?id=${entryId}&revision_id=${revisionId}`;
   }
   else {
-     apiUrl = `/api/v1/entry.php?id=${entryId}`;
+    apiUrl = `/api/v1/entry.php?id=${entryId}`;
   }
 
   let newEntryOps = {
@@ -240,13 +256,13 @@ function initApp() {
 
   $.getJSON(apiUrl, function (data) {
     quill.setContents(data.data.ops);
-  }).fail(function(data) {
+  }).fail(function (data) {
     quill.setContents(newEntryOps);
-  }).always(function() {
+  }).always(function () {
     // initHoverHandlers();
     autolinkHashtags();
     renderMediaPanel();
-    
+
     if (revisionId) {
       quill.disable();
       $("#delete").remove();

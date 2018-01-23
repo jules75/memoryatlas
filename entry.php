@@ -71,10 +71,13 @@
   <script src="//cdn.quilljs.com/1.3.0/quill.min.js"></script>
   <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 
-  <script src="/entry.compiled.js"></script>
-
   <script src="//www.google.com/jsapi?key=AIzaSyD4vbKcoEyAUOT9Ql4ydk-L8OlEEq5dJW4"></script>
-  <script src="//www.youtube.com/player_api"></script>
+  <script src="//www.youtube.com/player_api"></script>  
+
+  <script src="/lib/3rdparty/underscore-min.js"></script>
+  <script src="/js/QuillDoc.js"></script>   
+
+  <script src="/entry.compiled.js"></script>
 
   <script> 
     google.load('picker', '1', {'language':'en'}); 

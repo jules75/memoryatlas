@@ -45,6 +45,8 @@ function createMap() {
         marker.on('mouseover', onCoordOrMarkerHover);
         marker.on('mouseout', onCoordOrMarkerUnhover);        
 
+        marker.bindTooltip(quillOp.insert);
+
         // bounds.extend(marker.getPosition());
     }
 

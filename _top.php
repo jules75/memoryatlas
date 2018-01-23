@@ -50,20 +50,20 @@ ini_set('session.cookie_lifetime', '604800');
       </div>    
     
     <ul>
-      <li><a href="/alpha/home.php">Explore map</a></li>
-      <li><a href="/alpha/timeline.php">Explore timeline</a></li>
+      <li><a href="/home.php">Explore map</a></li>
+      <li><a href="/timeline.php">Explore timeline</a></li>
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>
-      <li><a href="/alpha/entry.php?entry_id=<?php echo generate_token() ?>">Add entry</a></li>
-      <li><a href="/alpha/entries.php">My entries</a></li>
+      <li><a href="/entry.php?entry_id=<?php echo generate_token() ?>">Add entry</a></li>
+      <li><a href="/entries.php">My entries</a></li>
       <li>&nbsp;</li>
-      <li><a href="/alpha/password.php">My account</a></li>
+      <li><a href="/password.php">My account</a></li>
       <li><a href="#" onclick="alert('Not implemented yet')">Help &amp; tutorials</a></li>
       <li>&nbsp;</li>
-      <li><a href="/alpha/logout.php" onclick="return confirm('Log out now?');">Logout <?php echo $_SESSION['user']['username'] ?></a></li>
+      <li><a href="/logout.php" onclick="return confirm('Log out now?');">Logout <?php echo $_SESSION['user']['username'] ?></a></li>
         <?php else : ?>
-      <li><a href="/alpha/login.php" title="Login">Login</a></li>
-      <li><a href="/alpha/signup.php" title="Login">Sign up</a></li>
+      <li><a href="/login.php" title="Login">Login</a></li>
+      <li><a href="/signup.php" title="Login">Sign up</a></li>
         <?php endif; ?>        
       </ul>
     </nav>

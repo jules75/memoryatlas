@@ -8,7 +8,7 @@ function send_recovery_email($email, $token, $mailgun_key) {
     
     $mg = Mailgun::create($mailgun_key);
 
-    $url = "https://thememoryatlas.com/alpha/login.php?email=$email&token=$token";
+    $url = "https://thememoryatlas.com/login.php?email=$email&token=$token";
     
     $mg->messages()->send('thememoryatlas.com', [
       'from' => 'noreply@thememoryatlas.com',

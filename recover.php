@@ -2,8 +2,8 @@
 
 require_once '_top.php';
 
-require_once '../db.php';
-require_once '../lib/email.php';
+require_once 'db.php';
+require_once 'lib/email.php';
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/config.php');
 

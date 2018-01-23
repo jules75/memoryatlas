@@ -19,7 +19,7 @@ class HashtagBlot extends Inline {
   // }
 
   static popupShow(hashtag) {
-    document.location.href = `/alpha/home.php?hashtag=${hashtag}`;
+    document.location.href = `/home.php?hashtag=${hashtag}`;
   }
 
 }

@@ -94,7 +94,7 @@
     function onEntryReceived(result) {
       let item = $(`
           <li data-entry-id="${result.data.entry_id}" style="display:none;">
-            <a href="/alpha/entry.php?entry_id=${result.data.entry_id}">
+            <a href="/entry.php?entry_id=${result.data.entry_id}">
             <img src="${result.data.image_url}"></img>
             <span>${result.data.title}</span>          
             </a>

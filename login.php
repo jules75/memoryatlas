@@ -4,7 +4,7 @@ include_once '_top.php';
 
 // redirect if already logged in
 if (isset($_SESSION['user'])) {
-	header('Location: /alpha/home.php');
+	header('Location: /home.php');
 }
 
 require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php');
@@ -47,7 +47,7 @@ else if (isset($_POST['email'])) {
 		$_SESSION['user']['id'] = (String)$result->_id;
 		$_SESSION['user']['email'] = $_POST['email'];
 		$_SESSION['user']['username'] = (String)$result->username;
-		header('Location: /alpha/home.php');
+		header('Location: /home.php');
 	}
 
 	echo "<p class='error'>Could not log you in</p>";

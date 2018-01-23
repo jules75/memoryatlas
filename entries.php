@@ -7,7 +7,7 @@
 
 <?php
 
-  $user_arr = json_decode(file_get_contents("../cache/users.json"));
+  $user_arr = json_decode(file_get_contents("./cache/users.json"));
   $user_id = $_SESSION['user']['id'];
   $created_entry_ids = $user_arr->$user_id->created;
   $contributed_entry_ids = $user_arr->$user_id->contributed;

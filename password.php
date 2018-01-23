@@ -4,10 +4,10 @@ include_once '_top.php';
 
 // redirect if not logged in
 if (!isset($_SESSION['user'])) {
-	header('Location: /alpha/login.php');
+	header('Location: /login.php');
 }
 
-include_once '../db.php';
+include_once 'db.php';
 
 if (isset($_POST['old_password'])) {
 

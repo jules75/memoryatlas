@@ -155,7 +155,7 @@ function deleteEntry(e) {
             type: 'DELETE',
             success: function(result) {
                 alert("Entry has been deleted");
-                window.location.replace('/alpha/home.php');
+                window.location.replace('/home.php');
             },
             error: function(result) {
                 alert(result.responseText);

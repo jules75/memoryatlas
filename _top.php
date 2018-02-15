@@ -38,6 +38,27 @@ ini_set('session.cookie_lifetime', '604800');
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>  
 
+  <script>
+
+  function onYouTubePlayerAPIReady() {
+  
+    console.log('onYouTubePlayerAPIReady');
+  
+    youTubePlayer = new YT.Player('ytplayer', {
+      width: '480',
+      height: '270'
+    });
+
+    /* 
+    Had trouble getting first video to cue. 
+    It depends on two things happening; YouTube API is ready, and Quill has finished loading.
+    Instead set video to load after 3 seconds, ugly but it works.
+    */
+    setTimeout(loadFirstVideo, 3000);
+  }
+
+  </script>
+
 </head>
 
 <body>

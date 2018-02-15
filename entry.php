@@ -67,7 +67,6 @@
 
   </div>
 
-  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js'></script>
   <script src="//cdn.quilljs.com/1.3.0/quill.min.js"></script>
   <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.7/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 

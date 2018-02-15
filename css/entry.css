@@ -125,6 +125,7 @@ span[data-tagtype="hashtag"], span[data-tagtype="link"] {
   height: auto;
   width: 530px;
   background-color: white;
+  z-index: 100; /* so not obscured by YouTube player */
 }
   #mapChoose {
     height: 500px;

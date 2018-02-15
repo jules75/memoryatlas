@@ -7,20 +7,6 @@ var mapChooseLatLng = { lat: -37.56, lng: 143.85 };
 var mapChooseZoom = 8;
 var youTubePlayer;
 
-function onYouTubePlayerAPIReady() {
-  youTubePlayer = new YT.Player('ytplayer', {
-    width: '480',
-    height: '270'
-  });
-
-  /* 
-  Had trouble getting first video to cue. 
-  It depends on two things happening; YouTube API is ready, and Quill has finished loading.
-  Instead set video to load after 3 seconds, ugly but it works.
-  */
-  setTimeout(loadFirstVideo, 3000);
-}
-
 function createOverlay() {
   var div = $("<div/>");
   div.attr("id", "fullScreenOverlay");

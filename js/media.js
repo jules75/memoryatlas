@@ -61,7 +61,7 @@ function createImagePreview(i, el) {
     let url = el.dataset.url;
     let img = $(`<img src="${url}" class="preview"></img>`);
 
-    $(img).css('height', '200px');
+    $(img).css('height', '100px');
     $(img).click(function (e) {
         window.open(url, '_blank');
         // $.featherlight($(this)); // can't get featherlight working here??

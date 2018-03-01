@@ -69,6 +69,27 @@ let QuillDoc = {
     firstYouTubeId: function (ops) {
         let op = _.find(ops, QuillDoc.hasYouTube);
         return op ? op.attributes.youtube : null;
+    },
+
+
+    //   Fix formatting of current document (by removing attributes)
+    //   Updating the document triggers a save
+    fixFormatting: function () {
+
+        function stripAttributes(item) {
+
+            if (item.hasOwnProperty('attributes') && item.attributes.hasOwnProperty('bold')) {
+                let newItem = item;
+                delete newItem.attributes.bold;
+                return newItem;
+            }
+
+            return item;
+        }
+
+        let contents = quill.getContents();
+        let newContents = { ops: contents.ops.map(stripAttributes) };
+        quill.setContents(newContents);
     }
 
 };

@@ -90,6 +90,8 @@ div.wrapper {
   position: fixed;
   right: 0;
   top: 0;
+  bottom: 0;
+  overflow: auto;
   width: 40%;
   padding: 20px;
 }

@@ -60,6 +60,7 @@
       
       <div id="actions">
         <p><button id="delete">Delete this entry</button></p>
+        <p><a href="play.php?entry_id=<?php echo $_GET['entry_id']; ?>"><button>Play slideshow (experimental)</button></a></p>
         <p><a href="history.php?entry_id=<?php echo $_GET['entry_id']; ?>">View all changes to this entry</a></p>
       </div>
 

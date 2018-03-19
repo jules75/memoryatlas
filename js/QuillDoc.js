@@ -56,6 +56,10 @@ let QuillDoc = {
         return quillOp.hasOwnProperty('attributes') && quillOp.attributes.hasOwnProperty('youtube');
     },
 
+    hasImage: function (quillOp) {
+        return quillOp.hasOwnProperty('attributes') && quillOp.attributes.hasOwnProperty('image');
+    },
+
     // Returns document with ops grouped by paragraph (broken on newline).
     // If any of the original ops contained an image attribute, that attribute
     // is attached to the entire output op/paragraph.

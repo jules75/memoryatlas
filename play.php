@@ -2,12 +2,17 @@
 
   <link rel="stylesheet" href="/css/play.css">
 
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+
 <?php require_once ($_SERVER['DOCUMENT_ROOT'] . '/db.php'); ?>
 
   <div id="ytplayer"></div>
 
-  <button id="prev">&laquo;</button>
-  <button id="next">Next</button>
+  <button id="prev"><i class="fas fa-step-backward"></i></button>
+  <button id="pause"><i class="fas fa-pause"></i></button>
+  <button id="play"><i class="fas fa-play"></i></button>
+  <button id="next"><i class="fas fa-step-forward"></i></button>
 
   <div id="slideshow">
   </div>
@@ -20,9 +25,12 @@
 
   <script>
 
+// app state
 let apiUrl = "/api/v1/entry.php?id=<?php echo $_GET['entry_id'] ?>";
-
-var panelIndex = 0;
+let delayMs = 5000;
+let isPlaying = true;
+let panelIndex = 0;
+let panelCount = 0;
 
 function createSlideshowPane(op) {
   
@@ -45,19 +53,40 @@ function createSlideshowPane(op) {
 
 function prevPanel(e) {
   panelIndex--;
-  if (panelIndex<0) panelIndex=0;
+  if (panelIndex<0) {
+    panelIndex=0;
+  }
   updateUI();
 }
 
 function nextPanel(e) {
-  panelIndex++;
+  if (panelIndex < panelCount) {
+    panelIndex++;
+    updateUI();
+  }
+}
+
+function onPause() {
+  isPlaying = false;
   updateUI();
 }
 
+function onPlay() {
+  isPlaying = true;
+  updateUI();
+}
+
+function delayComplete() {
+  if (isPlaying) {
+    nextPanel();
+  }
+}
+
 function updateUI() {
-  let n = $('#slideshow p').length;
-  $('#prev').css('visibility', panelIndex>0 ? 'visible' : 'hidden');
-  $('#next').css('visibility', (panelIndex+2)<n ? 'visible' : 'hidden');
+  
+  $('#pause').toggle(isPlaying);
+  $('#play').toggle(!isPlaying);
+  
   $('#slideshow p').removeClass('active');
   $(`#slideshow p:nth-child(${panelIndex+1})`).addClass('active');
 }
@@ -68,6 +97,7 @@ function onYouTubePlayerAPIReady() {
     .done(function(data) {
       
       let paras = QuillDoc.coalesceParagraphs(data.data.ops);
+      let imgParas = _.filter(paras, QuillDoc.hasImage);
       let vid = QuillDoc.firstYouTubeId(data.data.ops);
       
       youTubePlayer = new YT.Player('ytplayer', {
@@ -81,11 +111,18 @@ function onYouTubePlayerAPIReady() {
         }
       });
 
-      _.map(paras, createSlideshowPane);
+      _.map(imgParas, createSlideshowPane);
       updateUI();
+      panelCount = $('#slideshow p').length;
       
       $('#prev').on('click', prevPanel);
       $('#next').on('click', nextPanel);
+      $('#pause').on('click', onPause);
+      $('#play').on('click', onPlay);
+
+      // kick off auto slideshow
+      setInterval(delayComplete, delayMs);
+
     })
     .fail(function(data) {
       alert("Error getting entry data");

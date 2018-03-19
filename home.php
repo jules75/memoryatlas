@@ -7,6 +7,8 @@
 
   <div id="map-large"></div>
 
+  <p style="position:fixed;bottom:5px;right:5px;"><a href="entries_all.php">View all entries</a></p>
+
   <script>
 
   var mapLastMovedTimestamp = 0;

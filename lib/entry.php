@@ -26,7 +26,7 @@ function firstImage($entry) {
 
 function title($entry) {
     $lines = explode("\n", $entry->ops[0]->insert);
-    return $lines[0];
+    return empty($lines[0]) ? "Untitled" : $lines[0];
 }
 
 function coords($entry) {

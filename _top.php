@@ -3,10 +3,24 @@
 session_start();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/lib/common.php';
-
+require $_SERVER['DOCUMENT_ROOT'] . '/lib/entry.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/db.php';
 
 function mongoIdToTimestamp($id) {
   return hexdec(substr($id, 0, 8));
+}
+
+// returns appropriate page title (string) for current page
+function pageTitle() {
+
+  $title = "Memory Atlas";
+
+  if ($_SERVER['SCRIPT_NAME'] == '/entry.php') {
+    $entry = get_entry($_GET['entry_id']);
+    $title = title($entry);
+  }
+
+  return $title;
 }
 
 // set session timeout to 1 week - not sure if this is working
@@ -21,7 +35,7 @@ ini_set('session.cookie_lifetime', '604800');
 
 <head>
   <meta charset="UTF-8">
-  <title>Memory Atlas</title>
+  <title><?php echo pageTitle(); ?></title>
 
   <link rel='stylesheet prefetch' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
   <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Kreon|Cinzel|Open+Sans%3A300,400,600,700'>
@@ -73,6 +87,7 @@ ini_set('session.cookie_lifetime', '604800');
     <ul>
       <li><a href="/home.php">Explore map</a></li>
       <li><a href="/timeline.php">Explore timeline</a></li>
+      <li><a href="/search.php">Search</a></li>
       <li>&nbsp;</li>
         <?php if (isset($_SESSION['user'])) : ?>
       <li><a href="/entry.php?entry_id=<?php echo generate_token() ?>">Add entry</a></li>
@@ -85,7 +100,7 @@ ini_set('session.cookie_lifetime', '604800');
         <?php else : ?>
       <li><a href="/login.php" title="Login">Login</a></li>
       <li><a href="/signup.php" title="Login">Sign up</a></li>
-        <?php endif; ?>        
+        <?php endif; ?>
       </ul>
     </nav>
 

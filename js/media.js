@@ -56,10 +56,16 @@ function createMap() {
 }
 
 
+  
+function thumbnail(url) {
+    return url.replace(/upload\/[a-zA-Z0-9]+\//, 'upload/h_100/');
+}
+
+
 function createImagePreview(i, el) {
 
     let url = el.dataset.url;
-    let img = $(`<img src="${url}" class="preview"></img>`);
+    let img = $(`<img src="${thumbnail(url)}" class="preview"></img>`);
 
     $(img).css('height', '100px');
     $(img).click(function (e) {

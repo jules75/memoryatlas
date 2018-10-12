@@ -46,15 +46,12 @@
       <ul>
       <li>Images <span id="image-count" class="counter"></span></li>
       <li>Map <span id="coord-count" class="counter"></span></li>
-      <li>Comments</li>
       <li>More</li>
       </ul>
 
       <div class="images"></div>
 
       <div id="mapShowContainer"></div>
-
-      <div id="comments">Not yet implemented</div>
       
       <div id="actions">
         <p><button id="delete">Delete this entry</button></p>

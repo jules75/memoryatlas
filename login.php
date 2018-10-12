@@ -65,6 +65,8 @@ else if (isset($_POST['email'])) {
 
 	</form>
 
+<br />
+
 <p><a href="signup.php">Sign up for an account</a></p>
 
 <p><a href="recover.php">Forgotten your password?</a></p>

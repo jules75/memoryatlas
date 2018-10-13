@@ -67,6 +67,15 @@ nav a:hover {
 	border: 3px solid black;
 }
 
+footer {
+	margin-top: 200px;
+}
+
+footer img {
+	height: 60px;
+	margin: 30px 10px;
+}
+
 form {
 	background-color: white;
 	border-radius: 10px;
@@ -88,6 +97,10 @@ button {
 
 br {
 	clear: both;
+}
+
+#content {
+	overflow: visible;
 }
 
 #editor-container {

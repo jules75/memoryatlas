@@ -69,6 +69,11 @@ nav a:hover {
 
 footer {
 	margin-top: 200px;
+	opacity: 0.5;
+}
+
+footer:hover {
+	opacity: 1;
 }
 
 footer img {

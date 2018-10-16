@@ -106,6 +106,7 @@ br {
 
 #content {
 	overflow: visible;
+	flex-basis: auto;
 }
 
 #editor-container {
